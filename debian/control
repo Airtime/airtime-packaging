@@ -1,0 +1,62 @@
+Source: airtime
+Section: web
+Priority: optional
+Maintainer: Robin Gareus <robin@gareus.org>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.9.1
+Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
+
+Package: airtime
+Architecture: all
+Depends: apache2 | httpd,
+ libapache2-mod-php5 | php5,
+ php5-cli,
+ php5-gd,
+ php5-pgsql,
+ php-pear,
+ curl,
+ openssl, 
+ wwwconfig-common,
+ daemontools, daemontools-run,
+ icecast2,
+ libesd0,
+ libao-ocaml,
+ libmad-ocaml, 
+ libsoundtouch-ocaml
+ libtaglib-ocaml,
+ libvorbis-ocaml-dev, 
+ multitail, 
+ libcamomile-ocaml-dev,
+ libmp3lame0,
+ libportaudio2,
+ libsamplerate0,
+ oggvideotools,
+ poc-streamer,
+ odbc-postgresql,
+ pwgen, 
+ python,
+ python-configobj, python-mutagen,
+ unzip,
+ ${misc:Depends}
+Suggests: postgresql | virtual-postgresql-server,
+ gnome-alsamixer | alsamixergui | alsa-utils
+Conflicts: pulseaudio
+Description: The open radio software for scheduling and remote station management.
+ Airtime is an open source application that provides remote automation 
+ of a radio station.
+ .
+ Major features:
+ .
+ Web-based remote station management.  Authorized personnel can add
+ program material, create playlists, and schedule programming all via 
+ a web interface.
+ .
+ Automation.  Airtime has a scheduler function that enables users to
+ set shows with playlists for playback at a date and time of their choosing.
+ Playlists can be played back multiple times.
+ .
+ Solid, fast playback.  Airtime uses the open source Liquidsoap 
+ multimedia framework for clean, reliable, fast playback. 
+ .
+ Open, extensible architecture.  Stations are free to extend and alter 
+ all parts of the program code.

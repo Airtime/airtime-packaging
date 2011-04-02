@@ -1,0 +1,113 @@
+#!/bin/bash
+#postinst script for airtime
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+if [ "$DPKG_DEBUG" = "developer" ]; then
+    set -x
+fi
+
+WEB_USER=www-data
+WEB_GROUP=www-data
+
+package_name="airtime"
+datadir="/var/lib/${package_name}"
+configdir="/etc/airtime/1.6"
+includefile="${configdir}/apache.conf"
+a2tplfile="${configdir}/apache.vhost.tpl"
+phpinifile="${configdir}/airtime.ini"
+OLDVERSION="$2"
+
+case "$1" in
+  configure|reconfigure)
+
+    #webserver=`echo $webserver|sed -e 's/,  */ /g'`
+    webserver="apache2"
+    php="php5"
+    dohtaccess=""
+
+    #  clean up previous configurations
+    if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
+      rm -f /etc/$webserver/conf.d/airtime.conf || true
+      restart="$webserver $restart"
+    fi
+    if [ -f /etc/$webserver/sites-available/airtime-vhost ]; then
+      a2dissite airtime-vhost &>/dev/null || true
+      restart="$webserver $restart"
+    fi
+
+    # APACHE config
+    db_get airtime/apache-setup
+    if [ "$RET" == "system-wide (all vhosts)" ]; then
+      if [ ! -d /etc/$webserver/conf.d/ ]; then
+        install -d -m755 /etc/$webserver/conf.d/
+      fi
+      if [ ! -e /etc/$webserver/conf.d/airtime.conf ]; then
+        ln -s ${includefile} /etc/$webserver/conf.d/airtime.conf
+        a2enmod rewrite &>/dev/null || true
+        restart="$webserver $restart"
+      fi
+      dohtaccess="/airtime"
+    elif [ "$RET" == "dedicated v-host" ]; then
+      db_get airtime/apache-servername
+      SN=$RET
+      db_get airtime/apache-serveradmin
+      SA=$RET
+      
+      if [ ! -d /etc/$webserver/sites-available/ ]; then
+        install -d -m755 /etc/$webserver/sites-available/
+      fi
+      sed -e "s/__SERVER_ADMIN__/${SA}/;s/__SERVER_NAME__/${SN}/" \
+        ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost
+      a2ensite airtime-vhost &>/dev/null
+      restart="$webserver $restart"
+      dohtaccess="/"
+    fi
+
+    # PHP config
+    if [ ! -d /etc/$php/conf.d/ ]; then
+      install -d -m755 /etc/$php/conf.d/
+    fi
+    if [ ! -e /etc/$php/conf.d/airtime.ini ]; then
+      ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini
+      restart="$webserver $restart"
+    fi
+
+    # .htaccess file
+    echo -ne "/RewriteBase/d\nwq\n\n" \
+    | ed /var/lib/airtime/.htaccess &>/dev/null || true
+
+    if [ -n "${dohtaccess}" ]; then
+      echo -ne "/RewriteEngine/\n+1i\n    RewriteBase ${dohtaccess}\n.\nwq\n" \
+      | ed /var/lib/airtime/.htaccess &>/dev/null || true
+    fi
+
+    # Permissions
+    #dpkg-statoverride --list $datadir &>/dev/null || \
+    #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0755 $datadir
+    #dpkg-statoverride --list $datadir/conf &>/dev/null || \
+    #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/conf
+
+    servers="apache2"
+    . /usr/share/wwwconfig-common/restart.sh
+    echo $error >&2
+
+    db_stop
+
+  ;;
+
+  abort-upgrade|abort-remove|abort-deconfigure)
+
+  ;;
+
+  *)
+       echo "postinst called with unknown argument \`$1'" >&2
+       exit 1
+  ;;
+esac
+
+#DEBHELPER#
+
+exit 0

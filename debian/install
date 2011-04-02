@@ -1,0 +1,4 @@
+airtime/* var/lib/airtime/
+debian/etc/apache.conf /etc/airtime/1.6
+debian/etc/airtime.ini /etc/airtime/1.6
+debian/etc/apache.vhost.tpl /etc/airtime/1.6

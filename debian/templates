@@ -1,0 +1,45 @@
+Template: airtime/apache-setup
+Type: select
+Choices: dedicated v-host, system-wide (all vhosts), no thanks
+Choices-de.UTF-8: v-host einrichten, system-weit (alle v-hosts), nein danke
+Default: system-wide (all vhosts)
+Description: Create apache2 config:
+ This setup script can perform apache web-server configuration
+ so that you can connect to airtime directly after this installation.
+ .
+ Production systems should choose "dedicated v-host". This option
+ will ask for a Server host-name (FQDN) and will create a minimal apache
+ vhost configuration that you can adapt.
+ .
+ "system-wide (all vhosts)" apache-config configures
+ http://all-apache-virtual-hosts/airtime/ using /etc/apache/conf.d/
+ This is the recommended option if airtime is the sole 
+ web-service on this server and also for test-installations.
+ .
+ "no, thanks": no problem. You're welcome to set it up however you like.
+ Note that the files in /etc/airtime/ may come in handy doing so.
+Description-de.UTF-8: Erzeugen einer apache2 konfiuration:
+ .
+
+Template: airtime/apache-servername
+Type: string
+Default: localhost
+Description: FQDN - apache-vhost ServerName:
+ Enter the main hostname of the web server. 
+ The DNS of this name must resolve to the apache server running on this
+ machine.
+ .
+ e.g. "example.com" or "www.example.com" (without the quotes)
+ .
+ You can customize /etc/apache2/sites-enabled/airtime.vhost afterward
+ and add ServerAliases and further custom configuration.
+ .
+ more info soon..
+
+Template: airtime/apache-serveradmin
+Type: string
+Default: root@localhost
+Description: Email of the vhost-admin - ServerAdmin:
+ required for dedicated vhost-setup.
+ .
+ more info soon..

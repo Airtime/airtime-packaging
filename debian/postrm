@@ -49,8 +49,12 @@ case "$1" in
     #dpkg-statoverride --list $datadir/conf &>/dev/null && \
     #dpkg-statoverride --remove $datadir/conf || true
 
+    dpkg-statoverride --list $datadir/files &>/dev/null && \
+    dpkg-statoverride --remove $datadir/files || true
+
     if [ "$1" = "purge" ]; then
-      #rm -rf $datadir || true
+			#rm -rf $datadir || true
+     true
     fi
                                                                                                                                              
   ;;

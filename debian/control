@@ -18,11 +18,10 @@ Depends: apache2 | httpd,
  openssl, 
  wwwconfig-common,
  daemontools, daemontools-run,
- icecast2,
  libesd0,
  libao-ocaml,
  libmad-ocaml, 
- libsoundtouch-ocaml
+ libsoundtouch-ocaml,
  libtaglib-ocaml,
  libvorbis-ocaml-dev, 
  multitail, 
@@ -37,10 +36,12 @@ Depends: apache2 | httpd,
  python,
  python-configobj, python-mutagen,
  unzip,
+ ruby,
+ daemontools,
  ${misc:Depends}
+Recommends: airtime-audio-samples, icecast2
 Suggests: postgresql | virtual-postgresql-server,
- gnome-alsamixer | alsamixergui | alsa-utils
-Conflicts: pulseaudio
+ gnome-alsamixer | alsamixergui | alsa-utils,
 Description: The open radio software for scheduling and remote station management.
  Airtime is an open source application that provides remote automation 
  of a radio station.
@@ -60,3 +61,10 @@ Description: The open radio software for scheduling and remote station managemen
  .
  Open, extensible architecture.  Stations are free to extend and alter 
  all parts of the program code.
+
+Package: airtime-audio-samples
+Architecture: all
+Depends: airtime, ${misc:Depends}
+Description: audio samples for the airtime radio server
+ This package contains free audio samples to be used
+ for the Airtime radio station

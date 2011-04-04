@@ -1,4 +1,11 @@
-airtime/* var/lib/airtime/
+airtime/library var/lib/airtime
+airtime/application var/lib/airtime
+airtime/pypo var/lib/airtime
+airtime/utils var/lib/airtime
+airtime/build var/lib/airtime
+airtime/tests var/lib/airtime
+airtime/install var/lib/airtime
+airtime/public var/lib/airtime
 debian/etc/apache.conf /etc/airtime/1.6
 debian/etc/airtime.ini /etc/airtime/1.6
 debian/etc/apache.vhost.tpl /etc/airtime/1.6

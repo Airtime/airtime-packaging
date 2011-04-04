@@ -84,17 +84,22 @@ case "$1" in
       | ed /var/lib/airtime/.htaccess &>/dev/null || true
     fi
 
+		mkdir -p $datadir/files
+
     # Permissions
     #dpkg-statoverride --list $datadir &>/dev/null || \
     #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0755 $datadir
     #dpkg-statoverride --list $datadir/conf &>/dev/null || \
     #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/conf
+    
+		dpkg-statoverride --list $datadir/files &>/dev/null || \
+    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/files
 
     servers="apache2"
     . /usr/share/wwwconfig-common/restart.sh
     echo $error >&2
 
-    db_stop
+		cd $datadir/install/ && php airtime-install.php
 
   ;;
 

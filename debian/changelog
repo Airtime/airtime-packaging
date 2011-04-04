@@ -1,3 +1,9 @@
+airtime (1.7.0-1) 64studio; urgency=low
+
+  * upstream 1.7.0-GA release
+
+ -- Robin Gareus <robin@gareus.org>  Mon, 04 Apr 2011 21:19:56 +0200
+
 airtime (1.6.1-1) 64studio; urgency=low
 
   * initial package

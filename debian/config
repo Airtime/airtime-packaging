@@ -3,6 +3,8 @@
 
 set -e
 
+. /usr/share/debconf/confmodule
+
 db_input high airtime/apache-setup || true
 db_go ||true
 

@@ -14,7 +14,7 @@ WEB_GROUP=www-data
 
 package_name="airtime"
 datadir="/var/lib/${package_name}"
-configdir="/etc/airtime/1.6"
+configdir="/etc/airtime"
 includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
@@ -75,6 +75,12 @@ case "$1" in
       restart="$webserver $restart"
     fi
 
+		# install additional pear module
+		pear channel-discover pear.phing.info || true
+		pear install phing/phing-2.4.2 || true
+		pip install kombu || true
+		pip install poster || true
+
     # .htaccess file
     echo -ne "/RewriteBase/d\nwq\n\n" \
     | ed /var/lib/airtime/.htaccess &>/dev/null || true
@@ -84,6 +90,7 @@ case "$1" in
       | ed /var/lib/airtime/.htaccess &>/dev/null || true
     fi
 
+    # reate data dir
 		mkdir -p $datadir/files
 
     # Permissions

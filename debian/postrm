@@ -13,7 +13,7 @@ fi
 
 package_name="airtime"
 datadir="/var/lib/${package_name}"
-configdir="/etc/airtime/1.6"
+configdir="/etc/airtime"
 
 webserver="apache2"
 php="php5"
@@ -53,8 +53,11 @@ case "$1" in
     dpkg-statoverride --remove $datadir/files || true
 
     if [ "$1" = "purge" ]; then
-			#rm -rf $datadir || true
-     true
+		 #rm -rf $datadir || true
+     #pear uninstall phing/phing-2.4.2 || true
+		 #pip uninstall kombu || true
+		 #pip uninstall poster  || true
+		 true
     fi
                                                                                                                                              
   ;;

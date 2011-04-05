@@ -1,7 +1,7 @@
 Template: airtime/apache-setup
 Type: select
-Choices: dedicated v-host, system-wide (all vhosts), no thanks
-Choices-de.UTF-8: v-host einrichten, system-weit (alle v-hosts), nein danke
+Choices: dedicated v-host, no thanks
+Choices-de.UTF-8: v-host einrichten, nein danke
 Default: system-wide (all vhosts)
 Description: Create apache2 config:
  This setup script can perform apache web-server configuration
@@ -10,11 +10,6 @@ Description: Create apache2 config:
  Production systems should choose "dedicated v-host". This option
  will ask for a Server host-name (FQDN) and will create a minimal apache
  vhost configuration that you can adapt.
- .
- "system-wide (all vhosts)" apache-config configures
- http://all-apache-virtual-hosts/airtime/ using /etc/apache/conf.d/
- This is the recommended option if airtime is the sole 
- web-service on this server and also for test-installations.
  .
  "no, thanks": no problem. You're welcome to set it up however you like.
  Note that the files in /etc/airtime/ may come in handy doing so.

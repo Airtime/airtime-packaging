@@ -22,10 +22,75 @@ License: GPL-3+
 X-Comment: On Debian systems, the complete text of the GNU General
  Public License can be found in `/usr/share/common-licenses/GPL-3'.
 
+Files: ./airtime/python_apps/pypo/*
+Copyright:
+ Jonas Ohrstrom
+ Paul Baranowski
+ Martin Konecny
+License: GPL-3+
+
+Files: ./library/php-amqplib/*
+Copyright:
+ Barry Pederson
+ Vadim Zaliva
+ taavi013@gmail.com
+ Sean Murphy 
+ spiderbill
+License: LGPL-2.1
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ . 
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+X-Comment: On Debian systems, the complete text of the GNU Lesser
+ Gernal Public License can be found in `/usr/share/common-licenses/LGPL-2.1'.
+
+Files: ./library/phing/*
+License: LGPL-2.1
+
+Files: ./library/phing/
+Copyright:
+ 2005-2010 Hans Lellelid, David Zuelke, Francois Zaninotto
+License: BSD
+
 Files: ./debian/*
 Copyright: 
  2011 Robin Gareus <robin@gareus.org>
 License: GPL-2+
+
+Files: ./audio_samples/*
+Copyright:
+ ARTIST - SONG-TITLE
+ Ahoora - This is Your Life
+ Daniel Bautista - Con Nombre de Tango
+ Daniel Bautista - Fuego Camina Conmigo
+ Daniel Bautista - Moonlight Sonata
+ Manolo Camp - Morning Coffee
+ Peter Rudenko - Last Days Of Summer
+ Peter Rudenko - Opening
+ Getting Up Every Morning - One day
+ Getting Up Every Morning & Annika Stroem - We just pretend
+ Getting Up Every Morning - It's a laugh
+ Getting Up Every Morning - Don't roll your eyes
+ Getting Up Every Morning - Take it, I hate it anyway
+ Getting Up Every Morning - That one string
+ Art Critics Orchestra - Fräulein Risiko
+ Art Critics Orchestra - Ozon
+ Ofir Gal - Panic
+ Ofir Gal - White Queen
+ Ofir Gal - Come What May
+ Ofir Gal - Run
+ Ofir Gal - UnMend
+ Ofir Gal - Pigs
+ Ofir Gal - Gentilia Girl
+ Ofir Gal - Star
+ Ofir Gal - Wasted
+ Ofir Gal - BreakOut
+ Ofir Gal - Tangerine
 
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify

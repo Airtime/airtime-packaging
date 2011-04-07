@@ -16,6 +16,18 @@ Description: Create apache2 config:
 Description-de.UTF-8: Erzeugen einer apache2 konfiuration:
  .
 
+Template: airtime/apache-deldefault
+Type: select
+Choices: remove default, no change
+Default: no change
+Description: remove 000-default apache config
+ By default the apache webserver comes with configuration
+ to send all v-hosts to /var/www.
+ .
+ This option will invoke `sudo a2dissite default`
+ .
+ and is recommended when using airtime as vhost.
+
 Template: airtime/apache-servername
 Type: string
 Default: localhost
@@ -38,3 +50,41 @@ Description: Email of the vhost-admin - ServerAdmin:
  required for dedicated vhost-setup.
  .
  more info soon..
+
+Template: airtime/icecast-setup
+Type: boolean
+Default: false
+Description: Setup Icecast2 - Enable Live HTTP Streaming?
+ This option allows enable icecast2 on this server
+ and configure passwords for both icecast-server and airtime.
+ .
+ Note: these settings are here for convenience only.
+ Strictly speaking they should be done during icecast
+ installation - not airtime installation.
+ .
+ PS. If you have already manually tweaked icecast configuration
+ it may not work as expected.
+
+Template: airtime/icecast-sourcepw
+Type: string
+Default: hackme
+Description: Icecast2 Source Password:
+ Specify a password to send A/V sources to icecast
+
+Template: airtime/icecast-relaypw
+Type: string
+Default: hackme
+Description: Icecast2 Relay Password:
+ Specify a password for stream relay access.
+ This is not needed by airtime, however you should
+ change it from the default to lock down your system.
+
+Template: airtime/icecast-adminpw
+Type: string
+Default: hackme
+Description: Icecast2 Admin Password:
+ Specify the admin password. 
+ You can access icecast2's admin interface via
+ http://localhost:8000/ - and both monitor connection as
+ well as block users.
+

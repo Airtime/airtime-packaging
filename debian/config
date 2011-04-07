@@ -14,6 +14,21 @@ if [ "$RET" = "dedicated v-host" ]; then
 	db_go ||true
 	db_input high airtime/apache-serveradmin || true
 	db_go ||true
+	db_input high airtime/apache-deldefault || true
+	db_go ||true
+fi
+
+db_input high airtime/icecast-setup || true
+db_go ||true
+
+db_get airtime/icecast-setup
+if [ "$RET" = "true" ]; then
+	db_input high airtime/icecast-sourcepw || true
+	db_go ||true
+	db_input high airtime/icecast-relaypw || true
+	db_go ||true
+	db_input high airtime/icecast-adminpw || true
+	db_go ||true
 fi
 
 #DEBHELPER#

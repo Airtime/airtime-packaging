@@ -67,6 +67,8 @@ find airtime/audio_samples -iname "LICENSE.txt" -exec rm "{}" \;
 
 # unusual interpreter: #!/sbin/runscript, /usr/local/bin/python
 rm airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd
+rm python_apps/pypo/scripts/library/liquidsoap.gentoo.initd.in
+rm airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd.in
 rm airtime/python_apps/show-recorder/testrecordscript.py 
 rm airtime/library/propel/generator/bin/propel-gen.bat
 

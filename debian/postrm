@@ -12,7 +12,8 @@ if [ "$DPKG_DEBUG" = "developer" ]; then
 fi
 
 package_name="airtime"
-datadir="/var/lib/${package_name}"
+datadir="/srv/${package_name}"
+wwwdir="/var/lib/${package_name}"
 configdir="/etc/airtime"
 
 webserver="apache2"
@@ -49,8 +50,8 @@ case "$1" in
     #dpkg-statoverride --list $datadir/conf &>/dev/null && \
     #dpkg-statoverride --remove $datadir/conf || true
 
-    dpkg-statoverride --list $datadir/files &>/dev/null && \
-    dpkg-statoverride --remove $datadir/files || true
+    dpkg-statoverride --list $datadir &>/dev/null && \
+    dpkg-statoverride --remove $datadir || true
 
     if [ "$1" = "purge" ]; then
 		 #rm -rf $datadir || true

@@ -29,7 +29,7 @@ Copyright:
  Martin Konecny
 License: GPL-3+
 
-Files: ./library/php-amqplib/*
+Files: ./airtime/airtime_mvc/library/php-amqplib/*
 Copyright:
  Barry Pederson
  Vadim Zaliva
@@ -49,10 +49,10 @@ License: LGPL-2.1
 X-Comment: On Debian systems, the complete text of the GNU Lesser
  Gernal Public License can be found in `/usr/share/common-licenses/LGPL-2.1'.
 
-Files: ./library/phing/*
+Files: ./airtime/airtime_mvc/library/phing/*
 License: LGPL-2.1
 
-Files: ./library/phing/
+Files: ./airtime/airtime_mvc/library/phing/
 Copyright:
  2005-2010 Hans Lellelid, David Zuelke, Francois Zaninotto
 License: BSD
@@ -62,7 +62,7 @@ Copyright:
  2011 Robin Gareus <robin@gareus.org>
 License: GPL-2+
 
-Files: ./audio_samples/*
+Files: ./airtime/audio_samples/*
 Copyright:
  ARTIST - SONG-TITLE
  Ahoora - This is Your Life

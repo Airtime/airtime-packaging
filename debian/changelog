@@ -1,3 +1,9 @@
+airtime (1.8.0-2) 64studio; urgency=low
+
+  * upstream 1.8.0 release
+
+ -- Robin Gareus <robin@gareus.org>  Tue, 19 Apr 2011 15:44:40 +0200
+
 airtime (1.7.0-2) 64studio; urgency=low
 
   * fixed few lintian warnings

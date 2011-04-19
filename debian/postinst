@@ -13,7 +13,8 @@ WEB_USER=www-data
 WEB_GROUP=www-data
 
 package_name="airtime"
-datadir="/var/lib/${package_name}"
+datadir="/srv/${package_name}"
+wwwdir="/var/lib/${package_name}"
 configdir="/etc/airtime"
 includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
@@ -27,6 +28,8 @@ case "$1" in
     webserver="apache2"
     php="php5"
     dohtaccess=""
+
+		test ${wwwdir}/airtime_mvc/ || ln -s ${wwdir} ${wwwdir}/airtime_mvc
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
@@ -46,9 +49,9 @@ case "$1" in
       fi
       if [ ! -e /etc/$webserver/conf.d/airtime.conf ]; then
         ln -s ${includefile} /etc/$webserver/conf.d/airtime.conf
-        a2enmod rewrite &>/dev/null || true
         restart="$webserver $restart"
       fi
+			a2enmod rewrite &>/dev/null || true
       dohtaccess="/airtime"
     elif [ "$RET" == "dedicated v-host" ]; then
       db_get airtime/apache-servername
@@ -62,6 +65,7 @@ case "$1" in
       sed -e "s/__SERVER_ADMIN__/${SA}/;s/__SERVER_NAME__/${SN}/" \
         ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost
       a2ensite airtime-vhost &>/dev/null
+			a2enmod rewrite &>/dev/null || true
       restart="$webserver $restart"
       dohtaccess="/"
     fi
@@ -96,35 +100,35 @@ case "$1" in
       | ed /var/lib/airtime/.htaccess &>/dev/null || true
     fi
 
-    # XXX ICECAST XXX
-    db_get airtime/icecast-setup
-    if [ "$RET" == "true" ]; then
-      if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
-        echo "Setting up icecast2.." >&2
-        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" \
-        | ed /etc/default/icecast2 &>/dev/null || true
-        db_get airtime/icecast-sourcepw
-        ICESOURCE=$RET
-        db_get airtime/icecast-relaypw
-        ICERELAY=$RET
-        db_get airtime/icecast-adminpw
-        ICEADMIN=$RET
-        echo -ne "%s/<source-password>[^<]*</source-password>/<source-password>$ICESOURCE</source-password>/\n%s/<relay-password>[^<]*</relay-password>/<relay-password>$ICERELAY</relay-password>/\n%s/<admin-password>[^<]*</admin-password>/<admin-password>$ICEADMIN</admin-password>/\nwq\n" \
-        | ed /etc/icecast2/icecast.xml &>/dev/null || true
-        /etc/init.d/icecast2 stop || true
-        /etc/init.d/icecast2 start || true
-        # save source-password in airtime
-        echo -ne "%s/~password=\"[^\"]*\"/~password=\"$ICESOURCE\"/\nwq\n" \
-        | ed /var/lib/airtime/python_apps/pypo/scripts/library/shoutcast.liq &>/dev/null || true
-        echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-        | ed /var/lib/airtime/python_apps/pypo/scripts/liquidsoap.cfg &>/dev/null || true
-      else
-        echo "icecast not installed" >&2
-      fi
-    fi
+#    # XXX ICECAST XXX
+#    db_get airtime/icecast-setup
+#    if [ "$RET" == "true" ]; then
+#      if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
+#        echo "Setting up icecast2.." >&2
+#        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" \
+#        | ed /etc/default/icecast2 &>/dev/null || true
+#        db_get airtime/icecast-sourcepw
+#        ICESOURCE=$RET
+#        db_get airtime/icecast-relaypw
+#        ICERELAY=$RET
+#        db_get airtime/icecast-adminpw
+#        ICEADMIN=$RET
+#        echo -ne "%s/<source-password>[^<]*</source-password>/<source-password>$ICESOURCE</source-password>/\n%s/<relay-password>[^<]*</relay-password>/<relay-password>$ICERELAY</relay-password>/\n%s/<admin-password>[^<]*</admin-password>/<admin-password>$ICEADMIN</admin-password>/\nwq\n" \
+#        | ed /etc/icecast2/icecast.xml &>/dev/null || true
+#        /etc/init.d/icecast2 stop || true
+#        /etc/init.d/icecast2 start || true
+#        # save source-password in airtime
+#        echo -ne "%s/~password=\"[^\"]*\"/~password=\"$ICESOURCE\"/\nwq\n" \
+#        | ed /var/lib/airtime/python_apps/pypo/scripts/library/shoutcast.liq &>/dev/null || true
+#        echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+#        | ed /var/lib/airtime/python_apps/pypo/scripts/liquidsoap.cfg &>/dev/null || true
+#      else
+#        echo "icecast not installed" >&2
+#      fi
+#    fi
 
     # create data dir
-    mkdir -p $datadir/files
+    mkdir -p $datadir
 
     # Permissions
     #dpkg-statoverride --list $datadir &>/dev/null || \
@@ -132,14 +136,18 @@ case "$1" in
     #dpkg-statoverride --list $datadir/conf &>/dev/null || \
     #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/conf
     
-    dpkg-statoverride --list $datadir/files &>/dev/null || \
-    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/files
+    dpkg-statoverride --list $datadir &>/dev/null || \
+    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir
 
     servers="apache2"
     . /usr/share/wwwconfig-common/restart.sh
     echo $error >&2
 
-    cd $datadir/install/ && php airtime-install.php
+		if [ "${OLDVERSION:0:5}" = "1.7.0" ]; then
+			cd $wwwdir/install/ && php airtime-upgrade.php
+		else
+			cd $wwwdir/install/ && php airtime-install.php
+		fi
 
   ;;
 

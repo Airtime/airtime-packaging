@@ -8,6 +8,7 @@ Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
 
 Package: airtime
 Architecture: all
+Pre-Depends: postgresql
 Depends: apache2 | httpd,
  libapache2-mod-php5 | php5,
  php5-cli,
@@ -26,7 +27,6 @@ Depends: apache2 | httpd,
  libsoundtouch-ocaml,
  libtaglib-ocaml,
  libvorbis-ocaml-dev, 
- multitail, 
  libcamomile-ocaml-dev,
  libmp3lame0,
  libportaudio2,
@@ -42,10 +42,12 @@ Depends: apache2 | httpd,
  ruby,
  ${misc:Depends},
  ${shlibs:Depends}
-Recommends: airtime-audio-samples, icecast2
-Suggests: postgresql | virtual-postgresql-server,
+Recommends: icecast2,
+ postgresql | virtual-postgresql-server,
+ ecasound
+Suggests: airtime-audio-samples,
  gnome-alsamixer | alsamixergui | alsa-utils,
- lame, ecasound, mpg123
+ lame, mpg123
 Description: The open radio software for scheduling and remote station management.
  Airtime is an open source application that provides remote automation 
  of a radio station.

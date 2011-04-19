@@ -8,7 +8,7 @@ Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
 
 Package: airtime
 Architecture: all
-Pre-Depends: postgresql
+Pre-Depends: postgresql | virtual-postgresql-server
 Depends: apache2 | httpd,
  libapache2-mod-php5 | php5,
  php5-cli,
@@ -42,9 +42,7 @@ Depends: apache2 | httpd,
  ruby,
  ${misc:Depends},
  ${shlibs:Depends}
-Recommends: icecast2,
- postgresql | virtual-postgresql-server,
- ecasound
+Recommends: icecast2, ecasound
 Suggests: airtime-audio-samples,
  gnome-alsamixer | alsamixergui | alsa-utils,
  lame, mpg123

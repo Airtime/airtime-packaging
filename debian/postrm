@@ -22,6 +22,17 @@ php="php5"
 case "$1" in
   purge|remove)
 
+		if [ -L ${wwwdir}/airtime_mvc ]; then
+			rm -f ${wwwdir}/airtime_mvc || true
+		fi
+		rm -f ${wwwdir}/.htaccess || true
+		rm -f ${wwwdir}/install/propel-error.log || true
+
+		# airtime uninstaller does not remove this lib.
+		if [ -f ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap ]; then
+			rm ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap
+		fi
+
     # Un-configure webservers
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
       rm -f /etc/$webserver/conf.d/airtime.conf || true
@@ -54,6 +65,7 @@ case "$1" in
     dpkg-statoverride --remove $datadir || true
 
     if [ "$1" = "purge" ]; then
+			rm -rf /etc/airtime || true
 		 #rm -rf $datadir || true
      #pear uninstall phing/phing-2.4.2 || true
 		 #pip uninstall kombu || true

@@ -51,7 +51,7 @@ chmod +x airtime/airtime_mvc/application/models/cron/croncall.php
 chmod +x airtime/airtime_mvc/library/php-amqplib/demo/amqp_airtime_consumer.php
 chmod +x airtime/airtime_mvc/library/php-amqplib/demo/amqp_consumer.php
 chmod +x airtime/airtime_mvc/library/php-amqplib/demo/amqp_publisher.php
-chmod +x airtime/airtime/install/airtime-user.php
+chmod +x airtime/install/airtime-user.php
 
 # invalid interpreter #!/usr/local/bin/python != /usr/bin/python
 echo "#!/usr/bin/python" > airtime/python_apps/show-recorder/recorder.py2

@@ -29,7 +29,7 @@ case "$1" in
     php="php5"
     dohtaccess=""
 
-		test ${wwwdir}/airtime_mvc/ || ln -s ${wwdir} ${wwwdir}/airtime_mvc
+		test -e ${wwwdir}/airtime_mvc || ln -s ${wwwdir} ${wwwdir}/airtime_mvc
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
@@ -146,7 +146,7 @@ case "$1" in
 		if [ "${OLDVERSION:0:5}" = "1.7.0" ]; then
 			cd $wwwdir/install/ && php airtime-upgrade.php
 		else
-			cd $wwwdir/install/ && php airtime-install.php
+			cd $wwwdir/install/ && php airtime-install.php -o
 		fi
 
   ;;

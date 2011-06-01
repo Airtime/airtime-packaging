@@ -1,8 +1,9 @@
 #/bin/sh
 
-VERSION=1.8.0
-DEBVERSION=1.8.0
-DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}.tar.gz/download
+VERSION=1.8.2
+SFOCUSTOM="-RC2"
+DEBVERSION=1.8.2
+DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
 DEBDIR=`pwd`/debian
@@ -13,10 +14,10 @@ if [ ! -f ${MIRRORPATH}/airtime-${VERSION}.tar.gz ]; then
 		${DLURL} 
 fi
 
-if [ ! -f ${MIRRORPATH}/airtime-${VERSION}-audiosamples.tar.gz ]; then
+if [ ! -f ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz ]; then
 	curl -L \
-		-o ${MIRRORPATH}/airtime-${VERSION}-audiosamples.tar.gz \
-		http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}-audiosamples.tar.gz/download
+		-o ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz \
+		http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-audiosamples-${VERSION}${SFOCUSTOM}.tar.gz/download
 fi
 
 
@@ -31,9 +32,10 @@ cd ${BUILDDEST} || exit
 echo "unzipping.."
 
 tar xzf ${MIRRORPATH}/airtime-${VERSION}.tar.gz || exit
-tar xzf ${MIRRORPATH}/airtime-${VERSION}-audiosamples.tar.gz || exit
+tar xzf ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
+mv -vi airtime-${VERSION} airtime
 pwd
 
 # FIXES fo 1.8 #############

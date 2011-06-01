@@ -143,7 +143,7 @@ case "$1" in
     . /usr/share/wwwconfig-common/restart.sh
     echo $error >&2
 
-		if [ "${OLDVERSION:0:5}" = "1.7.0" ]; then
+		if [ "${OLDVERSION:0:3}" = "1.7" -o ${OLDVERSION:0:3}" = "1.8"]; then
 			cd $wwwdir/install/ && php airtime-upgrade.php
 		else
 			cd $wwwdir/install/ && php airtime-install.php -o

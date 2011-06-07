@@ -1,3 +1,15 @@
+airtime (1.8.2-4) 64studio; urgency=low
+
+  * upstream 1.8.2-RC4
+
+ -- Robin Gareus <robin@gareus.org>  Tue, 07 Jun 2011 21:45:55 +0200
+
+airtime (1.8.2-3) 64studio; urgency=low
+
+  * upstream 1.8.2-RC3
+
+ -- Robin Gareus <robin@gareus.org>  Tue, 07 Jun 2011 02:56:12 +0200
+
 airtime (1.8.2-2) 64studio; urgency=low
 
   * fixed postinst

@@ -1,8 +1,8 @@
 #/bin/sh
 
-VERSION=1.8.2
-SFOCUSTOM="-RC4"
-DEBVERSION=1.8.2
+VERSION=1.9.0
+SFOCUSTOM=""
+DEBVERSION=1.9.0
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
@@ -14,11 +14,12 @@ if [ ! -f ${MIRRORPATH}/airtime-${VERSION}.tar.gz ]; then
 		${DLURL} 
 fi
 
-if [ ! -f ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz ]; then
-	curl -L \
-		-o ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz \
-		http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-audiosamples-${VERSION}${SFOCUSTOM}.tar.gz/download
-fi
+#we no longer have an airtime-audiosamples package for each release
+#if [ ! -f ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz ]; then
+#	curl -L \
+#		-o ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz \
+#		http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-audiosamples-${VERSION}${SFOCUSTOM}.tar.gz/download
+#fi
 
 
 #delete prev. deb package files
@@ -32,7 +33,7 @@ cd ${BUILDDEST} || exit
 echo "unzipping.."
 
 tar xzf ${MIRRORPATH}/airtime-${VERSION}.tar.gz || exit
-tar xzf ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz || exit
+#tar xzf ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
 mv -vi airtime-${VERSION} airtime
@@ -78,7 +79,7 @@ rm airtime/airtime_mvc/library/php-amqplib/LICENSE
 rm airtime/airtime_mvc/library/phing/LICENSE
 rm airtime/airtime_mvc/library/propel/LICENSE
 
-find airtime/audio_samples -iname "LICENSE.txt" -exec rm "{}" \;
+#find airtime/audio_samples -iname "LICENSE.txt" -exec rm "{}" \;
 
 rm airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd
 rm airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd.in
@@ -100,4 +101,4 @@ lintian -i --pedantic ${BUILDDEST}/../airtime_${DEBVERSION}*.changes | tee /tmp/
 exit
 echo -n "UPLOAD? [enter|CTRL-C]" ; read
 
-dput rg42 /tmp/airtime_${DEBVERSION}*.changes      
+dput sfo /tmp/airtime_${DEBVERSION}*.changes      

@@ -6,7 +6,7 @@ Source: http://sourceforge.net/projects/airtime/files/
 Copyright:
  2010-2011 Sourcefabric o.p.s
  2004-2009 Media Development Loan Fund
-License: GPL-3+
+License: GPL-3
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
@@ -62,35 +62,35 @@ Copyright:
  2011 Robin Gareus <robin@gareus.org>
 License: GPL-2+
 
-Files: ./airtime/audio_samples/*
-Copyright:
- ARTIST - SONG-TITLE
- Ahoora - This is Your Life
- Daniel Bautista - Con Nombre de Tango
- Daniel Bautista - Fuego Camina Conmigo
- Daniel Bautista - Moonlight Sonata
- Manolo Camp - Morning Coffee
- Peter Rudenko - Last Days Of Summer
- Peter Rudenko - Opening
- Getting Up Every Morning - One day
- Getting Up Every Morning & Annika Stroem - We just pretend
- Getting Up Every Morning - It's a laugh
- Getting Up Every Morning - Don't roll your eyes
- Getting Up Every Morning - Take it, I hate it anyway
- Getting Up Every Morning - That one string
- Art Critics Orchestra - Fräulein Risiko
- Art Critics Orchestra - Ozon
- Ofir Gal - Panic
- Ofir Gal - White Queen
- Ofir Gal - Come What May
- Ofir Gal - Run
- Ofir Gal - UnMend
- Ofir Gal - Pigs
- Ofir Gal - Gentilia Girl
- Ofir Gal - Star
- Ofir Gal - Wasted
- Ofir Gal - BreakOut
- Ofir Gal - Tangerine
+#Files: ./airtime/audio_samples/*
+#Copyright:
+# ARTIST - SONG-TITLE
+# Ahoora - This is Your Life
+# Daniel Bautista - Con Nombre de Tango
+# Daniel Bautista - Fuego Camina Conmigo
+# Daniel Bautista - Moonlight Sonata
+# Manolo Camp - Morning Coffee
+# Peter Rudenko - Last Days Of Summer
+# Peter Rudenko - Opening
+# Getting Up Every Morning - One day
+# Getting Up Every Morning & Annika Stroem - We just pretend
+# Getting Up Every Morning - It's a laugh
+# Getting Up Every Morning - Don't roll your eyes
+# Getting Up Every Morning - Take it, I hate it anyway
+# Getting Up Every Morning - That one string
+# Art Critics Orchestra - Fräulein Risiko
+# Art Critics Orchestra - Ozon
+# Ofir Gal - Panic
+# Ofir Gal - White Queen
+# Ofir Gal - Come What May
+# Ofir Gal - Run
+# Ofir Gal - UnMend
+# Ofir Gal - Pigs
+# Ofir Gal - Gentilia Girl
+# Ofir Gal - Star
+# Ofir Gal - Wasted
+# Ofir Gal - BreakOut
+# Ofir Gal - Tangerine
 
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify

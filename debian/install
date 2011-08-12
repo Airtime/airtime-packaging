@@ -4,17 +4,9 @@ airtime/airtime_mvc/library var/lib/airtime
 airtime/airtime_mvc/public var/lib/airtime
 airtime/airtime_mvc/tests var/lib/airtime
 
-airtime/install_minimal/3rd_party var/lib/airtime
-airtime/install_minimal/DoctrineMigrations var/lib/airtime
-airtime/install_minimal/include var/lib/airtime
-airtime/install_minimal/patches/mutagen var/lib/airtime
-airtime/install_minimal/upgrades/airtime-1.7.0 var/lib/airtime
-airtime/install_minimal/upgrades/airtime-1.8.0 var/lib/airtime
-airtime/install_minimal/upgrades/airtime-1.8.1 var/lib/airtime
-airtime/install_minimal/upgrades/airtime-1.8.2 var/lib/airtime
-airtime/install_minimal/upgrades/airtime-1.9.0 var/lib/airtime
-airtime/python_apps var/lib/airtime
-airtime/utils var/lib/airtime
+airtime/install_minimal var/lib/airtime/install_minimal
+airtime/python_apps var/lib/airtime/python_apps
+airtime/utils var/lib/airtime/utils
 
 airtime/widgets usr/share/doc/airtime/examples
 

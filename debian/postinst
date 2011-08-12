@@ -144,9 +144,9 @@ case "$1" in
     echo $error >&2
 
 		if [ "${OLDVERSION:0:3}" = "1.7" -o "${OLDVERSION:0:3}" = "1.8" ]; then
-			cd $wwwdir/install/ && php airtime-upgrade.php
+			cd $wwwdir/install_minimal/ && airtime-install
 		else
-			cd $wwwdir/install/ && php airtime-install.php -o
+			cd $wwwdir/install_minimal/ && airtime-install -o
 		fi
 
   ;;

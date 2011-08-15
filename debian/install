@@ -6,7 +6,7 @@ airtime/airtime_mvc/tests var/lib/airtime
 
 airtime/install_minimal var/lib/airtime
 airtime/python_apps var/lib/airtime
-airtime/utils usr/lib/airtime
+airtime/utils var/lib/airtime
 
 airtime/widgets usr/share/doc/airtime/examples
 

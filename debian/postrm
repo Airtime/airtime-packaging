@@ -25,12 +25,16 @@ case "$1" in
 		if [ -L ${wwwdir}/airtime_mvc ]; then
 			rm -f ${wwwdir}/airtime_mvc || true
 		fi
+
 		rm -f ${wwwdir}/.htaccess || true
-		rm -f ${wwwdir}/install/propel-error.log || true
+
+		if [ -f ${wwwdir}/install_minimal/distribute-0.6.10.tar.gz ]; then
+			rm -f ${wwwdir}/install_minimal/distribute-0.6.10.tar.gz || true
+		fi
 
 		# airtime uninstaller does not remove this lib.
-		if [ -f ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap ]; then
-			rm ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap
+		if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap ]; then
+			rm -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap || true
 		fi
 
     # Un-configure webservers
@@ -38,7 +42,7 @@ case "$1" in
       rm -f /etc/$webserver/conf.d/airtime.conf || true
       restart="$webserver $restart"
     fi
-        
+
     if [ -L /etc/$php/conf.d/airtime.ini ]; then
       rm -f /etc/$php/conf.d/airtime.ini || true
       restart="$webserver $restart"
@@ -49,7 +53,7 @@ case "$1" in
       # TODO: if airtime-vhost is not modified -> delete it
       restart="$webserver $restart"
     fi
-        
+
     servers="apache2"
     # may not exist if package was manually installed
     if [ -r /usr/share/wwwconfig-common/restart.sh ]; then
@@ -66,13 +70,12 @@ case "$1" in
 
     if [ "$1" = "purge" ]; then
 			rm -rf /etc/airtime || true
-		 #rm -rf $datadir || true
-     #pear uninstall phing/phing-2.4.2 || true
-		 #pip uninstall kombu || true
-		 #pip uninstall poster  || true
-		 true
+
+     			#pear uninstall phing/phing-2.4.2 || true
+		 	#pip uninstall kombu || true
+		 	#pip uninstall poster || true
     fi
-                                                                                                                                             
+
   ;;
 
   upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

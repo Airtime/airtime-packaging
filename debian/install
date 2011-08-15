@@ -4,9 +4,9 @@ airtime/airtime_mvc/library var/lib/airtime
 airtime/airtime_mvc/public var/lib/airtime
 airtime/airtime_mvc/tests var/lib/airtime
 
-airtime/install_minimal var/lib/airtime/install_minimal
-airtime/python_apps var/lib/airtime/python_apps
-airtime/utils var/lib/airtime/utils
+airtime/install_minimal var/lib/airtime
+airtime/python_apps var/lib/airtime
+airtime/utils usr/lib/airtime
 
 airtime/widgets usr/share/doc/airtime/examples
 

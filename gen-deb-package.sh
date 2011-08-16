@@ -62,6 +62,19 @@ chmod +x airtime/utils/airtime-user.php
 chmod +x airtime/utils/phone_home_stat.php
 chmod +x airtime/utils/rivendell-converter.sh
 
+# we don't use env in a Debian package
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/api_clients/api_client.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/media-monitor/install/media-monitor-install.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/media-monitor/install/media-monitor-uninstall.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/pypo/install/pypo-install.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/pypo/install/pypo-uninstall.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/pypo/pypo-cli.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/pypo/pypo-notify.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/pypo/util/status.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/show-recorder/install/recorder-install.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/python_apps/show-recorder/install/recorder-uninstall.py
+sed -i 's:#!/usr/bin/env python:#!/usr/bin/python:g' airtime/utils/serbianLatinToCyrillicConverter.py
+
 # invalid interpreter #!/usr/local/bin/python != /usr/bin/python
 sed -i 's:#!/usr/local/bin/python:#!/usr/bin/python:g' airtime/python_apps/media-monitor/MediaMonitor.py
 sed -i 's:#!/usr/local/bin/python:#!/usr/bin/python:g' airtime/python_apps/show-recorder/recorder.py

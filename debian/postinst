@@ -58,7 +58,7 @@ case "$1" in
       SN=$RET
       db_get airtime/apache-serveradmin
       SA=$RET
-      
+
       if [ ! -d /etc/$webserver/sites-available/ ]; then
         install -d -m755 /etc/$webserver/sites-available/
       fi
@@ -100,32 +100,49 @@ case "$1" in
       | ed /var/lib/airtime/.htaccess &>/dev/null || true
     fi
 
-#    # XXX ICECAST XXX
-#    db_get airtime/icecast-setup
-#    if [ "$RET" == "true" ]; then
-#      if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
-#        echo "Setting up icecast2.." >&2
-#        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" \
-#        | ed /etc/default/icecast2 &>/dev/null || true
-#        db_get airtime/icecast-sourcepw
-#        ICESOURCE=$RET
-#        db_get airtime/icecast-relaypw
-#        ICERELAY=$RET
-#        db_get airtime/icecast-adminpw
-#        ICEADMIN=$RET
-#        echo -ne "%s/<source-password>[^<]*</source-password>/<source-password>$ICESOURCE</source-password>/\n%s/<relay-password>[^<]*</relay-password>/<relay-password>$ICERELAY</relay-password>/\n%s/<admin-password>[^<]*</admin-password>/<admin-password>$ICEADMIN</admin-password>/\nwq\n" \
-#        | ed /etc/icecast2/icecast.xml &>/dev/null || true
-#        /etc/init.d/icecast2 stop || true
-#        /etc/init.d/icecast2 start || true
-#        # save source-password in airtime
-#        echo -ne "%s/~password=\"[^\"]*\"/~password=\"$ICESOURCE\"/\nwq\n" \
-#        | ed /var/lib/airtime/python_apps/pypo/scripts/library/shoutcast.liq &>/dev/null || true
-#        echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-#        | ed /var/lib/airtime/python_apps/pypo/scripts/liquidsoap.cfg &>/dev/null || true
-#      else
-#        echo "icecast not installed" >&2
-#      fi
-#    fi
+    # XXX ICECAST XXX
+    db_get airtime/icecast-setup
+    if [ "$RET" == "true" ]; then
+      if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
+        echo "Setting up icecast2.." >&2
+        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" \
+        | ed /etc/default/icecast2 &>/dev/null || true
+        db_get airtime/icecast-sourcepw
+        ICESOURCE=$RET
+        db_get airtime/icecast-relaypw
+        ICERELAY=$RET
+        db_get airtime/icecast-adminpw
+        ICEADMIN=$RET
+        echo -ne "%s/<source-password>[^<]*</source-password>/<source-password>$ICESOURCE</source-password>/\n%s/<relay-password>[^<]*</relay-password>/<relay-password>$ICERELAY</relay-password>/\n%s/<admin-password>[^<]*</admin-password>/<admin-password>$ICEADMIN</admin-password>/\nwq\n" \
+        | ed /etc/icecast2/icecast.xml &>/dev/null || true
+        /etc/init.d/icecast2 stop || true
+        /etc/init.d/icecast2 start || true
+        # save source-password in airtime
+        echo -ne "%s/~password=\"[^\"]*\"/~password=\"$ICESOURCE\"/\nwq\n" \
+        | ed /var/lib/airtime/python_apps/pypo/scripts/library/shoutcast.liq &>/dev/null || true
+        echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+        | ed /var/lib/airtime/python_apps/pypo/scripts/liquidsoap.cfg &>/dev/null || true
+      else
+        echo "Icecast not installed" >&2
+      fi
+    fi
+
+    # Monit setup
+    db_get airtime/monit-setup
+    if [ "$RET" == "true" ]; then
+      if [ -f /etc/default/monit ]; then
+        echo "Setting up monit.." >&2
+         echo -ne "%s/^.*startup=.*$/startup=1/\nwq\n" | ed /etc/default/monit &>/dev/null || true
+          cp /var/lib/airtime/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
+           grep -q "include /etc/monit/conf.d" /etc/monit/monitrc
+           RETVAL=$?
+           if [ $RETVAL -ne 0 ] ; then
+           echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc
+           fi
+      else
+        echo "Monit not installed" >&2
+      fi
+    fi
 
     # create data dir
     mkdir -p $datadir
@@ -135,7 +152,7 @@ case "$1" in
     #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0755 $datadir
     #dpkg-statoverride --list $datadir/conf &>/dev/null || \
     #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/conf
-    
+
     dpkg-statoverride --list $datadir &>/dev/null || \
     dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir
 

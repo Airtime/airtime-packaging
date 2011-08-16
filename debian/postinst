@@ -139,6 +139,7 @@ case "$1" in
            if [ $RETVAL -ne 0 ] ; then
            echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc
            fi
+            service monit restart
       else
         echo "Monit not installed" >&2
       fi

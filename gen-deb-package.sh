@@ -39,39 +39,42 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES fo 1.8 #############
+# FIXES for 1.9 #############
 find airtime \( \
 	   -iname "*.php" -o -iname "*.js" -o -iname "*.mp3" \
 	-o -iname "*.xsd" -o -iname "*.xsl" -o -iname "*.xml" \
 	-o -iname "*.cfg.*" -o -iname "*.txt" \
 	\) -exec chmod -x "{}" \;
 
-chmod +x airtime/python_apps/api_clients/api_client.py
-chmod +x airtime/python_apps/pypo/install/pypo-liquidsoap-daemontools-logger.sh
-chmod +x airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd
-
 chmod +x airtime/airtime_mvc/application/models/cron/croncall.php
 chmod +x airtime/airtime_mvc/library/php-amqplib/demo/amqp_airtime_consumer.php
 chmod +x airtime/airtime_mvc/library/php-amqplib/demo/amqp_consumer.php
 chmod +x airtime/airtime_mvc/library/php-amqplib/demo/amqp_publisher.php
-chmod +x airtime/install/airtime-user.php
 
-# invalid interpreter #!/usr/local/bin/python != /usr/bin/python
-echo "#!/usr/bin/python" > airtime/python_apps/show-recorder/recorder.py2
-cat airtime/python_apps/show-recorder/recorder.py >> airtime/python_apps/show-recorder/recorder.py2
-mv airtime/python_apps/show-recorder/recorder.py2 airtime/python_apps/show-recorder/recorder.py
+chmod +x airtime/install_minimal/3rd_party/setuptools-0.6c11-py2.6.egg
+
+chmod +x airtime/python_apps/api_clients/api_client.py
+chmod +x airtime/python_apps/media-monitor/MediaMonitor.py
 chmod +x airtime/python_apps/show-recorder/recorder.py
 
+chmod +x airtime/utils/airtime-import/airtime-import.py
+chmod +x airtime/utils/airtime-user.php
+chmod +x airtime/utils/phone_home_stat.php
+chmod +x airtime/utils/rivendell-converter.sh
+
+# invalid interpreter #!/usr/local/bin/python != /usr/bin/python
+sed -i 's:#!/usr/local/bin/python:#!/usr/bin/python:g' airtime/python_apps/media-monitor/MediaMonitor.py
+sed -i 's:#!/usr/local/bin/python:#!/usr/bin/python:g' airtime/python_apps/show-recorder/recorder.py
+sed -i 's:#!/usr/local/bin/python:#!/usr/bin/python:g' utils/airtime-import/airtime-import.py
 
 # no hash-bang
-chmod -x airtime/python_apps/pypo/pypo-api-validator.py
-chmod -x airtime/python_apps/pypo/pypopush.py
-chmod -x airtime/python_apps/pypo/dls/__init__.py
-chmod -x airtime/python_apps/pypo/dls/__init__.py
-chmod -x airtime/python_apps/pypo/pypofetch.py
-chmod -x airtime/python_apps/pypo/pypo-cue-in-validator.py
-chmod -x airtime/python_apps/pypo/util/__init__.py
 chmod -x airtime/airtime_mvc/library/propel/generator/bin/propel-gen.bat
+chmod -x airtime/python_apps/pypo/pypofetch.py
+chmod -x airtime/python_apps/pypo/pypopush.py
+chmod -x airtime/python_apps/pypo/liquidsoap_scripts/library/tests/LS354-1.liq
+chmod -x airtime/python_apps/pypo/liquidsoap_scripts/library/tests/LS354-2.liq
+chmod -x airtime/python_apps/pypo/test/pypo-api-validator.py
+chmod -x airtime/python_apps/pypo/util/__init__.py
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -79,14 +82,14 @@ rm airtime/airtime_mvc/library/php-amqplib/LICENSE
 rm airtime/airtime_mvc/library/phing/LICENSE
 rm airtime/airtime_mvc/library/propel/LICENSE
 
+# we no longer have an airtime-audiosamples package for each release
 #find airtime/audio_samples -iname "LICENSE.txt" -exec rm "{}" \;
 
-rm airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd
-rm airtime/python_apps/pypo/scripts/library/liquidsoap.gentoo.initd.in
-rm airtime/python_apps/show-recorder/testrecordscript.py 
+# we don't need a Gentoo init script in a Debian package
+rm airtime/python_apps/pypo/liquidsoap_scripts/library/liquidsoap.gentoo.initd.in
+
+# we don't need a Windows script in a Debian package
 rm airtime/airtime_mvc/library/propel/generator/bin/propel-gen.bat
-
-
 
 #############################
 
@@ -101,4 +104,4 @@ lintian -i --pedantic ${BUILDDEST}/../airtime_${DEBVERSION}*.changes | tee /tmp/
 exit
 echo -n "UPLOAD? [enter|CTRL-C]" ; read
 
-dput sfo /tmp/airtime_${DEBVERSION}*.changes      
+dput sfo /tmp/airtime_${DEBVERSION}*.changes

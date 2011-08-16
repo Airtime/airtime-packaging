@@ -48,15 +48,13 @@ Type: string
 Default: root@localhost
 Description: Email of the vhost-admin - ServerAdmin:
  required for dedicated vhost-setup.
- .
- more info soon..
 
 Template: airtime/icecast-setup
 Type: boolean
 Default: false
 Description: Setup Icecast2 - Enable Live HTTP Streaming?
- This option allows enable icecast2 on this server
- and configure passwords for both icecast-server and airtime.
+ This option enables icecast2 on this server, and configures 
+ passwords for both the icecast server and airtime.
  .
  Note: these settings are here for convenience only.
  Strictly speaking they should be done during icecast
@@ -88,3 +86,10 @@ Description: Icecast2 Admin Password:
  http://localhost:8000/ - and both monitor connection as
  well as block users.
 
+Template: airtime/monit-setup
+Type: boolean
+Default: true
+Description: Set up monit?
+ Enable the monit daemon and set it up for Airtime.
+ Airtime can use monit to notify you if something isn't 
+ working correctly.

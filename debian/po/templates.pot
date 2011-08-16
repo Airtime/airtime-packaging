@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2011-08-16 16:46+0100\n"
+"POT-Creation-Date: 2011-08-16 17:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,24 +19,24 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../templates:1001
-msgid "dedicated v-host, no thanks"
+msgid "dedicated v-host"
 msgstr ""
 
 #. Type: select
-#. Default
-#: ../templates:1002
-msgid "system-wide (all vhosts)"
+#. Choices
+#: ../templates:1001
+msgid "no thanks"
 msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:1003
+#: ../templates:1002
 msgid "Create apache2 config:"
 msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:1003
+#: ../templates:1002
 msgid ""
 "This setup script can perform apache web-server configuration so that you "
 "can connect to airtime directly after this installation."
@@ -44,7 +44,7 @@ msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:1003
+#: ../templates:1002
 msgid ""
 "Production systems should choose \"dedicated v-host\". This option will ask "
 "for a Server host-name (FQDN) and will create a minimal apache vhost "
@@ -53,7 +53,7 @@ msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:1003
+#: ../templates:1002
 msgid ""
 "\"no, thanks\": no problem. You're welcome to set it up however you like. "
 "Note that the files in /etc/airtime/ may come in handy doing so."
@@ -62,24 +62,24 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../templates:2001
-msgid "remove default, no change"
+msgid "remove default"
 msgstr ""
 
 #. Type: select
-#. Default
-#: ../templates:2002
+#. Choices
+#: ../templates:2001
 msgid "no change"
 msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:2003
+#: ../templates:2002
 msgid "remove 000-default apache config"
 msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:2003
+#: ../templates:2002
 msgid ""
 "By default the apache webserver comes with configuration to send all v-hosts "
 "to /var/www."
@@ -87,31 +87,25 @@ msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:2003
+#: ../templates:2002
 msgid "This option will invoke `sudo a2dissite default`"
 msgstr ""
 
 #. Type: select
 #. Description
-#: ../templates:2003
+#: ../templates:2002
 msgid "and is recommended when using airtime as vhost."
 msgstr ""
 
 #. Type: string
-#. Default
-#: ../templates:3001
-msgid "localhost"
-msgstr ""
-
-#. Type: string
 #. Description
-#: ../templates:3002
+#: ../templates:3001
 msgid "FQDN - apache-vhost ServerName:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:3002
+#: ../templates:3001
 msgid ""
 "Enter the main hostname of the web server.  The DNS of this name must "
 "resolve to the apache server running on this machine."
@@ -119,13 +113,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:3002
+#: ../templates:3001
 msgid "e.g. \"example.com\" or \"www.example.com\" (without the quotes)"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:3002
+#: ../templates:3001
 msgid ""
 "You can customize /etc/apache2/sites-enabled/airtime.vhost afterward and add "
 "ServerAliases and further custom configuration."
@@ -133,7 +127,7 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:3002
+#: ../templates:3001
 msgid "more info soon.."
 msgstr ""
 
@@ -150,20 +144,14 @@ msgid "required for dedicated vhost-setup."
 msgstr ""
 
 #. Type: boolean
-#. Default
-#: ../templates:5001
-msgid "false"
-msgstr ""
-
-#. Type: boolean
 #. Description
-#: ../templates:5002
+#: ../templates:5001
 msgid "Setup Icecast2 - Enable Live HTTP Streaming?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:5002
+#: ../templates:5001
 msgid ""
 "This option enables icecast2 on this server, and configures  passwords for "
 "both the icecast server and airtime."
@@ -171,7 +159,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:5002
+#: ../templates:5001
 msgid ""
 "Note: these settings are here for convenience only. Strictly speaking they "
 "should be done during icecast installation - not airtime installation."
@@ -179,7 +167,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:5002
+#: ../templates:5001
 msgid ""
 "PS. If you have already manually tweaked icecast configuration it may not "
 "work as expected."
@@ -226,20 +214,14 @@ msgid ""
 msgstr ""
 
 #. Type: boolean
-#. Default
-#: ../templates:9001
-msgid "true"
-msgstr ""
-
-#. Type: boolean
 #. Description
-#: ../templates:9002
+#: ../templates:9001
 msgid "Set up monit?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:9002
+#: ../templates:9001
 msgid ""
 "Enable the monit daemon and set it up for Airtime. Airtime can use monit to "
 "notify you if something isn't  working correctly."

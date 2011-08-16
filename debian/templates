@@ -1,8 +1,8 @@
 Template: airtime/apache-setup
 Type: select
-_Choices: dedicated v-host, no thanks
+__Choices: dedicated v-host, no thanks
 Choices-de.UTF-8: v-host einrichten, nein danke
-_Default: system-wide (all vhosts)
+Default: system-wide (all vhosts)
 _Description: Create apache2 config:
  This setup script can perform apache web-server configuration
  so that you can connect to airtime directly after this installation.
@@ -18,8 +18,8 @@ Description-de.UTF-8: Erzeugen einer apache2 konfiuration:
 
 Template: airtime/apache-deldefault
 Type: select
-_Choices: remove default, no change
-_Default: no change
+__Choices: remove default, no change
+Default: no change
 _Description: remove 000-default apache config
  By default the apache webserver comes with configuration
  to send all v-hosts to /var/www.
@@ -30,7 +30,7 @@ _Description: remove 000-default apache config
 
 Template: airtime/apache-servername
 Type: string
-_Default: localhost
+Default: localhost
 _Description: FQDN - apache-vhost ServerName:
  Enter the main hostname of the web server. 
  The DNS of this name must resolve to the apache server running on this
@@ -51,7 +51,7 @@ _Description: Email of the vhost-admin - ServerAdmin:
 
 Template: airtime/icecast-setup
 Type: boolean
-_Default: false
+Default: false
 _Description: Setup Icecast2 - Enable Live HTTP Streaming?
  This option enables icecast2 on this server, and configures 
  passwords for both the icecast server and airtime.
@@ -88,7 +88,7 @@ _Description: Icecast2 Admin Password:
 
 Template: airtime/monit-setup
 Type: boolean
-_Default: true
+Default: true
 _Description: Set up monit?
  Enable the monit daemon and set it up for Airtime.
  Airtime can use monit to notify you if something isn't 

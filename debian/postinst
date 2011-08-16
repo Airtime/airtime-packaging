@@ -115,8 +115,7 @@ case "$1" in
         ICEADMIN=$RET
         echo -ne "%s/<source-password>[^<]*</source-password>/<source-password>$ICESOURCE</source-password>/\n%s/<relay-password>[^<]*</relay-password>/<relay-password>$ICERELAY</relay-password>/\n%s/<admin-password>[^<]*</admin-password>/<admin-password>$ICEADMIN</admin-password>/\nwq\n" \
         | ed /etc/icecast2/icecast.xml &>/dev/null || true
-        /etc/init.d/icecast2 stop || true
-        /etc/init.d/icecast2 start || true
+        invoke-rc.d icecast2 restart || true
         # save source-password in airtime
         echo -ne "%s/~password=\"[^\"]*\"/~password=\"$ICESOURCE\"/\nwq\n" \
         | ed /var/lib/airtime/python_apps/pypo/scripts/library/shoutcast.liq &>/dev/null || true
@@ -139,7 +138,7 @@ case "$1" in
            if [ $RETVAL -ne 0 ] ; then
            echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc
            fi
-            service monit restart
+            invoke-rc.d monit restart || true
       else
         echo "Monit not installed" >&2
       fi

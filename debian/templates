@@ -1,9 +1,9 @@
 Template: airtime/apache-setup
 Type: select
-Choices: dedicated v-host, no thanks
+_Choices: dedicated v-host, no thanks
 Choices-de.UTF-8: v-host einrichten, nein danke
-Default: system-wide (all vhosts)
-Description: Create apache2 config:
+_Default: system-wide (all vhosts)
+_Description: Create apache2 config:
  This setup script can perform apache web-server configuration
  so that you can connect to airtime directly after this installation.
  .
@@ -18,9 +18,9 @@ Description-de.UTF-8: Erzeugen einer apache2 konfiuration:
 
 Template: airtime/apache-deldefault
 Type: select
-Choices: remove default, no change
-Default: no change
-Description: remove 000-default apache config
+_Choices: remove default, no change
+_Default: no change
+_Description: remove 000-default apache config
  By default the apache webserver comes with configuration
  to send all v-hosts to /var/www.
  .
@@ -30,8 +30,8 @@ Description: remove 000-default apache config
 
 Template: airtime/apache-servername
 Type: string
-Default: localhost
-Description: FQDN - apache-vhost ServerName:
+_Default: localhost
+_Description: FQDN - apache-vhost ServerName:
  Enter the main hostname of the web server. 
  The DNS of this name must resolve to the apache server running on this
  machine.
@@ -46,13 +46,13 @@ Description: FQDN - apache-vhost ServerName:
 Template: airtime/apache-serveradmin
 Type: string
 Default: root@localhost
-Description: Email of the vhost-admin - ServerAdmin:
+_Description: Email of the vhost-admin - ServerAdmin:
  required for dedicated vhost-setup.
 
 Template: airtime/icecast-setup
 Type: boolean
-Default: false
-Description: Setup Icecast2 - Enable Live HTTP Streaming?
+_Default: false
+_Description: Setup Icecast2 - Enable Live HTTP Streaming?
  This option enables icecast2 on this server, and configures 
  passwords for both the icecast server and airtime.
  .
@@ -66,13 +66,13 @@ Description: Setup Icecast2 - Enable Live HTTP Streaming?
 Template: airtime/icecast-sourcepw
 Type: string
 Default: hackme
-Description: Icecast2 Source Password:
+_Description: Icecast2 Source Password:
  Specify a password to send A/V sources to icecast
 
 Template: airtime/icecast-relaypw
 Type: string
 Default: hackme
-Description: Icecast2 Relay Password:
+_Description: Icecast2 Relay Password:
  Specify a password for stream relay access.
  This is not needed by airtime, however you should
  change it from the default to lock down your system.
@@ -80,7 +80,7 @@ Description: Icecast2 Relay Password:
 Template: airtime/icecast-adminpw
 Type: string
 Default: hackme
-Description: Icecast2 Admin Password:
+_Description: Icecast2 Admin Password:
  Specify the admin password. 
  You can access icecast2's admin interface via
  http://localhost:8000/ - and both monitor connection as
@@ -88,8 +88,8 @@ Description: Icecast2 Admin Password:
 
 Template: airtime/monit-setup
 Type: boolean
-Default: true
-Description: Set up monit?
+_Default: true
+_Description: Set up monit?
  Enable the monit daemon and set it up for Airtime.
  Airtime can use monit to notify you if something isn't 
  working correctly.

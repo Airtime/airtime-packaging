@@ -11,7 +11,7 @@ DEBDIR=`pwd`/debian
 if [ ! -f ${MIRRORPATH}/airtime-${VERSION}.tar.gz ]; then
 	curl -L \
 		-o ${MIRRORPATH}/airtime-${VERSION}.tar.gz \
-		${DLURL} 
+		${DLURL}
 fi
 
 #we no longer have an airtime-audiosamples package for each release

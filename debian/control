@@ -1,8 +1,8 @@
 Source: airtime
 Section: web
 Priority: optional
-Maintainer: Robin Gareus <robin@gareus.org>
-Build-Depends: debhelper (>= 7)
+Maintainer: Daniel James <daniel@64studio.com>
+Build-Depends: debhelper (>= 7.0.50~), po-debconf
 Standards-Version: 3.9.1
 Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
 

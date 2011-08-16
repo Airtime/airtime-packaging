@@ -1,0 +1,246 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
+"POT-Creation-Date: 2011-08-16 16:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: select
+#. Choices
+#: ../templates:1001
+msgid "dedicated v-host, no thanks"
+msgstr ""
+
+#. Type: select
+#. Default
+#: ../templates:1002
+msgid "system-wide (all vhosts)"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid "Create apache2 config:"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid ""
+"This setup script can perform apache web-server configuration so that you "
+"can connect to airtime directly after this installation."
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid ""
+"Production systems should choose \"dedicated v-host\". This option will ask "
+"for a Server host-name (FQDN) and will create a minimal apache vhost "
+"configuration that you can adapt."
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid ""
+"\"no, thanks\": no problem. You're welcome to set it up however you like. "
+"Note that the files in /etc/airtime/ may come in handy doing so."
+msgstr ""
+
+#. Type: select
+#. Choices
+#: ../templates:2001
+msgid "remove default, no change"
+msgstr ""
+
+#. Type: select
+#. Default
+#: ../templates:2002
+msgid "no change"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:2003
+msgid "remove 000-default apache config"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:2003
+msgid ""
+"By default the apache webserver comes with configuration to send all v-hosts "
+"to /var/www."
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:2003
+msgid "This option will invoke `sudo a2dissite default`"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:2003
+msgid "and is recommended when using airtime as vhost."
+msgstr ""
+
+#. Type: string
+#. Default
+#: ../templates:3001
+msgid "localhost"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3002
+msgid "FQDN - apache-vhost ServerName:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3002
+msgid ""
+"Enter the main hostname of the web server.  The DNS of this name must "
+"resolve to the apache server running on this machine."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3002
+msgid "e.g. \"example.com\" or \"www.example.com\" (without the quotes)"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3002
+msgid ""
+"You can customize /etc/apache2/sites-enabled/airtime.vhost afterward and add "
+"ServerAliases and further custom configuration."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3002
+msgid "more info soon.."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Email of the vhost-admin - ServerAdmin:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "required for dedicated vhost-setup."
+msgstr ""
+
+#. Type: boolean
+#. Default
+#: ../templates:5001
+msgid "false"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:5002
+msgid "Setup Icecast2 - Enable Live HTTP Streaming?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:5002
+msgid ""
+"This option enables icecast2 on this server, and configures  passwords for "
+"both the icecast server and airtime."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:5002
+msgid ""
+"Note: these settings are here for convenience only. Strictly speaking they "
+"should be done during icecast installation - not airtime installation."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:5002
+msgid ""
+"PS. If you have already manually tweaked icecast configuration it may not "
+"work as expected."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:6001
+msgid "Icecast2 Source Password:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:6001
+msgid "Specify a password to send A/V sources to icecast"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:7001
+msgid "Icecast2 Relay Password:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:7001
+msgid ""
+"Specify a password for stream relay access. This is not needed by airtime, "
+"however you should change it from the default to lock down your system."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:8001
+msgid "Icecast2 Admin Password:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:8001
+msgid ""
+"Specify the admin password.  You can access icecast2's admin interface via "
+"http://localhost:8000/ - and both monitor connection as well as block users."
+msgstr ""
+
+#. Type: boolean
+#. Default
+#: ../templates:9001
+msgid "true"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:9002
+msgid "Set up monit?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:9002
+msgid ""
+"Enable the monit daemon and set it up for Airtime. Airtime can use monit to "
+"notify you if something isn't  working correctly."
+msgstr ""

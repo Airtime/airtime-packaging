@@ -1,59 +1,59 @@
-airtime (1.9.0) 64studio; urgency=low
+airtime (1.9.0-1) unstable; urgency=low
 
   * upstream 1.9.0
 
  -- Daniel James <daniel@64studio.com>  Fri, 12 Aug 2011 14:11:21 +0100
 
-airtime (1.8.2-4) 64studio; urgency=low
+airtime (1.8.2-4) unstable; urgency=low
 
   * upstream 1.8.2-RC4
 
  -- Robin Gareus <robin@gareus.org>  Tue, 07 Jun 2011 21:45:55 +0200
 
-airtime (1.8.2-3) 64studio; urgency=low
+airtime (1.8.2-3) unstable; urgency=low
 
   * upstream 1.8.2-RC3
 
  -- Robin Gareus <robin@gareus.org>  Tue, 07 Jun 2011 02:56:12 +0200
 
-airtime (1.8.2-2) 64studio; urgency=low
+airtime (1.8.2-2) unstable; urgency=low
 
   * fixed postinst
 
  -- Robin Gareus <robin@gareus.org>  Wed, 01 Jun 2011 20:48:29 +0200
 
-airtime (1.8.2-1) 64studio; urgency=low
+airtime (1.8.2-1) unstable; urgency=low
 
   * upstream 1.8.2-RC2 release
 
  -- Robin Gareus <robin@gareus.org>  Wed, 01 Jun 2011 16:21:40 +0200
 
-airtime (1.8.1-1) 64studio; urgency=low
+airtime (1.8.1-1) unstable; urgency=low
 
   * upstream 1.8.1 release
 
  -- Robin Gareus <robin@gareus.org>  Wed, 11 May 2011 22:50:03 +0200
 
-airtime (1.8.0-1) 64studio; urgency=low
+airtime (1.8.0-1) unstable; urgency=low
 
   * upstream 1.8.0 release
 
  -- Robin Gareus <robin@gareus.org>  Tue, 19 Apr 2011 15:44:40 +0200
 
-airtime (1.7.0-2) 64studio; urgency=low
+airtime (1.7.0-2) unstable; urgency=low
 
   * fixed few lintian warnings
   * allow to de-install apache 000default
 
  -- Robin Gareus <robin@gareus.org>  Tue, 05 Apr 2011 20:45:52 +0200
 
-airtime (1.7.0-1) 64studio; urgency=low
+airtime (1.7.0-1) unstable; urgency=low
 
   * upstream 1.7.0-GA release
 
  -- Robin Gareus <robin@gareus.org>  Mon, 04 Apr 2011 21:19:56 +0200
 
-airtime (1.6.1-1) 64studio; urgency=low
+airtime (1.6.1-1) unstable; urgency=low
 
   * initial package
 

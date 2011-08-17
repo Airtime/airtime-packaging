@@ -52,7 +52,7 @@ _Description: Email of the vhost-admin - ServerAdmin:
 Template: airtime/icecast-setup
 Type: boolean
 Default: false
-_Description: Set up Icecast2 for live HTTP streaming:
+_Description: Set up Icecast2 for live HTTP streaming?
  This option enables icecast2 on this server, and configures 
  passwords for both the icecast server and airtime.
  .
@@ -89,7 +89,7 @@ _Description: Icecast2 Admin Password:
 Template: airtime/monit-setup
 Type: boolean
 Default: true
-_Description: Set up monit:
+_Description: Set up monit?
  Enable the monit daemon and set it up for Airtime.
  Airtime can use monit to notify you if something isn't 
  working correctly.

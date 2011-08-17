@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2011-08-17 17:07+0100\n"
+"POT-Creation-Date: 2011-08-17 17:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,7 +146,7 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates:5001
-msgid "Set up Icecast2 for live HTTP streaming:"
+msgid "Set up Icecast2 for live HTTP streaming?"
 msgstr ""
 
 #. Type: boolean
@@ -216,7 +216,7 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates:9001
-msgid "Set up monit:"
+msgid "Set up monit?"
 msgstr ""
 
 #. Type: boolean

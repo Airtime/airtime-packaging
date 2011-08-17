@@ -20,7 +20,7 @@ Template: airtime/apache-deldefault
 Type: select
 __Choices: remove default, no change
 Default: no change
-_Description: remove 000-default apache config
+_Description: Remove 000-default apache config:
  By default the apache webserver comes with configuration
  to send all v-hosts to /var/www.
  .
@@ -52,7 +52,7 @@ _Description: Email of the vhost-admin - ServerAdmin:
 Template: airtime/icecast-setup
 Type: boolean
 Default: false
-_Description: Setup Icecast2 - Enable Live HTTP Streaming?
+_Description: Set up Icecast2 for live HTTP streaming:
  This option enables icecast2 on this server, and configures 
  passwords for both the icecast server and airtime.
  .
@@ -89,7 +89,7 @@ _Description: Icecast2 Admin Password:
 Template: airtime/monit-setup
 Type: boolean
 Default: true
-_Description: Set up monit?
+_Description: Set up monit:
  Enable the monit daemon and set it up for Airtime.
  Airtime can use monit to notify you if something isn't 
  working correctly.
@@ -97,5 +97,5 @@ _Description: Set up monit?
 Template: airtime/localtime-setup
 Type: string
 Default: Etc/UTC
-_Description: Set local timezone
+_Description: Set local timezone: 
  Set the local timezone at your broadcast station.

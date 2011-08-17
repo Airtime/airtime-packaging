@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2011-08-16 17:47+0100\n"
+"POT-Creation-Date: 2011-08-17 17:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgstr ""
 #. Type: select
 #. Description
 #: ../templates:2002
-msgid "remove 000-default apache config"
+msgid "Remove 000-default apache config:"
 msgstr ""
 
 #. Type: select
@@ -146,7 +146,7 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates:5001
-msgid "Setup Icecast2 - Enable Live HTTP Streaming?"
+msgid "Set up Icecast2 for live HTTP streaming:"
 msgstr ""
 
 #. Type: boolean
@@ -216,7 +216,7 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates:9001
-msgid "Set up monit?"
+msgid "Set up monit:"
 msgstr ""
 
 #. Type: boolean
@@ -225,4 +225,16 @@ msgstr ""
 msgid ""
 "Enable the monit daemon and set it up for Airtime. Airtime can use monit to "
 "notify you if something isn't  working correctly."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:10001
+msgid "Set local timezone: "
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:10001
+msgid "Set the local timezone at your broadcast station."
 msgstr ""

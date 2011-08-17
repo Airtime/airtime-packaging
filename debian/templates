@@ -93,3 +93,9 @@ _Description: Set up monit?
  Enable the monit daemon and set it up for Airtime.
  Airtime can use monit to notify you if something isn't 
  working correctly.
+
+Template: airtime/localtime-setup
+Type: string
+Default: Etc/UTC
+_Description: Set local timezone
+ Set the local timezone at your broadcast station.

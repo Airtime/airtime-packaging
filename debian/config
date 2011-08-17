@@ -34,6 +34,9 @@ fi
 db_input high airtime/monit-setup || true
 db_go ||true
 
+db_input high airtime/localtime-setup || true
+db_go ||true
+
 #DEBHELPER#
 
 exit 0

@@ -144,6 +144,17 @@ case "$1" in
       fi
     fi
 
+    # Local timezone setup
+    db_get airtime/localtime-setup
+     LOCALTIMEZONE=$RET
+      if [ -f ${wwwdir}/public/.htaccess ]; then
+        echo "Setting local time zone.." >&2
+         echo -ne "%s/php_value date.timezone \"[^\"]*\"/php_value date.timezone \"$LOCALTIMEZONE\"/\nwq\n" \
+         | ed ${wwwdir}/public/.htaccess &>/dev/null || true
+      else
+       echo ".htaccess file not found" >&2
+      fi
+
     # create data dir
     mkdir -p $datadir
 

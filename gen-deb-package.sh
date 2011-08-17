@@ -21,7 +21,6 @@ fi
 #		http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-audiosamples-${VERSION}${SFOCUSTOM}.tar.gz/download
 #fi
 
-
 #delete prev. deb package files
 echo "cleaning up."
 rm -f ${BUILDDEST}/../airtime_${DEBVERSION}*
@@ -86,7 +85,6 @@ sed -i 's:#!/usr/local/bin/python:#!/usr/bin/env python:g' airtime/python_apps/s
 sed -i 's:#!/usr/local/bin/python:#!/usr/bin/env python:g' airtime/utils/airtime-import/airtime-import.py
 
 # no hash-bang
-chmod -x airtime/airtime_mvc/library/propel/generator/bin/propel-gen.bat
 chmod -x airtime/python_apps/pypo/pypofetch.py
 chmod -x airtime/python_apps/pypo/pypopush.py
 chmod -x airtime/python_apps/pypo/liquidsoap_scripts/library/tests/LS354-1.liq

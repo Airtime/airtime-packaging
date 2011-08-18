@@ -168,7 +168,7 @@ case "$1" in
     . /usr/share/wwwconfig-common/restart.sh
     echo $error >&2
 
-		if [ "${OLDVERSION:0:3}" -lt "1.7" ]; then
+		if [ "${OLDVERSION:0:3}" = "1.6" ]; then
 			echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
 		else
                         cd $wwwdir/install_minimal/ && ./airtime-install

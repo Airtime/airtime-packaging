@@ -105,22 +105,20 @@ case "$1" in
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
         echo "Setting up icecast2.." >&2
-        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" \
-        | ed /etc/default/icecast2 &>/dev/null || true
+        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" | ed /etc/default/icecast2 &>/dev/null || true
         db_get airtime/icecast-sourcepw
         ICESOURCE=$RET
+        sed -i "s:<source-password>.*<\/source-password>:<source-password>$ICESOURCE<\/source-password>:g" /etc/icecast2/icecast.xml
         db_get airtime/icecast-relaypw
         ICERELAY=$RET
+        sed -i "s:<relay-password>.*<\/relay-password>:<relay-password>$ICERELAY<\/relay-password>:g" /etc/icecast2/icecast.xml
         db_get airtime/icecast-adminpw
         ICEADMIN=$RET
-        echo -ne "%s/<source-password>[^<]*</source-password>/<source-password>$ICESOURCE</source-password>/\n%s/<relay-password>[^<]*</relay-password>/<relay-password>$ICERELAY</relay-password>/\n%s/<admin-password>[^<]*</admin-password>/<admin-password>$ICEADMIN</admin-password>/\nwq\n" \
-        | ed /etc/icecast2/icecast.xml &>/dev/null || true
+        sed -i "s:<admin-password>.*<\/admin-password>:<admin-password>$ICEADMIN<\/admin-password>:g" /etc/icecast2/icecast.xml
         invoke-rc.d icecast2 restart || true
         # save source-password in airtime
-        echo -ne "%s/~password=\"[^\"]*\"/~password=\"$ICESOURCE\"/\nwq\n" \
-        | ed /var/lib/airtime/python_apps/pypo/scripts/library/shoutcast.liq &>/dev/null || true
         echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-        | ed /var/lib/airtime/python_apps/pypo/scripts/liquidsoap.cfg &>/dev/null || true
+        | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
       else
         echo "Icecast not installed" >&2
       fi

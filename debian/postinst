@@ -168,10 +168,10 @@ case "$1" in
     . /usr/share/wwwconfig-common/restart.sh
     echo $error >&2
 
-		if [ "${OLDVERSION:0:3}" = "1.7" -o "${OLDVERSION:0:3}" = "1.8" ]; then
-			cd $wwwdir/install_minimal/ && ./airtime-install
+		if [ "${OLDVERSION:0:3}" < "1.7" ]; then
+			echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
 		else
-			echo "Upgrades from Airtime versions older than 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
+                        cd $wwwdir/install_minimal/ && ./airtime-install
 		fi
 
   ;;

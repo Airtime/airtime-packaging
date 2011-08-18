@@ -85,11 +85,11 @@ case "$1" in
       restart="$webserver $restart"
     fi
 
-    # install additional pear module
-    pear channel-discover pear.phing.info || true
-    pear install phing/phing-2.4.2 || true
-    pip install kombu || true
-    pip install poster || true
+    # don't install pear or pip modules when using the virtualenv
+    #pear channel-discover pear.phing.info || true
+    #pear install phing/phing-2.4.2 || true
+    #pip install kombu || true
+    #pip install poster || true
 
     # .htaccess file
     echo -ne "/RewriteBase/d\nwq\n\n" \

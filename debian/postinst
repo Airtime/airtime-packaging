@@ -131,7 +131,7 @@ case "$1" in
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/monit ]; then
         echo "Setting up monit.." >&2
-         echo -ne "%s/^.*startup=.*$/startup=1/\nwq\n" | ed /etc/default/monit &>/dev/null || true
+         sed -i 's:startup=.*:startup=1:g' /etc/default/monit
           cp /var/lib/airtime/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
            grep -q "include /etc/monit/conf.d" /etc/monit/monitrc
            RETVAL=$?
@@ -149,8 +149,7 @@ case "$1" in
      LOCALTIMEZONE=$RET
       if [ -f ${wwwdir}/public/.htaccess ]; then
         echo "Setting local time zone.." >&2
-         echo -ne "%s/php_value date.timezone \"[^\"]*\"/php_value date.timezone \"$LOCALTIMEZONE\"/\nwq\n" \
-         | ed ${wwwdir}/public/.htaccess &>/dev/null || true
+         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
       else
        echo ".htaccess file not found" >&2
       fi

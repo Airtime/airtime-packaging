@@ -118,15 +118,15 @@ case "$1" in
         invoke-rc.d icecast2 restart || true
 
           # save source-password in airtime
-          echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-          | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+          #echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+          #| ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
 
             # on reconfigure, also update the liquidsoap.cfg file and restart playout
-            if [ -f /etc/airtime/liquidsoap.cfg ]; then
-            echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-            | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
-            invoke-rc.d airtime-playout restart || true
-            fi
+            #if [ -f /etc/airtime/liquidsoap.cfg ]; then
+            #echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+            #| ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+            #invoke-rc.d airtime-playout restart || true
+            #fi
       else
         echo "Icecast not installed" >&2
       fi
@@ -180,14 +180,25 @@ case "$1" in
     echo $error >&2
 
     # don't run airtime-install if the user is doing a dpkg-reconfigure
-    if [ "$1" == "configure" ]; then
+    if [ "$1" = "reconfigure" ]; then
+      echo "Reconfiguration complete." >&2
+    else
       if [ "${OLDVERSION:0:3}" = "1.6" ]; then
         echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
       else
         cd $wwwdir/install_minimal/ && ./airtime-install
+
+          # save source-password in airtime
+          echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+          | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+
+            # also update the liquidsoap.cfg file and restart playout
+            if [ -f /etc/airtime/liquidsoap.cfg ]; then
+            echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+            | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+            invoke-rc.d airtime-playout restart || true
+            fi
       fi
-    else
-      echo "Reconfiguration complete." >&2
     fi
   ;;
 

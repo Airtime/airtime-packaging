@@ -175,12 +175,16 @@ case "$1" in
     . /usr/share/wwwconfig-common/restart.sh
     echo $error >&2
 
-		if [ "${OLDVERSION:0:3}" = "1.6" ]; then
-			echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
-		else
-                        cd $wwwdir/install_minimal/ && ./airtime-install
-		fi
-
+    # don't run airtime-install if the user is doing a dpkg-reconfigure
+    if [ "$1" == "configure" ]; then
+      if [ "${OLDVERSION:0:3}" = "1.6" ]; then
+        echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
+      else
+        cd $wwwdir/install_minimal/ && ./airtime-install
+      fi
+    else
+      echo "Reconfiguration complete." >&2
+    fi
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

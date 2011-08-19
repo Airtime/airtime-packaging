@@ -116,13 +116,17 @@ case "$1" in
         ICEADMIN=$RET
         sed -i "s:<admin-password>.*<\/admin-password>:<admin-password>$ICEADMIN<\/admin-password>:g" /etc/icecast2/icecast.xml
         invoke-rc.d icecast2 restart || true
-        # save source-password in airtime
-        echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-        | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
-         if [ -f /etc/airtime/liquidsoap.cfg ]; then
-         echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-         | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
-         fi
+
+          # save source-password in airtime
+          echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+          | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+
+            # on reconfigure, also update the liquidsoap.cfg file and restart playout
+            if [ -f /etc/airtime/liquidsoap.cfg ]; then
+            echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+            | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+            invoke-rc.d airtime-playout restart || true
+            fi
       else
         echo "Icecast not installed" >&2
       fi

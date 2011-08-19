@@ -156,6 +156,9 @@ case "$1" in
        echo ".htaccess file not found" >&2
       fi
 
+    # stop debconf so daemons started by the install script cannot hold open the pipe
+    db_stop
+
     # create data dir
     mkdir -p $datadir
 

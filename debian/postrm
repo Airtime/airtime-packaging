@@ -70,7 +70,7 @@ case "$1" in
 
     if [ "$1" = "purge" ]; then
 			rm -rf /etc/airtime || true
-
+                        db_purge
      			#pear uninstall phing/phing-2.4.2 || true
 		 	#pip uninstall kombu || true
 		 	#pip uninstall poster || true

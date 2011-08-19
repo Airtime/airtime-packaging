@@ -119,6 +119,10 @@ case "$1" in
         # save source-password in airtime
         echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
         | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+         if [ -f /etc/airtime/liquidsoap.cfg ]; then
+         echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+         | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+         fi
       else
         echo "Icecast not installed" >&2
       fi

@@ -123,11 +123,13 @@ case "$1" in
           echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
           | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
 
-            # on reconfigure, also update the liquidsoap.cfg file and restart playout
+            # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
             if [ -f /etc/airtime/liquidsoap.cfg ]; then
             echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
             | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
-            invoke-rc.d airtime-playout restart || true
+              if [ -f /etc/init.d/airtime-playout ]; then
+              invoke-rc.d airtime-playout restart || true
+              fi
             fi
       else
         echo "Icecast not installed" >&2

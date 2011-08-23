@@ -1,9 +1,9 @@
 #/bin/sh
 
-VERSION=1.9.1
-SFOCUSTOM=""
-DEBVERSION=1.9.1
-DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
+VERSION=1.9.2
+SFOCUSTOM="-RC1"
+DEBVERSION=1.9.2
+DLURL=http://sourceforge.net/projects/airtime/files/${DEBVERSION}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
 DEBDIR=`pwd`/debian
@@ -35,7 +35,7 @@ tar xzf ${MIRRORPATH}/airtime-${VERSION}.tar.gz || exit
 #tar xzf ${MIRRORPATH}/airtime-audiosamples-${VERSION}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
-mv -vi airtime-${VERSION} airtime
+mv -vi airtime-${VERSION}${SFOCUSTOM} airtime
 pwd
 
 # FIXES for 1.9 #############

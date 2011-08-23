@@ -32,10 +32,18 @@ case "$1" in
 			rm -f ${wwwdir}/install_minimal/distribute-0.6.10.tar.gz || true
 		fi
 
-		# airtime uninstaller does not remove this lib.
-		if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap ]; then
+		# airtime uninstaller does not remove these
+                if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap ]; then
 			rm -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap || true
 		fi
+
+                if [ -f ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap ]; then
+                        rm -f ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap || true
+                fi
+
+                if [ -L ${wwwdir}/install_minimal/upgrades/airtime-1.9.0 ]; then
+                        rm -f ${wwwdir}/install_minimal/upgrades/airtime-1.9.0 || true
+                fi
 
     # Un-configure webservers
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then

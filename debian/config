@@ -23,6 +23,8 @@ db_go ||true
 
 db_get airtime/icecast-setup
 if [ "$RET" = "true" ]; then
+        db_input high airtime/icecast-hostname || true
+        db_go ||true
 	db_input high airtime/icecast-sourcepw || true
 	db_go ||true
 	db_input high airtime/icecast-relaypw || true

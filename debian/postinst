@@ -115,9 +115,18 @@ case "$1" in
         db_get airtime/icecast-adminpw
         ICEADMIN=$RET
         sed -i "s:<admin-password>.*<\/admin-password>:<admin-password>$ICEADMIN<\/admin-password>:g" /etc/icecast2/icecast.xml
+        db_get airtime/icecast-hostname
+        ICEHOST=$RET
+        sed -i "s:<hostname>.*<\/hostname>:<hostname>$ICEHOST<\/hostname>:g" /etc/icecast2/icecast.xml
+
+        # restart icecast server
         invoke-rc.d icecast2 restart || true
 
-          # save source-password in airtime
+          # save icecast hostname and source-password in airtime
+          db_get airtime/icecast-hostname
+          ICEHOST=$RET
+          echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
+          | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
           echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
@@ -125,6 +134,12 @@ case "$1" in
 
             # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
             if [ -f /etc/airtime/liquidsoap.cfg ]; then
+            db_get airtime/icecast-hostname
+            ICEHOST=$RET
+            echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
+            | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+            db_get airtime/icecast-sourcepw
+            ICESOURCE=$RET
             echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
             | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
               if [ -f /etc/init.d/airtime-playout ]; then

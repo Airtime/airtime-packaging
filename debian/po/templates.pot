@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2011-08-17 17:12+0100\n"
+"POT-Creation-Date: 2011-08-24 12:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,24 +176,39 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:6001
-msgid "Icecast2 Source Password:"
+msgid "Icecast2 hostname:"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:6001
+msgid ""
+"Specify the hostname of the Icecast server. Depending on your setup, this "
+"might be the same as the Airtime ServerName. For testing purposes, you can "
+"use the default of 'localhost'."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:7001
+msgid "Icecast2 Source Password:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:7001
 msgid "Specify a password to send A/V sources to icecast"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:7001
+#: ../templates:8001
 msgid "Icecast2 Relay Password:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:7001
+#: ../templates:8001
 msgid ""
 "Specify a password for stream relay access. This is not needed by airtime, "
 "however you should change it from the default to lock down your system."
@@ -201,13 +216,13 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:8001
+#: ../templates:9001
 msgid "Icecast2 Admin Password:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:8001
+#: ../templates:9001
 msgid ""
 "Specify the admin password.  You can access icecast2's admin interface via "
 "http://localhost:8000/ - and both monitor connection as well as block users."
@@ -215,13 +230,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:9001
+#: ../templates:10001
 msgid "Set up monit?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates:9001
+#: ../templates:10001
 msgid ""
 "Enable the monit daemon and set it up for Airtime. Airtime can use monit to "
 "notify you if something isn't  working correctly."
@@ -229,12 +244,12 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:10001
+#: ../templates:11001
 msgid "Set local timezone: "
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:10001
+#: ../templates:11001
 msgid "Set the local timezone at your broadcast station."
 msgstr ""

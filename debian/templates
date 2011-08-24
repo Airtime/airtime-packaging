@@ -63,6 +63,14 @@ _Description: Set up Icecast2 for live HTTP streaming?
  PS. If you have already manually tweaked icecast configuration
  it may not work as expected.
 
+Template: airtime/icecast-hostname
+Type: string
+Default: localhost
+_Description: Icecast2 hostname:
+ Specify the hostname of the Icecast server. Depending on your
+ setup, this might be the same as the Airtime ServerName. For
+ testing purposes, you can use the default of 'localhost'.
+
 Template: airtime/icecast-sourcepw
 Type: string
 Default: hackme

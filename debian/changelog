@@ -1,3 +1,9 @@
+airtime (1.9.2-2) unstable; urgency=low
+
+  * upstream 1.9.2
+
+ -- Daniel James <daniel@64studio.com>  Wed, 24 Aug 2011 12:26:57 +0100
+
 airtime (1.9.2-1) unstable; urgency=low
 
   * upstream 1.9.2-RC1

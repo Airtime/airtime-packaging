@@ -33,16 +33,16 @@ case "$1" in
 		fi
 
 		# airtime uninstaller does not remove these
-                if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap ]; then
-			rm -f ${wwwdir}/python_apps/pypo/liquidsoap_bin/liquidsoap || true
+                if [ -d ${wwwdir}/python_apps/pypo/liquidsoap_bin ]; then
+			rm -rf ${wwwdir}/python_apps/pypo/liquidsoap_bin || true
 		fi
 
-                if [ -f ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap ]; then
-                        rm -f ${wwwdir}/python_apps/pypo/liquidsoap/liquidsoap || true
+                if [ -d ${wwwdir}/python_apps/pypo/liquidsoap ]; then
+                        rm -rf ${wwwdir}/python_apps/pypo/liquidsoap || true
                 fi
 
-                if [ -L ${wwwdir}/install_minimal/upgrades/airtime-1.9.0 ]; then
-                        rm -f ${wwwdir}/install_minimal/upgrades/airtime-1.9.0 || true
+                if [ -d ${wwwdir}/install_minimal/upgrades/airtime-1.9.0 ]; then
+                        rm -rf ${wwwdir}/install_minimal/upgrades/airtime-1.9.0 || true
                 fi
 
     # Un-configure webservers

@@ -13,8 +13,8 @@ WEB_USER=www-data
 WEB_GROUP=www-data
 
 package_name="airtime"
-datadir="/srv/${package_name}"
-wwwdir="/var/lib/${package_name}"
+datadir="/srv/airtime"
+wwwdir="/var/lib/airtime"
 configdir="/etc/airtime"
 includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
@@ -199,7 +199,7 @@ case "$1" in
     echo $error >&2
 
     # don't run airtime-install if the user is doing a dpkg-reconfigure
-    if [ "$1" = "reconfigure" ]; then
+    if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then
       echo "Reconfiguration complete." >&2
     else
       if [ "${OLDVERSION:0:3}" = "1.6" ]; then

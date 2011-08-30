@@ -45,6 +45,10 @@ case "$1" in
                         rm -rf ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/airtimefilemonitor || true
                 fi
 
+                if [ -f ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt ]; then
+                        rm -f ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt || true
+                fi
+
     # Un-configure webservers
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
       rm -f /etc/$webserver/conf.d/airtime.conf || true

@@ -81,6 +81,7 @@ case "$1" in
     dpkg-statoverride --remove $datadir || true
 
     if [ "$1" = "purge" ]; then
+                        echo "Purge specified, removing configuration files" >&2
 			rm -rf /etc/airtime || true
                         db_purge
      			#pear uninstall phing/phing-2.4.2 || true

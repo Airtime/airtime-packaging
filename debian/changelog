@@ -1,3 +1,9 @@
+airtime (1.9.3-2) unstable; urgency=low
+
+  * Fixed reconfigure action so that airtime-install does not run again
+
+ -- Daniel James <daniel@64studio.com>  Tue, 30 Aug 2011 17:48:49 +0100
+
 airtime (1.9.3-1) unstable; urgency=low
 
   * upstream 1.9.3

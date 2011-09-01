@@ -104,13 +104,13 @@ case "$1" in
     fi
 
     # .htaccess file
-    echo -ne "/RewriteBase/d\nwq\n\n" \
-    | ed /var/lib/airtime/.htaccess &>/dev/null || true
+    #echo -ne "/RewriteBase/d\nwq\n\n" \
+    #| ed /var/lib/airtime/.htaccess &>/dev/null || true
 
-    if [ -n "${dohtaccess}" ]; then
-      echo -ne "/RewriteEngine/\n+1i\n    RewriteBase ${dohtaccess}\n.\nwq\n" \
-      | ed /var/lib/airtime/.htaccess &>/dev/null || true
-    fi
+    #if [ -n "${dohtaccess}" ]; then
+    #  echo -ne "/RewriteEngine/\n+1i\n    RewriteBase ${dohtaccess}\n.\nwq\n" \
+    #  | ed /var/lib/airtime/.htaccess &>/dev/null || true
+    #fi
 
     # XXX ICECAST XXX
     db_get airtime/icecast-setup
@@ -192,9 +192,9 @@ case "$1" in
     # Local timezone setup
     db_get airtime/localtime-setup
      LOCALTIMEZONE=$RET
-      if [ -f ${tmpdir}/public/.htaccess ]; then
+      if [ -f ${tmpdir}/airtime_mvc/public/.htaccess ]; then
         echo "Setting local time zone.." >&2
-         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/public/.htaccess
+         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/airtime_mvc/public/.htaccess
       else
        if [ -f ${wwwdir}/public/.htaccess ]; then
         echo "Updating local time zone.." >&2
@@ -231,7 +231,6 @@ case "$1" in
         echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
       else
         cd $tmpdir/install_minimal/ && ./airtime-install
-
       fi
     fi
   ;;

@@ -15,7 +15,7 @@ WEB_GROUP=www-data
 package_name="airtime"
 datadir="/srv/airtime"
 wwwdir="/usr/share/airtime"
-tmpdir="/tmp/airtime-installer"
+tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
 includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
@@ -46,6 +46,13 @@ case "$1" in
     if [ -f /var/www/airtime/utils/airtime-import ]; then
       rm -f /var/www/airtime/utils/airtime-import || true
     fi
+
+    # Remove liquidsoap binary from old installs
+    if [ -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap ]; then
+      rm -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap || true
+      rm -rf /var/lib/airtime/python_apps || true
+    fi
+
 
     # APACHE config
     db_get airtime/apache-setup
@@ -132,11 +139,11 @@ case "$1" in
           db_get airtime/icecast-hostname
           ICEHOST=$RET
           echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-          | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
           echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-          | ed /var/lib/airtime/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
 
             # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
             if [ -f /etc/airtime/liquidsoap.cfg ]; then
@@ -163,7 +170,7 @@ case "$1" in
       if [ -f /etc/default/monit ]; then
         echo "Setting up monit.." >&2
          sed -i 's:startup=.*:startup=1:g' /etc/default/monit
-          cp /var/lib/airtime/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
+          cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d || true
            grep -q "include /etc/monit/conf.d" /etc/monit/monitrc
            RETVAL=$?
            if [ $RETVAL -ne 0 ] ; then
@@ -187,6 +194,7 @@ case "$1" in
          sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
         else
        echo ".htaccess file not found" >&2
+       fi
       fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe

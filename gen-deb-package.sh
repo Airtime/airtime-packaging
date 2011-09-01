@@ -65,6 +65,7 @@ chmod -x airtime/python_apps/pypo/liquidsoap_scripts/library/tests/LS354-1.liq
 chmod -x airtime/python_apps/pypo/liquidsoap_scripts/library/tests/LS354-2.liq
 chmod -x airtime/python_apps/pypo/test/pypo-api-validator.py
 chmod -x airtime/python_apps/pypo/util/__init__.py
+chmod -x airtime/utils/airtime-user.php
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE

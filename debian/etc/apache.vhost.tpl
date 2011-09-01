@@ -4,12 +4,12 @@
 
       ServerAdmin __SERVER_ADMIN__
 
-			DocumentRoot /var/lib/airtime/public
+      DocumentRoot /usr/share/airtime/public
       DirectoryIndex index.php
 
-			SetEnv APPLICATION_ENV "development"
+      SetEnv APPLICATION_ENV "production"
 
-      <Directory /var/lib/airtime/public>
+      <Directory /usr/share/airtime/public>
               Options -Indexes FollowSymLinks MultiViews
               AllowOverride All
               Order allow,deny

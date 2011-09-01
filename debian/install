@@ -1,9 +1,4 @@
-airtime/airtime_mvc/application var/lib/airtime/tmp
-airtime/airtime_mvc/build var/lib/airtime/tmp
-airtime/airtime_mvc/library var/lib/airtime/tmp
-airtime/airtime_mvc/public var/lib/airtime/tmp
-airtime/airtime_mvc/tests var/lib/airtime/tmp
-
+airtime/airtime_mvc var/lib/airtime/tmp
 airtime/install_minimal var/lib/airtime/tmp
 airtime/python_apps var/lib/airtime/tmp
 airtime/utils var/lib/airtime/tmp

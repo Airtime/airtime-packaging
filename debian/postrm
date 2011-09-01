@@ -13,7 +13,7 @@ fi
 
 package_name="airtime"
 datadir="/srv/airtime"
-wwwdir="/var/lib/airtime"
+wwwdir="/usr/share/airtime"
 configdir="/etc/airtime"
 
 webserver="apache2"

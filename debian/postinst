@@ -30,7 +30,7 @@ case "$1" in
     php="php5"
     dohtaccess=""
 
-    test -e ${tmpdir}/airtime_mvc || ln -s ${tmpdir} ${tmpdir}/airtime_mvc
+    #test -e ${tmpdir}/airtime_mvc || ln -s ${tmpdir} ${tmpdir}/airtime_mvc
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
@@ -53,8 +53,13 @@ case "$1" in
       rm -rf /var/lib/airtime/python_apps || true
     fi
 
-
     # APACHE config
+
+    # create the document root if it doesn't exist
+    if [ ! -d {$wwwdir}/public ]; then
+      mkdir -p {$wwwdir}/public
+    fi
+
     db_get airtime/apache-setup
     if [ "$RET" == "system-wide (all vhosts)" ]; then
       if [ ! -d /etc/$webserver/conf.d/ ]; then

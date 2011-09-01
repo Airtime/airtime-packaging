@@ -56,8 +56,8 @@ case "$1" in
     # APACHE config
 
     # create the document root if it doesn't exist
-    if [ ! -d {$wwwdir}/public ]; then
-      mkdir -p {$wwwdir}/public
+    if [ ! -d $wwwdir/public/ ]; then
+      install -d -m755 $wwwdir/public/
     fi
 
     db_get airtime/apache-setup

@@ -26,7 +26,7 @@ case "$1" in
                 # airtime uninstaller does not remove these
 
 		if [ -L /var/lib/airtime/airtime_mvc ]; then
-			rm -f /var/lib/airtime_mvc || true
+			rm -rf /var/lib/airtime/ || true
 		fi
 
                 if [ -f /var/lib/airtime/.htaccess ]; then

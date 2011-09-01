@@ -14,7 +14,8 @@ WEB_GROUP=www-data
 
 package_name="airtime"
 datadir="/srv/airtime"
-wwwdir="/var/lib/airtime"
+wwwdir="/usr/share/airtime"
+tmpdir="/tmp/airtime-installer"
 configdir="/etc/airtime"
 includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
@@ -29,7 +30,7 @@ case "$1" in
     php="php5"
     dohtaccess=""
 
-		test -e ${wwwdir}/airtime_mvc || ln -s ${wwwdir} ${wwwdir}/airtime_mvc
+		#test -e ${wwwdir}/airtime_mvc || ln -s ${wwwdir} ${wwwdir}/airtime_mvc
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
@@ -177,10 +178,14 @@ case "$1" in
     # Local timezone setup
     db_get airtime/localtime-setup
      LOCALTIMEZONE=$RET
-      if [ -f ${wwwdir}/public/.htaccess ]; then
+      if [ -f ${tmpdir}/public/.htaccess ]; then
         echo "Setting local time zone.." >&2
-         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
+         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/public/.htaccess
       else
+       if [ -f ${wwwdir}/public/.htaccess ]; then
+        echo "Updating local time zone.." >&2
+         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
+        else
        echo ".htaccess file not found" >&2
       fi
 
@@ -210,7 +215,7 @@ case "$1" in
       if [ "${OLDVERSION:0:3}" = "1.6" ]; then
         echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
       else
-        cd $wwwdir/install_minimal/ && ./airtime-install
+        cd $tmpdir/install_minimal/ && ./airtime-install
 
       fi
     fi

@@ -1,12 +1,12 @@
-airtime/airtime_mvc/application var/lib/airtime
-airtime/airtime_mvc/build var/lib/airtime
-airtime/airtime_mvc/library var/lib/airtime
-airtime/airtime_mvc/public var/lib/airtime
-airtime/airtime_mvc/tests var/lib/airtime
+airtime/airtime_mvc/application tmp/airtime-installer
+airtime/airtime_mvc/build tmp/airtime-installer
+airtime/airtime_mvc/library tmp/airtime-installer
+airtime/airtime_mvc/public tmp/airtime-installer
+airtime/airtime_mvc/tests tmp/airtime-installer
 
-airtime/install_minimal var/lib/airtime
-airtime/python_apps var/lib/airtime
-airtime/utils var/lib/airtime
+airtime/install_minimal tmp/airtime-installer
+airtime/python_apps tmp/airtime-installer
+airtime/utils tmp/airtime-installer
 
 airtime/widgets usr/share/doc/airtime/examples
 

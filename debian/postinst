@@ -41,6 +41,11 @@ case "$1" in
       restart="$webserver $restart"
     fi
 
+    # this file in 1.8.2 is a directory path in 1.9.3
+    if [ -f /var/www/airtime/utils/airtime-import ]; then
+      rm -f /var/www/airtime/utils/airtime-import || true
+    fi
+
     # APACHE config
     db_get airtime/apache-setup
     if [ "$RET" == "system-wide (all vhosts)" ]; then

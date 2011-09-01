@@ -30,7 +30,7 @@ case "$1" in
     php="php5"
     dohtaccess=""
 
-		#test -e ${wwwdir}/airtime_mvc || ln -s ${wwwdir} ${wwwdir}/airtime_mvc
+    test -e ${tmpdir}/airtime_mvc || ln -s ${tmpdir} ${tmpdir}/airtime_mvc
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
@@ -49,7 +49,7 @@ case "$1" in
 
     # Remove liquidsoap binary from old installs
     if [ -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap ]; then
-      rm -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap || true
+      rm -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap
       rm -rf /var/lib/airtime/python_apps || true
     fi
 
@@ -98,12 +98,6 @@ case "$1" in
       restart="$webserver $restart"
     fi
 
-    # don't install pear or pip modules when using the virtualenv
-    #pear channel-discover pear.phing.info || true
-    #pear install phing/phing-2.4.2 || true
-    #pip install kombu || true
-    #pip install poster || true
-
     # .htaccess file
     echo -ne "/RewriteBase/d\nwq\n\n" \
     | ed /var/lib/airtime/.htaccess &>/dev/null || true
@@ -140,10 +134,18 @@ case "$1" in
           ICEHOST=$RET
           echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
           | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+            if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg ]; then
+            echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
+            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+            fi
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
           echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
           | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+            if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg ]; then
+            echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
+            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+            fi
 
             # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
             if [ -f /etc/airtime/liquidsoap.cfg ]; then

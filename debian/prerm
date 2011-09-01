@@ -4,7 +4,7 @@
 set -e
 
 package_name="airtime"
-datadir="/var/lib/${package_name}"
+datadir="/var/lib/${package_name}/tmp"
 
 case "$1" in
   purge|remove)

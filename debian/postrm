@@ -14,6 +14,7 @@ fi
 package_name="airtime"
 datadir="/srv/airtime"
 wwwdir="/usr/share/airtime"
+tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
 
 webserver="apache2"
@@ -22,31 +23,30 @@ php="php5"
 case "$1" in
   purge|remove)
 
-		if [ -L ${wwwdir}/airtime_mvc ]; then
-			rm -f ${wwwdir}/airtime_mvc || true
+                # airtime uninstaller does not remove these
+
+		if [ -L /var/lib/airtime/airtime_mvc ]; then
+			rm -f /var/lib/airtime_mvc || true
 		fi
 
-		rm -f ${wwwdir}/.htaccess || true
-
-		if [ -f ${wwwdir}/install_minimal/distribute-0.6.10.tar.gz ]; then
-			rm -f ${wwwdir}/install_minimal/distribute-0.6.10.tar.gz || true
+		if [ -f ${tmpdir}/install_minimal/distribute-0.6.10.tar.gz ]; then
+			rm -f ${tmpdir}/install_minimal/distribute-0.6.10.tar.gz || true
 		fi
 
-		# airtime uninstaller does not remove these
-                if [ -d ${wwwdir}/python_apps/pypo/liquidsoap_bin ]; then
-			rm -rf ${wwwdir}/python_apps/pypo/liquidsoap_bin || true
+                if [ -d ${tmpdir}/python_apps/pypo/liquidsoap_bin ]; then
+			rm -rf ${tmpdir}/python_apps/pypo/liquidsoap_bin || true
 		fi
 
-                if [ -d ${wwwdir}/python_apps/pypo/liquidsoap ]; then
-                        rm -rf ${wwwdir}/python_apps/pypo/liquidsoap || true
+                if [ -d /var/lib/airtime/python_apps/pypo/liquidsoap ]; then
+                        rm -rf /var/lib/airtime/python_apps/pypo/liquidsoap || true
                 fi
 
-                if [ -d ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/airtimefilemonitor ]; then
-                        rm -rf ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/airtimefilemonitor || true
+                if [ -d ${tmpdir}/install_minimal/upgrades/airtime-1.9.0/airtimefilemonitor ]; then
+                        rm -rf ${tmpdir}/install_minimal/upgrades/airtime-1.9.0/airtimefilemonitor || true
                 fi
 
-                if [ -f ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt ]; then
-                        rm -f ${wwwdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt || true
+                if [ -f ${tmpdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt ]; then
+                        rm -f ${tmpdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt || true
                 fi
 
     # Un-configure webservers
@@ -81,12 +81,10 @@ case "$1" in
     dpkg-statoverride --remove $datadir || true
 
     if [ "$1" = "purge" ]; then
-                        echo "Purge specified, removing configuration files" >&2
+                        echo "Removing configuration files from /etc/airtime/" >&2
 			rm -rf /etc/airtime || true
+                        echo "Purging Airtime settings from debconf database" >&2
                         db_purge
-     			#pear uninstall phing/phing-2.4.2 || true
-		 	#pip uninstall kombu || true
-		 	#pip uninstall poster || true
     fi
 
   ;;

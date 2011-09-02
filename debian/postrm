@@ -53,6 +53,14 @@ case "$1" in
                         rm -f ${tmpdir}/install_minimal/upgrades/airtime-1.9.0/storDump.txt || true
                 fi
 
+                if [ -L /usr/bin/airtime-clean-storage ]; then
+                        rm -f /usr/bin/airtime-clean-storage || true
+                fi
+
+                if [ -L /usr/bin/airtime-user ]; then
+                        rm -f /usr/bin/airtime-user || true
+                fi
+
     # Un-configure webservers
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
       rm -f /etc/$webserver/conf.d/airtime.conf || true

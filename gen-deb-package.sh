@@ -82,6 +82,11 @@ rm airtime/airtime_mvc/library/propel/generator/bin/propel-gen.bat
 # changelog filename must be in lower case
 mv airtime/Changelog airtime/changelog
 
+# Disable install script check for Debian package, we don't need it
+sed -i "s:install ok installed:install ok half-configured:g" airtime/install_minimal/airtime-install
+sed -i "s: Please use the debian package to upgrade:.:g" airtime/install_minimal/airtime-install
+sed -i "s:exit 1:# we don't exit here:g" airtime/install_minimal/airtime-install
+
 #############################
 
 debuild $@ || exit

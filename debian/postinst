@@ -53,13 +53,6 @@ case "$1" in
       rm -rf /var/lib/airtime/python_apps || true
     fi
 
-    # Disable install script check for Debian package, we don't need it
-    if [ -f $tmpdir/install_minimal/airtime-install ]; then
-     sed -i "s:install ok installed:install ok half-configured:g" $tmpdir/install_minimal/airtime-install
-     sed -i "s: Please use the debian package to upgrade:.:g" $tmpdir/install_minimal/airtime-install
-     sed -i "s:exit 1:# we don't exit here:g" $tmpdir/install_minimal/airtime-install
-    fi
-
     # Install phing
     pear channel-discover pear.phing.info || true
     pear install phing/phing-2.4.2 || true

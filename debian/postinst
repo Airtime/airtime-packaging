@@ -30,8 +30,6 @@ case "$1" in
     php="php5"
     dohtaccess=""
 
-    #test -e ${tmpdir}/airtime_mvc || ln -s ${tmpdir} ${tmpdir}/airtime_mvc
-
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
       rm -f /etc/$webserver/conf.d/airtime.conf || true
@@ -45,12 +43,6 @@ case "$1" in
     # this file in 1.8.2 is a directory path in 1.9.3
     if [ -f /var/www/airtime/utils/airtime-import ]; then
       rm -f /var/www/airtime/utils/airtime-import || true
-    fi
-
-    # Remove liquidsoap binary from old installs
-    if [ -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap ]; then
-      rm -f /var/lib/airtime/python_apps/pypo/liquidsoap/liquidsoap >&2
-      rm -rf /var/lib/airtime/python_apps || true
     fi
 
     # Install phing
@@ -87,7 +79,7 @@ case "$1" in
       sed -e "s/__SERVER_ADMIN__/${SA}/;s/__SERVER_NAME__/${SN}/" \
         ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost
       a2ensite airtime-vhost &>/dev/null
-			a2enmod rewrite &>/dev/null || true
+	a2enmod rewrite &>/dev/null || true
       restart="$webserver $restart"
       dohtaccess="/"
     fi
@@ -106,15 +98,6 @@ case "$1" in
       ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini >&2
       restart="$webserver $restart"
     fi
-
-    # .htaccess file
-    #echo -ne "/RewriteBase/d\nwq\n\n" \
-    #| ed /var/lib/airtime/.htaccess &>/dev/null || true
-
-    #if [ -n "${dohtaccess}" ]; then
-    #  echo -ne "/RewriteEngine/\n+1i\n    RewriteBase ${dohtaccess}\n.\nwq\n" \
-    #  | ed /var/lib/airtime/.htaccess &>/dev/null || true
-    #fi
 
     # XXX ICECAST XXX
     db_get airtime/icecast-setup
@@ -222,12 +205,6 @@ case "$1" in
 
     # create data dir
     mkdir -p $datadir >&2
-
-    # Permissions
-    #dpkg-statoverride --list $datadir &>/dev/null || \
-    #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0755 $datadir
-    #dpkg-statoverride --list $datadir/conf &>/dev/null || \
-    #dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir/conf
 
     dpkg-statoverride --list $datadir &>/dev/null || \
     dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir >&2

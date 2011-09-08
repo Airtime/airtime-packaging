@@ -46,8 +46,8 @@ case "$1" in
     fi
 
     # Install phing
-    pear channel-discover pear.phing.info || true
-    pear install phing/phing-2.4.2 || true
+    pear channel-discover pear.phing.info &>/dev/null || true
+    pear install phing/phing-2.4.2 &>/dev/null || true
 
     # APACHE config
 
@@ -170,7 +170,6 @@ case "$1" in
            if [ $RETVAL -ne 0 ] ; then
            echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc >&2
            fi
-            invoke-rc.d monit restart || true
       else
         echo "Monit not installed" >&2
       fi
@@ -196,7 +195,7 @@ case "$1" in
 
     # start rabbitmq if it isn't running
     if [ -f /etc/init.d/rabbitmq-server ]; then
-      invoke-rc.d rabbitmq-server status
+      invoke-rc.d rabbitmq-server status &>/dev/null
         RETVAL=$?
         if [ $RETVAL -ne 0 ]; then
            invoke-rc.d rabbitmq-server start >&2 || true
@@ -216,12 +215,14 @@ case "$1" in
     # don't run airtime-install if the user is doing a dpkg-reconfigure
     if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then
       echo "Reconfiguration complete." >&2
+          invoke-rc.d monit restart || true
     else
       if [ "${OLDVERSION:0:3}" = "1.6" ]; then
         echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
       else
         cd $tmpdir/install_minimal/ >&2
         ./airtime-install 2> /var/log/airtime/installation-errors.log
+          invoke-rc.d monit restart || true
       fi
     fi
   ;;

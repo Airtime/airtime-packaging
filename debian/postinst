@@ -163,6 +163,10 @@ case "$1" in
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/monit ]; then
         echo "Setting up monit.." >&2
+
+         # stop monit during reconfiguration
+         invoke-rc.d monit stop || true
+
          sed -i 's:startup=.*:startup=1:g' /etc/default/monit >&2
           cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d || true
            grep -q "include /etc/monit/conf.d" /etc/monit/monitrc

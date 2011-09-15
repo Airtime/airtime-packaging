@@ -23,6 +23,7 @@ Depends: apache2 | httpd,
  libcamomile-ocaml-dev,
  libesd0,
  libao-ocaml,
+ libc6,
  libmad-ocaml, 
  libsoundtouch-ocaml,
  libtaglib-ocaml,
@@ -44,8 +45,7 @@ Depends: apache2 | httpd,
  unzip, tar (>=1.22), gzip (>= 1.3.12),
  ruby,
  sudo,
- ${misc:Depends},
- ${shlibs:Depends}
+ ${misc:Depends}
 Recommends: icecast2
 Suggests: airtime-audio-samples,
  gnome-alsamixer | alsamixergui | alsa-utils,

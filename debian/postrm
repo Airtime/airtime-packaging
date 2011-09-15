@@ -61,6 +61,10 @@ case "$1" in
                         rm -f /usr/bin/airtime-user || true
                 fi
 
+                if [ -L /usr/bin/airtime-log ]; then
+                        rm -f /usr/bin/airtime-log || true
+                fi
+
     # Un-configure webservers
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
       rm -f /etc/$webserver/conf.d/airtime.conf || true

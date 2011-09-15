@@ -32,40 +32,40 @@ case "$1" in
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
-      rm -f /etc/$webserver/conf.d/airtime.conf || true
-      restart="$webserver $restart" >&2
+      rm -f /etc/$webserver/conf.d/airtime.conf
+      restart="$webserver $restart"
     fi
     if [ -f /etc/$webserver/sites-available/airtime-vhost ]; then
-      a2dissite airtime-vhost &>/dev/null || true
-      restart="$webserver $restart" >&2
+      a2dissite airtime-vhost
+      restart="$webserver $restart"
     fi
 
     # this file in 1.8.2 is a directory path in 1.9.3
     if [ -f /var/www/airtime/utils/airtime-import ]; then
-      rm -f /var/www/airtime/utils/airtime-import || true
+      rm -f /var/www/airtime/utils/airtime-import
     fi
 
     # Install phing
-    pear channel-discover pear.phing.info &>/dev/null || true
-    pear install phing/phing-2.4.2 &>/dev/null || true
+    pear channel-discover pear.phing.info || true
+    pear install phing/phing-2.4.2 || true
 
     # APACHE config
 
     # create the document root if it doesn't exist
     if [ ! -d $wwwdir/public/ ]; then
-      install -d -m755 $wwwdir/public/ >&2
+      install -d -m755 $wwwdir/public/
     fi
 
     db_get airtime/apache-setup
     if [ "$RET" == "system-wide (all vhosts)" ]; then
       if [ ! -d /etc/$webserver/conf.d/ ]; then
-        install -d -m755 /etc/$webserver/conf.d/ >&2
+        install -d -m755 /etc/$webserver/conf.d/
       fi
       if [ ! -e /etc/$webserver/conf.d/airtime.conf ]; then
-        ln -s ${includefile} /etc/$webserver/conf.d/airtime.conf >&2
+        ln -s ${includefile} /etc/$webserver/conf.d/airtime.conf
         restart="$webserver $restart"
       fi
-      a2enmod rewrite &>/dev/null || true
+      a2enmod rewrite
       dohtaccess="/airtime"
     elif [ "$RET" == "dedicated v-host" ]; then
       db_get airtime/apache-servername
@@ -74,28 +74,28 @@ case "$1" in
       SA=$RET
 
       if [ ! -d /etc/$webserver/sites-available/ ]; then
-        install -d -m755 /etc/$webserver/sites-available/ >&2
+        install -d -m755 /etc/$webserver/sites-available/
       fi
       sed -e "s/__SERVER_ADMIN__/${SA}/;s/__SERVER_NAME__/${SN}/" \
         ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost
-      a2ensite airtime-vhost &>/dev/null
-	a2enmod rewrite &>/dev/null || true
+      a2ensite airtime-vhost
+	a2enmod rewrite
       restart="$webserver $restart"
       dohtaccess="/"
     fi
 
     db_get airtime/apache-deldefault
     if [ "$RET" == "remove default" ]; then
-      a2dissite default || true
-      a2dissite 000-default || true
+      a2dissite default
+      a2dissite 000-default
     fi
 
     # PHP config
     if [ ! -d /etc/$php/conf.d/ ]; then
-      install -d -m755 /etc/$php/conf.d/ >&2
+      install -d -m755 /etc/$php/conf.d/
     fi
     if [ ! -e /etc/$php/conf.d/airtime.ini ]; then
-      ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini >&2
+      ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini
       restart="$webserver $restart"
     fi
 
@@ -103,8 +103,8 @@ case "$1" in
     db_get airtime/icecast-setup
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
-        echo "Setting up icecast2.." >&2
-        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" | ed /etc/default/icecast2 &>/dev/null || true
+        echo "Setting up icecast2.."
+        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" | ed /etc/default/icecast2
         db_get airtime/icecast-sourcepw
         ICESOURCE=$RET
         sed -i "s:<source-password>.*<\/source-password>:<source-password>$ICESOURCE<\/source-password>:g" /etc/icecast2/icecast.xml
@@ -125,18 +125,18 @@ case "$1" in
           db_get airtime/icecast-hostname
           ICEHOST=$RET
           echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
             if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg ]; then
             echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
             fi
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
           echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
             if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg ]; then
             echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg &>/dev/null || true
+            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
             fi
 
             # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
@@ -144,17 +144,17 @@ case "$1" in
             db_get airtime/icecast-hostname
             ICEHOST=$RET
             echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-            | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+            | ed /etc/airtime/liquidsoap.cfg
             db_get airtime/icecast-sourcepw
             ICESOURCE=$RET
             echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-            | ed /etc/airtime/liquidsoap.cfg &>/dev/null || true
+            | ed /etc/airtime/liquidsoap.cfg
               if [ -f /etc/init.d/airtime-playout ]; then
-              invoke-rc.d airtime-playout restart || true
+              invoke-rc.d airtime-playout restart
               fi
             fi
       else
-        echo "Icecast not installed" >&2
+        echo "Icecast not installed"
       fi
     fi
 
@@ -162,20 +162,17 @@ case "$1" in
     db_get airtime/monit-setup
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/monit ]; then
-        echo "Setting up monit.." >&2
-
-         # stop monit during reconfiguration
-         invoke-rc.d monit stop || true
-
-         sed -i 's:startup=.*:startup=1:g' /etc/default/monit >&2
-          cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d || true
+        echo "Setting up monit.."
+         sed -i 's:startup=.*:startup=1:g' /etc/default/monit
+          cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
            grep -q "include /etc/monit/conf.d" /etc/monit/monitrc
            RETVAL=$?
            if [ $RETVAL -ne 0 ] ; then
-           echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc >&2
+           echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc
            fi
+            invoke-rc.d monit restart
       else
-        echo "Monit not installed" >&2
+        echo "Monit not installed"
       fi
     fi
 
@@ -183,50 +180,49 @@ case "$1" in
     db_get airtime/localtime-setup
      LOCALTIMEZONE=$RET
       if [ -f ${tmpdir}/airtime_mvc/public/.htaccess ]; then
-        echo "Setting local time zone.." >&2
-         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/airtime_mvc/public/.htaccess >&2
+        echo "Setting local time zone.."
+         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/airtime_mvc/public/.htaccess
       else
        if [ -f ${wwwdir}/public/.htaccess ]; then
-        echo "Updating local time zone.." >&2
-         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess >&2
+        echo "Updating local time zone.."
+         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
         else
-       echo ".htaccess file not found" >&2
+       echo ".htaccess file not found"
        fi
       fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe
-    db_stop >&2
+    db_stop
 
     # start rabbitmq if it isn't running
     if [ -f /etc/init.d/rabbitmq-server ]; then
-      invoke-rc.d rabbitmq-server status &>/dev/null
+      invoke-rc.d rabbitmq-server status
         RETVAL=$?
         if [ $RETVAL -ne 0 ]; then
-           invoke-rc.d rabbitmq-server start >&2 || true
+           invoke-rc.d rabbitmq-server start
         fi
     fi
 
     # create data dir
-    mkdir -p $datadir >&2
+    mkdir -p $datadir
 
-    dpkg-statoverride --list $datadir &>/dev/null || \
-    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir >&2
+    dpkg-statoverride --list $datadir || true
+    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir
 
     servers="apache2"
-    . /usr/share/wwwconfig-common/restart.sh >&2
-    echo $error >&2
+    . /usr/share/wwwconfig-common/restart.sh
+    echo $error
 
     # don't run airtime-install if the user is doing a dpkg-reconfigure
     if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then
-      echo "Reconfiguration complete." >&2
-          invoke-rc.d monit restart || true
+      echo "Reconfiguration complete."
     else
       if [ "${OLDVERSION:0:3}" = "1.6" ]; then
-        echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install." >&2
+        echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install."
       else
-        cd $tmpdir/install_minimal/ >&2
+        cd $tmpdir/install_minimal/
+        mkdir -p /var/log/airtime
         ./airtime-install 2> /var/log/airtime/installation-errors.log
-          invoke-rc.d monit restart || true
       fi
     fi
   ;;

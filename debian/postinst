@@ -203,6 +203,20 @@ case "$1" in
         fi
     fi
 
+    # Find the distro we are installing on
+    DISTRONAME=$(lsb_release -sc)
+
+    # Set up rabbitmq to start on boot if we are running Debian stable
+    if [ "$DISTRONAME" = "squeeze" ]; then
+     ls /etc/rc2.d/|grep rabbitmq
+      RETVAL=$?
+       if [ $RETVAL -ne 0 && -f /etc/init.d/rabbitmq-server ]; then
+        sed -i "s/# Default-Start:/# Default-Start:     2 3 4 5/g" /etc/init.d/rabbitmq-server
+        sed -i "s/# Default-Stop:/# Default-Stop:      0 1 6/g" /etc/init.d/rabbitmq-server
+        update-rc.d rabbitmq-server enable
+       fi
+    fi
+
     # create data dir
     mkdir -p $datadir
 

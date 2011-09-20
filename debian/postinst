@@ -21,6 +21,7 @@ includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
+NEWVERSION="1.9.4-5"
 
 case "$1" in
   configure|reconfigure)
@@ -203,19 +204,14 @@ case "$1" in
         fi
     fi
 
-    # Find the distro we are installing on
-    DISTRONAME=$(lsb_release -sc)
-
-    # Set up rabbitmq to start on boot if we are running Debian stable
-    if [ "$DISTRONAME" = "squeeze" ]; then
-     ls /etc/rc2.d/|grep rabbitmq
+    # Warn if rabbitmq is not set to start on boot
+    ls /etc/rc2.d/|grep rabbitmq
       RETVAL=$?
-       if [ $RETVAL -ne 0 && -f /etc/init.d/rabbitmq-server ]; then
-        sed -i "s/# Default-Start:/# Default-Start:     2 3 4 5/g" /etc/init.d/rabbitmq-server
-        sed -i "s/# Default-Stop:/# Default-Stop:      0 1 6/g" /etc/init.d/rabbitmq-server
-        update-rc.d rabbitmq-server enable
+       if [ $RETVAL -ne 0 ]; then
+        echo "Warning: rabbitmq-server is not configured to start after a reboot!"
+        echo "Fix Default-Start and Default-Stop in /etc/init.d/rabbitmq-server"
+        echo "then run this command as root: update-rc.d rabbitmq-server enable"
        fi
-    fi
 
     # create data dir
     mkdir -p $datadir
@@ -231,12 +227,22 @@ case "$1" in
     if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then
       echo "Reconfiguration complete."
     else
+
       if [ "${OLDVERSION:0:3}" = "1.6" ]; then
         echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install."
       else
+
         cd $tmpdir/install_minimal/
-        mkdir -p /var/log/airtime
-        ./airtime-install 2> /var/log/airtime/installation-errors.log
+
+        if [ "${OLDVERSION}" == "${NEWVERSION}" ] ; then
+          echo "Reinstallation detected..."
+          echo | ./airtime-install -rp 2> /var/log/airtime/reinstallation-errors.log
+        else
+
+          mkdir -p /var/log/airtime
+          ./airtime-install 2> /var/log/airtime/installation-errors.log
+
+        fi
       fi
     fi
   ;;

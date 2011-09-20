@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=1.9.4
-SFOCUSTOM="-RC3"
+SFOCUSTOM="-RC7"
 DEBVERSION=1.9.4
 DLURL=http://sourceforge.net/projects/airtime/files/${DEBVERSION}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -72,19 +72,6 @@ sed -i '6s:DEB=$(dpkg:# DEB=$(dpkg:g' airtime/install_minimal/airtime-install
 sed -i '8s\"$DEB" = "Status: install ok installed"\-f /var/lib/dpkg/info/airtime.config\g' airtime/install_minimal/airtime-install
 sed -i '9s: Please use the debian package to upgrade.:..:g' airtime/install_minimal/airtime-install
 sed -i '10s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-install
-
-# Specify the Python version that we want to use
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/api_clients/api_client.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/media-monitor/install/media-monitor-install.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/media-monitor/install/media-monitor-uninstall.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/pypo/install/pypo-install.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/pypo/install/pypo-uninstall.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/pypo/pypo-cli.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/pypo/pypo-notify.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/pypo/util/status.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/show-recorder/install/recorder-install.py
-sed -i '1s:env python:env python2.6:g' airtime/python_apps/show-recorder/install/recorder-uninstall.py
-sed -i '1s:env python:env python2.6:g' airtime/utils/serbianLatinToCyrillicConverter.py
 
 #############################
 

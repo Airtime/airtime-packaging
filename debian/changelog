@@ -1,3 +1,9 @@
+airtime (1.9.4-6) unstable; urgency=low
+
+  * Upstream 1.9.4-RC8 release
+
+ -- Daniel James <daniel@64studio.com>  Wed, 21 Sep 2011 16:22:57 +0100
+
 airtime (1.9.4-5) unstable; urgency=low
 
   * Upstream 1.9.4-RC7 release

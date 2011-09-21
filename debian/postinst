@@ -21,7 +21,7 @@ includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
-NEWVERSION="1.9.4-5"
+NEWVERSION="1.9.4"
 
 case "$1" in
   configure|reconfigure)
@@ -236,7 +236,7 @@ case "$1" in
         mkdir -p /var/log/airtime
         cd $tmpdir/install_minimal/
 
-        if [ "${OLDVERSION}" == "${NEWVERSION}" ] ; then
+        if [ "${OLDVERSION:0:5}" == "${NEWVERSION}" ] ; then
           echo "Reinstallation detected..."
           echo | ./airtime-install -rp 2> /var/log/airtime/reinstallation-errors.log
         else

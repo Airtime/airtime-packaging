@@ -87,8 +87,9 @@ case "$1" in
 
     db_get airtime/apache-deldefault
     if [ "$RET" == "remove default" ]; then
+      if [ -f /etc/apache2/sites-available/default ]; then
       a2dissite default
-      a2dissite 000-default
+      fi
     fi
 
     # PHP config

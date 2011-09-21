@@ -210,7 +210,7 @@ case "$1" in
        if [ $RETVAL -ne 0 ]; then
         echo "Warning: rabbitmq-server is not configured to start after a reboot!"
         echo "Fix Default-Start and Default-Stop in /etc/init.d/rabbitmq-server"
-        echo "then run this command as root: update-rc.d rabbitmq-server enable"
+        echo "then run this command as root: update-rc.d rabbitmq-server defaults"
        fi
 
     # create data dir
@@ -232,6 +232,7 @@ case "$1" in
         echo "Upgrades from Airtime versions before 1.7.0 are not supported. Please back up your files and perform a clean install."
       else
 
+        mkdir -p /var/log/airtime
         cd $tmpdir/install_minimal/
 
         if [ "${OLDVERSION}" == "${NEWVERSION}" ] ; then
@@ -239,7 +240,6 @@ case "$1" in
           echo | ./airtime-install -rp 2> /var/log/airtime/reinstallation-errors.log
         else
 
-          mkdir -p /var/log/airtime
           ./airtime-install 2> /var/log/airtime/installation-errors.log
 
         fi

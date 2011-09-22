@@ -1,3 +1,9 @@
+airtime (1.9.4-7) unstable; urgency=low
+
+  * Don't depend on Ruby packages
+
+ -- Daniel James <daniel@64studio.com>  Thu, 22 Sep 2011 15:51:42 +0100
+
 airtime (1.9.4-6) unstable; urgency=low
 
   * Upstream 1.9.4-RC8 release

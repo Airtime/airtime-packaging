@@ -47,8 +47,12 @@ case "$1" in
     fi
 
     # Install phing
+    command -v pear > /dev/null
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then
     pear channel-discover pear.phing.info || true
     pear install phing/phing-2.4.2 || true
+    fi
 
     # APACHE config
 
@@ -66,8 +70,13 @@ case "$1" in
         ln -s ${includefile} /etc/$webserver/conf.d/airtime.conf
         restart="$webserver $restart"
       fi
-      a2enmod rewrite
-      dohtaccess="/airtime"
+        command -v a2enmod > /dev/null
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
+        a2enmod rewrite
+        fi
+        dohtaccess="/airtime"
+
     elif [ "$RET" == "dedicated v-host" ]; then
       db_get airtime/apache-servername
       SN=$RET
@@ -79,8 +88,19 @@ case "$1" in
       fi
       sed -e "s/__SERVER_ADMIN__/${SA}/;s/__SERVER_NAME__/${SN}/" \
         ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost
+
+      command -v a2ensite > /dev/null
+      RETVAL=$?
+      if [ $RETVAL -eq 0 ]; then
       a2ensite airtime-vhost
+      fi
+
+        command -v a2enmod > /dev/null
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
 	a2enmod rewrite
+        fi
+
       restart="$webserver $restart"
       dohtaccess="/"
     fi

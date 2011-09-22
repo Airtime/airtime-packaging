@@ -73,6 +73,10 @@ sed -i '8s\"$DEB" = "Status: install ok installed"\-f /var/lib/dpkg/info/airtime
 sed -i '9s: Please use the debian package to upgrade.:..:g' airtime/install_minimal/airtime-install
 sed -i '10s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-install
 
+# we don't need ruby or perl scripts for liquidsoap
+rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.rb
+rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.pl
+
 #############################
 
 debuild $@ || exit

@@ -190,14 +190,15 @@ case "$1" in
         echo "Setting up monit.."
          sed -i 's:startup=.*:startup=1:g' /etc/default/monit
           cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
-           grep -q "include /etc/monit/conf.d" /etc/monit/monitrc
-           RETVAL=$?
-           if [ $RETVAL -ne 0 ] ; then
-           echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc
+
+           MONITCONFIGURED=$(grep "include /etc/monit/conf.d" /etc/monit/monitrc || true)
+           if [ -z "$MONITCONFIGURED" ]; then
+            echo "include /etc/monit/conf.d/*" >> /etc/monit/monitrc
            fi
+
             invoke-rc.d monit restart
       else
-        echo "Monit not installed"
+        echo "The monit package does not appear to be installed on this server."
       fi
     fi
 
@@ -221,21 +222,21 @@ case "$1" in
 
     # start rabbitmq if it isn't running
     if [ -f /etc/init.d/rabbitmq-server ]; then
-      invoke-rc.d rabbitmq-server status
-        RETVAL=$?
-        if [ $RETVAL -ne 0 ]; then
+      RABBITMQSTOPPED=$(invoke-rc.d rabbitmq-server status | grep no_nodes_running || true)
+        if [ -n "$RABBITMQSTOPPED" ]; then
            invoke-rc.d rabbitmq-server start
         fi
-    fi
 
-    # Warn if rabbitmq is not set to start on boot
-    ls /etc/rc2.d/|grep rabbitmq
-      RETVAL=$?
-       if [ $RETVAL -ne 0 ]; then
-        echo "Warning: rabbitmq-server is not configured to start after a reboot!"
-        echo "Fix Default-Start and Default-Stop lines in /etc/init.d/rabbitmq-server"
-        echo "then run this command as root: update-rc.d rabbitmq-server defaults"
-       fi
+        # Warn if rabbitmq is installed but not set to start on boot
+        RABBITMQSTARTONBOOT=$(ls /etc/rc2.d/ | grep rabbitmq || true)
+          if [ -z "$RABBITMQSTARTONBOOT" ]; then
+            echo "Warning: rabbitmq-server is not configured to start after a reboot!"
+            echo "Fix Default-Start and Default-Stop lines in /etc/init.d/rabbitmq-server"
+            echo "then run this command as root: update-rc.d rabbitmq-server defaults"
+          fi
+    else
+     echo "The rabbitmq-server package does not appear to be installed on this server."
+    fi
 
     # create data dir
     mkdir -p $datadir

@@ -47,14 +47,16 @@ case "$1" in
     fi
 
     # Install phing
+    echo "Installing phing..."
     command -v pear > /dev/null
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
-    pear channel-discover pear.phing.info || true
-    pear install phing/phing-2.4.2 || true
+     pear channel-discover pear.phing.info || true
+     pear install phing/phing-2.4.2 || true
     fi
 
     # APACHE config
+    echo "Setting up apache2..."
 
     # create the document root if it doesn't exist
     if [ ! -d $wwwdir/public/ ]; then
@@ -113,6 +115,7 @@ case "$1" in
     fi
 
     # PHP config
+    echo "Configuring php5..."
     if [ ! -d /etc/$php/conf.d/ ]; then
       install -d -m755 /etc/$php/conf.d/
     fi
@@ -125,7 +128,7 @@ case "$1" in
     db_get airtime/icecast-setup
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
-        echo "Setting up icecast2.."
+        echo "Setting up icecast2..."
         echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" | ed /etc/default/icecast2
         db_get airtime/icecast-sourcepw
         ICESOURCE=$RET
@@ -176,7 +179,7 @@ case "$1" in
               fi
             fi
       else
-        echo "Icecast not installed"
+        echo "The icecast2 package does not appear to be installed on this server."
       fi
     fi
 
@@ -230,7 +233,7 @@ case "$1" in
       RETVAL=$?
        if [ $RETVAL -ne 0 ]; then
         echo "Warning: rabbitmq-server is not configured to start after a reboot!"
-        echo "Fix Default-Start and Default-Stop in /etc/init.d/rabbitmq-server"
+        echo "Fix Default-Start and Default-Stop lines in /etc/init.d/rabbitmq-server"
         echo "then run this command as root: update-rc.d rabbitmq-server defaults"
        fi
 

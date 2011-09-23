@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=1.9.4
-SFOCUSTOM="-RC8"
+SFOCUSTOM="-RC9"
 DEBVERSION=1.9.4
 DLURL=http://sourceforge.net/projects/airtime/files/${DEBVERSION}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp

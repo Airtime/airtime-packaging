@@ -1,3 +1,9 @@
+airtime (1.9.4-9) unstable; urgency=low
+
+  * Add dependency on ed, configure monit without asking
+
+ -- Daniel James <daniel@64studio.com>  Mon, 26 Sep 2011 10:55:09 +0100
+
 airtime (1.9.4-8) unstable; urgency=low
 
   * Upstream 1.9.4-RC9 release

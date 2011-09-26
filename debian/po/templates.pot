@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2011-08-24 12:25+0100\n"
+"POT-Creation-Date: 2011-09-26 10:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,28 +228,16 @@ msgid ""
 "http://localhost:8000/ - and both monitor connection as well as block users."
 msgstr ""
 
-#. Type: boolean
-#. Description
-#: ../templates:10001
-msgid "Set up monit?"
-msgstr ""
-
-#. Type: boolean
-#. Description
-#: ../templates:10001
-msgid ""
-"Enable the monit daemon and set it up for Airtime. Airtime can use monit to "
-"notify you if something isn't  working correctly."
-msgstr ""
-
 #. Type: string
 #. Description
-#: ../templates:11001
+#: ../templates:10001
 msgid "Set local timezone: "
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:11001
-msgid "Set the local timezone at your broadcast station."
+#: ../templates:10001
+msgid ""
+"Set the local timezone at your broadcast station. A list of timezone "
+"settings can be found in the appendix of the Airtime manual."
 msgstr ""

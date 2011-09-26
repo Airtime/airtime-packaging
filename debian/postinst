@@ -184,10 +184,8 @@ case "$1" in
     fi
 
     # Monit setup
-    db_get airtime/monit-setup
-    if [ "$RET" == "true" ]; then
       if [ -f /etc/default/monit ]; then
-        echo "Setting up monit.."
+        echo "Setting monit configuration..."
          sed -i 's:startup=.*:startup=1:g' /etc/default/monit
           cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
 
@@ -200,17 +198,16 @@ case "$1" in
       else
         echo "The monit package does not appear to be installed on this server."
       fi
-    fi
 
     # Local timezone setup
     db_get airtime/localtime-setup
      LOCALTIMEZONE=$RET
       if [ -f ${tmpdir}/airtime_mvc/public/.htaccess ]; then
-        echo "Setting local time zone.."
+        echo "Setting local time zone..."
          sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/airtime_mvc/public/.htaccess
       else
        if [ -f ${wwwdir}/public/.htaccess ]; then
-        echo "Updating local time zone.."
+        echo "Updating local time zone..."
          sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
         else
        echo ".htaccess file not found"

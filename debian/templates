@@ -94,16 +94,10 @@ _Description: Icecast2 Admin Password:
  http://localhost:8000/ - and both monitor connection as
  well as block users.
 
-Template: airtime/monit-setup
-Type: boolean
-Default: true
-_Description: Set up monit?
- Enable the monit daemon and set it up for Airtime.
- Airtime can use monit to notify you if something isn't 
- working correctly.
-
 Template: airtime/localtime-setup
 Type: string
 Default: Etc/UTC
 _Description: Set local timezone: 
  Set the local timezone at your broadcast station.
+ A list of timezone settings can be found in the
+ appendix of the Airtime manual.

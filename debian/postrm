@@ -85,7 +85,7 @@ case "$1" in
     servers="apache2"
     # may not exist if package was manually installed
     if [ -r /usr/share/wwwconfig-common/restart.sh ]; then
-      . /usr/share/wwwconfig-common/restart.sh
+      . /usr/share/wwwconfig-common/restart.sh || true
       echo $error
     fi
 
@@ -100,7 +100,7 @@ case "$1" in
                         echo "Removing configuration files from /etc/airtime/" >&2
 			rm -rf /etc/airtime || true
                         echo "Purging Airtime settings from debconf database" >&2
-                        db_purge
+                        db_purge || true
     fi
 
   ;;

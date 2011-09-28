@@ -1,3 +1,9 @@
+airtime (1.9.4-11) unstable; urgency=low
+
+  * Insist on python-virtualenv 1.4.9 or later
+
+ -- Daniel James <daniel@64studio.com>  Wed, 28 Sep 2011 14:45:19 +0100
+
 airtime (1.9.4-10) unstable; urgency=low
 
   * Install python-virtualenv as a Pre-Depends

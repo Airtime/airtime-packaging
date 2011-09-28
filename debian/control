@@ -8,7 +8,7 @@ Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
 
 Package: airtime
 Architecture: amd64
-Pre-Depends: postgresql | virtual-postgresql-server, python-virtualenv
+Pre-Depends: postgresql | virtual-postgresql-server, python-virtualenv (>= 1.4.9)
 Depends: apache2 | httpd,
  curl,
  ecasound,
@@ -43,7 +43,7 @@ Depends: apache2 | httpd,
  rabbitmq-server,
  sudo,
  sysv-rc, 
- tar (>=1.22),
+ tar (>= 1.22),
  unzip,
  wwwconfig-common,
  ${misc:Depends}

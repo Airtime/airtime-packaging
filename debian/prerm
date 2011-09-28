@@ -8,11 +8,11 @@ datadir="/var/lib/${package_name}/tmp"
 
 case "$1" in
   purge|remove)
-                                                                                                                                             
+
       cd $datadir/install_minimal/ && ./airtime-uninstall
   ;;
 
-  upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+  upgrade|failed-upgrade|abort-install|abort-upgrade|disappear) || true
 
   ;;
 

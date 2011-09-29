@@ -37,6 +37,10 @@ case "$1" in
 			rm -f ${tmpdir}/install_minimal/distribute-0.6.10.tar.gz || true
 		fi
 
+                if [ -f /usr/share/python-virtualenv/distribute-0.6.10.tar.gz ]; then
+                        rm -f /usr/share/python-virtualenv/distribute-0.6.10.tar.gz || true
+                fi
+
                 if [ -d ${tmpdir}/python_apps/pypo/liquidsoap_bin ]; then
 			rm -rf ${tmpdir}/python_apps/pypo/liquidsoap_bin || true
 		fi

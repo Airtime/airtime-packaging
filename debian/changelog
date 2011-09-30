@@ -1,3 +1,9 @@
+airtime (1.9.4-12) unstable; urgency=low
+
+  * Use invoke-rc.d rather than wwwconfig-common
+
+ -- Daniel James <daniel@64studio.com>  Fri, 30 Sep 2011 16:52:28 +0100
+
 airtime (1.9.4-11) unstable; urgency=low
 
   * Insist on python-virtualenv 1.4.9 or later

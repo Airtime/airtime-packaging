@@ -19,26 +19,23 @@ tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
 includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
-phpinifile="${configdir}/airtime.ini"
+#phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
 NEWVERSION="1.9.4"
 
 case "$1" in
   configure|reconfigure)
 
-    #webserver=`echo $webserver|sed -e 's/,  */ /g'`
     webserver="apache2"
-    php="php5"
-    dohtaccess=""
+    #php="php5"
 
     #  clean up previous configurations
     if [ -L /etc/$webserver/conf.d/airtime.conf ]; then
       rm -f /etc/$webserver/conf.d/airtime.conf
-      restart="$webserver $restart"
     fi
+
     if [ -f /etc/$webserver/sites-available/airtime-vhost ]; then
       a2dissite airtime-vhost
-      restart="$webserver $restart"
     fi
 
     # this file in 1.8.2 is a directory path in 1.9.3
@@ -63,6 +60,7 @@ case "$1" in
       install -d -m755 $wwwdir/public/
     fi
 
+    # set up the virtual host
     db_get airtime/apache-setup
     if [ "$RET" == "system-wide (all vhosts)" ]; then
       if [ ! -d /etc/$webserver/conf.d/ ]; then
@@ -70,14 +68,7 @@ case "$1" in
       fi
       if [ ! -e /etc/$webserver/conf.d/airtime.conf ]; then
         ln -s ${includefile} /etc/$webserver/conf.d/airtime.conf
-        restart="$webserver $restart"
       fi
-        command -v a2enmod > /dev/null
-        RETVAL=$?
-        if [ $RETVAL -eq 0 ]; then
-        a2enmod rewrite
-        fi
-        dohtaccess="/airtime"
 
     elif [ "$RET" == "dedicated v-host" ]; then
       db_get airtime/apache-servername
@@ -96,17 +87,16 @@ case "$1" in
       if [ $RETVAL -eq 0 ]; then
       a2ensite airtime-vhost
       fi
-
-        command -v a2enmod > /dev/null
-        RETVAL=$?
-        if [ $RETVAL -eq 0 ]; then
-	a2enmod rewrite
-        fi
-
-      restart="$webserver $restart"
-      dohtaccess="/"
     fi
 
+    # enable the rewrite module
+    command -v a2enmod > /dev/null
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then
+      a2enmod rewrite
+    fi
+
+    # remove the default site, if requested to
     db_get airtime/apache-deldefault
     if [ "$RET" == "remove default" ]; then
       if [ -f /etc/apache2/sites-available/default ]; then
@@ -115,14 +105,13 @@ case "$1" in
     fi
 
     # PHP config
-    echo "Configuring php5..."
-    if [ ! -d /etc/$php/conf.d/ ]; then
-      install -d -m755 /etc/$php/conf.d/
-    fi
-    if [ ! -e /etc/$php/conf.d/airtime.ini ]; then
-      ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini
-      restart="$webserver $restart"
-    fi
+    #echo "Configuring php5..."
+    #if [ ! -d /etc/$php/conf.d/ ]; then
+    #  install -d -m755 /etc/$php/conf.d/
+    #fi
+    #if [ ! -e /etc/$php/conf.d/airtime.ini ]; then
+    #  ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini
+    #fi
 
     # XXX ICECAST XXX
     db_get airtime/icecast-setup
@@ -241,9 +230,8 @@ case "$1" in
     dpkg-statoverride --list $datadir || true
     dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir
 
-    servers="apache2"
-    . /usr/share/wwwconfig-common/restart.sh
-    echo $error
+    # restart apache
+    invoke-rc.d apache2 restart
 
     # don't run airtime-install if the user is doing a dpkg-reconfigure
     if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then

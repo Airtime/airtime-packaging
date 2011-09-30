@@ -68,10 +68,10 @@ rm airtime/airtime_mvc/library/propel/generator/bin/propel-gen.bat
 mv airtime/Changelog airtime/changelog
 
 # Disable install script check for Debian package, we don't need it
-sed -i '6s:DEB=$(dpkg:# DEB=$(dpkg:g' airtime/install_minimal/airtime-install
-sed -i '8s\"$DEB" = "Status: install ok installed"\-f /var/lib/dpkg/info/airtime.config\g' airtime/install_minimal/airtime-install
-sed -i '9s: Please use the debian package to upgrade.:..:g' airtime/install_minimal/airtime-install
-sed -i '10s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-install
+sed -i '11s:DEB=$(dpkg:# DEB=$(dpkg:g' airtime/install_minimal/airtime-install
+sed -i '13s\"$DEB" = "Status: install ok installed"\-f /var/lib/dpkg/info/airtime.config\g' airtime/install_minimal/airtime-install
+sed -i '14s: Please use the debian package to upgrade.:..:g' airtime/install_minimal/airtime-install
+sed -i '15s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-install
 
 # we don't need ruby or perl scripts for liquidsoap
 rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.rb
@@ -79,7 +79,7 @@ rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.pl
 
 #############################
 
-debuild $@ || exit
+debuild -k174C1854 $@ || exit
 
 ls -l /tmp/airtime*deb
 ls -l /tmp/airtime*changes

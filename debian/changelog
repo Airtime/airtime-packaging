@@ -1,3 +1,9 @@
+airtime (1.9.4-13) unstable; urgency=low
+
+  * Increase PHP memory limit to more than post_max_size
+
+ -- Daniel James <daniel@64studio.com>  Mon, 03 Oct 2011 17:29:05 +0100
+
 airtime (1.9.4-12) unstable; urgency=low
 
   * Use invoke-rc.d rather than wwwconfig-common

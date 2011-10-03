@@ -77,6 +77,9 @@ sed -i '15s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-inst
 rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.rb
 rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.pl
 
+# set production, not development, in .htaccess file
+sed -i '16s:APPLICATION_ENV development:APPLICATION_ENV production:g' airtime/airtime_mvc/public/.htaccess
+
 #############################
 
 debuild -k174C1854 $@ || exit

@@ -195,13 +195,14 @@ case "$1" in
         echo "Setting local time zone..."
          sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/airtime_mvc/public/.htaccess
       else
-       if [ -f ${wwwdir}/public/.htaccess ]; then
-        echo "Updating local time zone..."
-         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
-        else
        echo ".htaccess file not found"
-       fi
       fi
+
+    # update the timezone of an existing installation on upgrade or reconfigure
+    if [ -f ${wwwdir}/public/.htaccess ]; then
+      echo "Updating local time zone..."
+        sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
+    fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe
     db_stop

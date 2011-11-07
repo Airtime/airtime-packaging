@@ -1,9 +1,9 @@
 #/bin/sh
 
-VERSION=1.9.4
-SFOCUSTOM="-RC9"
-DEBVERSION=1.9.4
-DLURL=http://sourceforge.net/projects/airtime/files/${DEBVERSION}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
+VERSION=1.9.5
+SFOCUSTOM="-RC1"
+DEBVERSION=1.9.5
+DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
 DEBDIR=`pwd`/debian
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 1.9.4 #############
+# FIXES for 1.9.5 #############
 find airtime/airtime_mvc/public/js/datatables/unit_testing/tests_onhold \( \
 	   -iname "*.js" \
 	\) -exec chmod -x "{}" \;

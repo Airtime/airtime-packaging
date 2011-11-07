@@ -1,3 +1,9 @@
+airtime (1.9.5-1) testing; urgency=low
+
+  * Upstream 1.9.5-RC1 release
+
+ -- Daniel James <daniel@64studio.com>  Mon, 07 Nov 2011 16:16:57 +0000
+
 airtime (1.9.4-13) unstable; urgency=low
 
   * Increase PHP memory limit to more than post_max_size

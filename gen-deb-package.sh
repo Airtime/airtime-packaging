@@ -10,7 +10,7 @@ DEBDIR=`pwd`/debian
 
 if [ ! -f ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz ]; then
 	curl -L \
-		-o ${MIRRORPATH}/airtime-${VERSION}.tar.gz \
+		-o ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz \
 		${DLURL}
 fi
 

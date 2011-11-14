@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=1.9.5
-SFOCUSTOM="-RC1"
+SFOCUSTOM="-RC5"
 DEBVERSION=1.9.5
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -81,6 +81,10 @@ rm airtime/python_apps/pypo/liquidsoap_scripts/library/ask-liquidsoap.pl
 sed -i '16s:APPLICATION_ENV development:APPLICATION_ENV production:g' airtime/airtime_mvc/public/.htaccess
 
 #############################
+
+cd ../
+tar czf airtime_${VERSION}.orig.tar.gz  airtime-${DEBVERSION}/airtime/
+cd ${BUILDDEST} || exit
 
 debuild -k174C1854 $@ || exit
 

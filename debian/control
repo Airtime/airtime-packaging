@@ -46,6 +46,7 @@ Depends: apache2 | httpd,
  sysv-rc, 
  tar (>= 1.22),
  unzip,
+ vorbis-tools,
  ${misc:Depends}
 Recommends: icecast2
 Suggests: airtime-audio-samples,

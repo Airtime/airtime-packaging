@@ -21,7 +21,7 @@ includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
-NEWVERSION="1.9.5"
+NEWVERSION="2.0.0"
 
 case "$1" in
   configure|reconfigure)
@@ -187,22 +187,6 @@ case "$1" in
       else
         echo "The monit package does not appear to be installed on this server."
       fi
-
-    # Local timezone setup
-    db_get airtime/localtime-setup
-     LOCALTIMEZONE=$RET
-      if [ -f ${tmpdir}/airtime_mvc/public/.htaccess ]; then
-        echo "Setting local time zone..."
-         sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${tmpdir}/airtime_mvc/public/.htaccess
-      else
-       echo ".htaccess file not found"
-      fi
-
-    # update the timezone of an existing installation on upgrade or reconfigure
-    if [ -f ${wwwdir}/public/.htaccess ]; then
-      echo "Updating local time zone..."
-        sed -i "s:php_value date.timezone \".*\":php_value date.timezone \"$LOCALTIMEZONE\":g" ${wwwdir}/public/.htaccess
-    fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe
     db_stop

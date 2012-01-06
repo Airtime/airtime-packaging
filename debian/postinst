@@ -118,7 +118,7 @@ case "$1" in
     if [ "$RET" == "true" ]; then
       if [ -f /etc/default/icecast2 -a -f /etc/icecast2/icecast.xml ]; then
         echo "Setting up icecast2..."
-        echo -ne "%s/^.*ENABLE=.*$/ENABLE=true/\nwq\n" | ed /etc/default/icecast2
+        sed -i "s:ENABLE=.*:ENABLE=true:g" /etc/default/icecast2
         db_get airtime/icecast-sourcepw
         ICESOURCE=$RET
         sed -i "s:<source-password>.*<\/source-password>:<source-password>$ICESOURCE<\/source-password>:g" /etc/icecast2/icecast.xml
@@ -138,31 +138,22 @@ case "$1" in
           # save icecast hostname and source-password in airtime
           db_get airtime/icecast-hostname
           ICEHOST=$RET
-          echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
-            if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg ]; then
-            echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
-            fi
+          sed -i "s:s1_host = \".*\":s1_host = \"$ICEHOST\":g" ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
+
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
-          echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-          | ed ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
-            if [ -f ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg ]; then
-            echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-            | ed ${wwwdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
-            fi
+          sed -i "s:s1_pass = \".*\":s1_pass = \"$ICESOURCE\":g" ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
 
             # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
             if [ -f /etc/airtime/liquidsoap.cfg ]; then
             db_get airtime/icecast-hostname
             ICEHOST=$RET
-            echo -ne "%s/^.*icecast_host.*$/icecast_host = \"$ICEHOST\"/\nwq\n" \
-            | ed /etc/airtime/liquidsoap.cfg
+            sed -i "s:s1_host = \".*\":s1_host = \"$ICEHOST\":g" /etc/airtime/liquidsoap.cfg
+
             db_get airtime/icecast-sourcepw
             ICESOURCE=$RET
-            echo -ne "%s/^.*icecast_pass.*$/icecast_pass = \"$ICESOURCE\"/\nwq\n" \
-            | ed /etc/airtime/liquidsoap.cfg
+            sed -i "s:s1_pass = \".*\":s1_pass = \"$ICESOURCE\":g" /etc/airtime/liquidsoap.cfg
+
               if [ -f /etc/init.d/airtime-playout ]; then
               invoke-rc.d airtime-playout restart
               fi

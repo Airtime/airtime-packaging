@@ -31,9 +31,6 @@ mv -vi airtime-${VERSION} airtime
 pwd
 
 # FIXES for 2.0.0 #############
-find airtime/airtime_mvc/public/js/datatables/unit_testing/tests_onhold \( \
-	   -iname "*.js" \
-	\) -exec chmod -x "{}" \;
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE

@@ -165,9 +165,8 @@ case "$1" in
 
     # Monit setup
       if [ -f /etc/default/monit ]; then
-        echo "Setting monit configuration..."
+        echo "Setting up monit configuration..."
          sed -i 's:startup=.*:startup=1:g' /etc/default/monit
-          cp ${tmpdir}/python_apps/monit/airtime-monit.cfg /etc/monit/conf.d
 
            MONITCONFIGURED=$(grep "include /etc/monit/conf.d" /etc/monit/monitrc || true)
            if [ -z "$MONITCONFIGURED" ]; then

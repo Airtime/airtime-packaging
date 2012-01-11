@@ -228,6 +228,11 @@ case "$1" in
           ./airtime-install 2> /var/log/airtime/installation-errors.log
 
         fi
+
+          # Update the desktop menu to show Airtime
+          if test -x /usr/bin/update-menus; then
+            update-menus;
+          fi
       fi
     fi
   ;;

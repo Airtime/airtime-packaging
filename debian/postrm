@@ -93,6 +93,11 @@ case "$1" in
       echo $error
     fi
 
+    # Remove Airtime menu entry and icon
+    if test -x /usr/bin/update-menus; then
+      update-menus;
+    fi
+
     # Permissions
     #dpkg-statoverride --list $datadir/conf &>/dev/null && \
     #dpkg-statoverride --remove $datadir/conf || true

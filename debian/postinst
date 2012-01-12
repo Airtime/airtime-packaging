@@ -138,11 +138,11 @@ case "$1" in
           # save icecast hostname and source-password in airtime
           db_get airtime/icecast-hostname
           ICEHOST=$RET
-          sed -i "s:s1_host = \".*\":s1_host = \"$ICEHOST\":g" ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
+          sed -i "s:'s1_host', '127.0.0.1', 'string':'s1_host', '$ICEHOST', 'string':g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
 
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
-          sed -i "s:s1_pass = \".*\":s1_pass = \"$ICESOURCE\":g" ${tmpdir}/python_apps/pypo/liquidsoap_scripts/liquidsoap.cfg
+          sed -i "s:'s1_pass', 'hackme', 'string':'s1_pass', '$ICESOURCE', 'string':g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
 
             # on reconfigure or upgrade, also update the liquidsoap.cfg file and restart playout
             if [ -f /etc/airtime/liquidsoap.cfg ]; then

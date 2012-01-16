@@ -32,6 +32,11 @@ if ! test -d /usr/share/liquidsoap; then
     mkdir /usr/share/liquidsoap
 fi
 
+# Add the log directory if it doesn't exist
+if ! test -d /var/log/liquidsoap; then
+    mkdir /var/log/liquidsoap
+fi
+
 # Fix directories ownership
 chown -R root:root /usr/share/liquidsoap
 chown -R liquidsoap:liquidsoap /var/log/liquidsoap

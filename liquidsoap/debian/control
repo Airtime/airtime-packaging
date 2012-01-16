@@ -1,0 +1,75 @@
+Source: liquidsoap
+Section: sound
+Priority: optional
+Maintainer: Debian OCaml Maintainers <debian-ocaml-maint@lists.debian.org>
+Uploaders: Robin Gareus <robin@gareus.org>
+Build-Depends:
+ debhelper (>= 7.0.1)
+Standards-Version: 3.9.2
+Vcs-Git: git://git.debian.org/git/pkg-ocaml-maint/packages/liquidsoap.git
+Vcs-Browser: http://git.debian.org/?p=pkg-ocaml-maint/packages/liquidsoap.git
+Homepage: http://savonet.sourceforge.net/
+
+Package: liquidsoap
+Architecture: any
+Depends:
+#${shlibs:Depends},
+ libasound2 (>> 1.0.22),
+ libc6 (>= 2.7),
+ libflac8 (>= 1.2.1),
+ libmad0 (>= 0.15.1b-3),
+ libmp3lame0,
+ libogg0 (>= 1.0rc3),
+ libpcre3 (>= 7.7),
+ libportaudio2 (>= 19+svn20100220),
+ libsamplerate0,
+ libstdc++6 (>= 4.1.1),
+ libao4 (>= 1.1.0) | libao2,
+ libpulse0 (>= 0.99.1),
+ libtag1c2a (>= 1.5) | libtagc0 (>= 1.4) | libtag1-vanilla,
+ libvorbis0a (>= 1.1.2),
+ libvorbisenc2 (>= 1.1.2),
+ libvorbisfile3 (>= 1.1.2),
+ libx11-6,
+ libjson0,
+ ${misc:Depends},
+ wget,
+ sox,
+ adduser
+Recommends:
+ logrotate,
+ mp3gain,
+ vorbisgain,
+ vorbis-tools
+Suggests:
+ icecast2,
+ festival,
+ mplayer,
+ libcamomile-ocaml-data,
+ liguidsoap,
+ liquidsoap-plugin-mad,
+ liquidsoap-plugin-lame,
+ liquidsoap-plugin-taglib,
+ liquidsoap-plugin-vorbis,
+ liquidsoap-plugin-flac,
+ liquidsoap-plugin-voaacenc,
+ liquidsoap-plugin-icecast,
+ liquidsoap-plugin-faad,
+ liquidsoap-plugin-pulseaudio,
+ liquidsoap-plugin-samplerate,
+ liquidsoap-plugin-xmlplaylist
+Description: audio streaming language
+ Liquidsoap is a powerful tool for building complex audio streaming systems,
+ typically targeting internet radios (e.g. icecast streams).
+ .
+ It consists of a simple script language, in which you can create, combine and
+ transform audio sources. Its design makes liquidsoap flexible and easily
+ extensible.
+ .
+ Some of the typical uses are:
+  * dynamically generating playlists depending on the time or other factors
+  * having smooth transitions between songs
+  * adding jingles periodically
+  * applying effects on the sound like volume normalization
+  * reencoding the stream at various qualities
+  * remotely controlling the stream

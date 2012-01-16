@@ -1,0 +1,5 @@
+liquidsoap (1.0.0+sfo1-3) squeeze; urgency=low
+
+  * backport of liquidsoap 1.0.0 for sourcefabric 
+
+ -- Robin Gareus <robin@64studio.com>  Sun, 15 Jan 2012 16:15:16 +0100

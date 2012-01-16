@@ -7,7 +7,7 @@ Standards-Version: 3.8.4
 Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
 
 Package: airtime
-Architecture: amd64
+Architecture: all
 Pre-Depends: postgresql, python-virtualenv (>= 1.4.9)
 Depends: apache2,
  curl,
@@ -17,7 +17,6 @@ Depends: apache2,
  libapache2-mod-php5,
  libcamomile-ocaml-data,
  libesd0,
- libc6,
  libmad-ocaml,
  libmp3lame0,
  libportaudio2,

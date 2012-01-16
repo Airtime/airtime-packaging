@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=2.0.0
-SFOCUSTOM="-rc1"
+SFOCUSTOM="-RC1"
 DEBVERSION=2.0.0
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 2.0.0-rc1 #############
+# FIXES for 2.0.0-RC1 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -43,6 +43,18 @@ sed -i '11s:DEB=$(dpkg:# DEB=$(dpkg:g' airtime/install_minimal/airtime-install
 sed -i '13s\"$DEB" = "Status: install ok installed"\-f /var/lib/dpkg/info/airtime.config\g' airtime/install_minimal/airtime-install
 sed -i '14s: Please use the debian package to upgrade.:..:g' airtime/install_minimal/airtime-install
 sed -i '15s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-install
+
+# Remove Liquidsoap binaries
+rm -r airtime/python_apps/pypo/liquidsoap_bin/
+
+# Disable installation of Liquidsoap binaries
+sed -i '83s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '84s:if:#if:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '85s:shutil.copy:#shutil.copy:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '86s:else:#else:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '87s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '88s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
+
 
 #############################
 

@@ -28,6 +28,7 @@ function set_dist {
   DIST=$1
 	ed debian/changelog << EOF
 1,1s/) [^;]*;/) ${DIST};/
+1,1s/~[^-]*~/~${DIST}~/
 wq
 EOF
 head -n1 debian/changelog
@@ -40,8 +41,9 @@ for dist in lucid maverick natty oneiric squeeze; do
 	dpkg-buildpackage $COMMON_OPTS -ai386  || exit
 	dpkg-buildpackage $COMMON_OPTS -aamd64 || exit
 	mkdir ../lqs_$dist 
-	mv -v ../liquidsoap_1.0.0+sfo1-3_*.* ../lqs_$dist || exit
+	mv -v ../liquidsoap_1.0.0~*sfo*_*.* ../lqs_$dist || exit
 done
+exit
 
 cd ..
 

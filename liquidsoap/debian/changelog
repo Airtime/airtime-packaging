@@ -1,4 +1,4 @@
-liquidsoap (1.0.0+sfo1-3) squeeze; urgency=low
+liquidsoap (1.0.0~squeeze~sfo-3) squeeze; urgency=low
 
   * backport of liquidsoap 1.0.0 for sourcefabric 
 

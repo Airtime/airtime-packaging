@@ -43,15 +43,6 @@ case "$1" in
       rm -f /var/www/airtime/utils/airtime-import
     fi
 
-    # Install phing
-    echo "Installing phing..."
-    command -v pear > /dev/null
-    RETVAL=$?
-    if [ $RETVAL -eq 0 ]; then
-     pear channel-discover pear.phing.info || true
-     pear install phing/phing-2.4.2 || true
-    fi
-
     # APACHE config
     echo "Setting up apache2..."
 

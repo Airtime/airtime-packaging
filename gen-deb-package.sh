@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=2.0.0
-SFOCUSTOM="-RC1"
+SFOCUSTOM="-RC2"
 DEBVERSION=2.0.0
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 2.0.0-RC1 #############
+# FIXES for 2.0.0-RC2 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -55,7 +55,6 @@ sed -i '86s:else:#else:g' airtime/python_apps/pypo/install/pypo-initialize.py
 sed -i '87s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
 sed -i '88s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
 
-
 #############################
 
 cd ../
@@ -66,7 +65,6 @@ debuild -k174C1854 $@ || exit
 
 ls -l /tmp/airtime*deb
 ls -l /tmp/airtime*changes
-
 
 lintian -i --pedantic ${BUILDDEST}/../airtime_${DEBVERSION}*.changes | tee /tmp/airtime-${DEBVERSION}.issues
 

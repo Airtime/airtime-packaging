@@ -1,3 +1,9 @@
+liquidsoap (1.0.0~squeeze~sfo-5) squeeze; urgency=low
+
+  * renamed /etc/liquidsoap/radio.liq to avoid errors on startup.
+
+ -- Robin Gareus <robin@gareus.org>  Wed, 18 Jan 2012 20:45:18 +0100
+
 liquidsoap (1.0.0~squeeze~sfo-4) squeeze; urgency=low
 
   * backport of liquidsoap 1.0.0 for sourcefabric 

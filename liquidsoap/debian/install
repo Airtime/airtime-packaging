@@ -1,3 +1,3 @@
 etc/logrotate.d/liquidsoap
-doc/radio.liq etc/liquidsoap
+doc/radio.liq.example etc/liquidsoap
 

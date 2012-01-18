@@ -34,14 +34,14 @@ Depends: apache2,
  php5-gd,
  php-pear,
  php5-pgsql,
- python2.6,
  rabbitmq-server,
  sudo,
  sysv-rc, 
  tar (>= 1.22),
  unzip,
  vorbis-tools,
- ${misc:Depends}
+ ${misc:Depends},
+ ${python:Depends}
 Recommends: icecast2
 Suggests: airtime-audio-samples,
  alsa-utils

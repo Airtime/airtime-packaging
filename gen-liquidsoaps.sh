@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 cd liquidsoap
 
 if test ! \( -d bin \
@@ -43,11 +43,10 @@ for dist in lucid maverick natty oneiric squeeze; do
 	mkdir ../lqs_$dist 
 	mv -v ../liquidsoap_1.0.0~*sfo*_*.* ../lqs_$dist || exit
 done
-exit
 
 cd ..
 
-CHANGES=`ls -t lqs*/*.changes | head -n 8`
+CHANGES=`ls -t lqs*/*.changes | head -n 10`
 ls -l $CHANGES
-#echo debsign -k4F952B42 $CHANGES # rg
-echo debsign -k174C1854 $CHANGES # sfo
+#echo "debsign -k4F952B42 $CHANGES" # rg
+echo "debsign -k174C1854 $CHANGES" # sfo

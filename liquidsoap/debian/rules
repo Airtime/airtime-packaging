@@ -7,16 +7,10 @@ DIST=$(shell dpkg-parsechangelog | awk '/^Distribution: / {print $$2}')
 
 override_dh_auto_install:
 	mkdir -p $(CURDIR)/debian/liquidsoap/usr/bin/
-	cp $(CURDIR)/bin/liquidsoap_$(DIST)_$(DEB_BUILD_ARCH) $(CURDIR)/debian/liquidsoap/usr/bin/liquidsoap
+	cp $(CURDIR)/bin/liquidsoap_$(DIST)_$(DEB_HOST_ARCH_CPU) $(CURDIR)/debian/liquidsoap/usr/bin/liquidsoap
 
 override_dh_installchangelogs:
 	dh_installchangelogs doc/README
-
-override_dh_strip:
-	# files are already stripped
-	# besides 32/64bit strip tools for targetmay not be avail
-	# on build host
-	true
 
 override_dh_shlibdeps:
 	# shared lib dependencies are hardcoded

@@ -55,6 +55,9 @@ sed -i '86s:else:#else:g' airtime/python_apps/pypo/install/pypo-initialize.py
 sed -i '87s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
 sed -i '88s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
 
+# Modify the Liquidsoap path to distro installed Liquidsoap path
+sed -i '9s:/usr/lib/airtime/pypo/bin/liquidsoap_bin/liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap
+
 #############################
 
 cd ../

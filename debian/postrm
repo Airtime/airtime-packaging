@@ -42,6 +42,7 @@ case "$1" in
                 fi
 
                 if [ -d ${tmpdir}/python_apps/pypo/liquidsoap_bin ]; then
+                        rm -f ${tmpdir}/python_apps/pypo/liquidsoap_bin/* || true
 			rm -rf ${tmpdir}/python_apps/pypo/liquidsoap_bin || true
 		fi
 

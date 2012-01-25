@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=2.0.0
-SFOCUSTOM=""
+SFOCUSTOM="-1"
 DEBVERSION=2.0.0
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp

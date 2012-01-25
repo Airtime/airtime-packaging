@@ -1,3 +1,9 @@
+airtime (2.0.0-4) unstable; urgency=low
+
+  * Fix for overbooked shows longer than 24 hours
+
+ -- Daniel James <daniel@64studio.com>  Wed, 25 Jan 2012 10:11:33 +0000
+
 airtime (2.0.0-3) unstable; urgency=low
 
   * Upstream 2.0.0 final release

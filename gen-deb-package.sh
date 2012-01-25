@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=2.0.0
-SFOCUSTOM="-1"
+SFOCUSTOM=""
 DEBVERSION=2.0.0
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -64,7 +64,7 @@ cd ../
 tar czf airtime_${VERSION}.orig.tar.gz  airtime-${DEBVERSION}/airtime/
 cd ${BUILDDEST} || exit
 
-debuild -k174C1854 $@ || exit
+debuild -sa -k174C1854 $@ || exit
 
 ls -l /tmp/airtime*deb
 ls -l /tmp/airtime*changes

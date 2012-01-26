@@ -42,6 +42,7 @@ case "$1" in
                 fi
 
                 if [ -d ${tmpdir}/python_apps/pypo/liquidsoap_bin ]; then
+                        rm -f ${tmpdir}/python_apps/pypo/liquidsoap_bin/* || true
 			rm -rf ${tmpdir}/python_apps/pypo/liquidsoap_bin || true
 		fi
 
@@ -91,6 +92,11 @@ case "$1" in
     if [ -r /usr/share/wwwconfig-common/restart.sh ]; then
       . /usr/share/wwwconfig-common/restart.sh || true
       echo $error
+    fi
+
+    # Remove Airtime menu entry and icon
+    if test -x /usr/bin/update-menus; then
+      update-menus;
     fi
 
     # Permissions

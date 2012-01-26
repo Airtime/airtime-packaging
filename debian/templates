@@ -93,11 +93,3 @@ _Description: Icecast2 Admin Password:
  You can access icecast2's admin interface via
  http://localhost:8000/ - and both monitor connection as
  well as block users.
-
-Template: airtime/localtime-setup
-Type: string
-Default: Etc/UTC
-_Description: Set local timezone: 
- Set the local timezone at your broadcast station.
- A list of timezone settings can be found in the
- appendix of the Airtime manual.

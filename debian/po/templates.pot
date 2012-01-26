@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-26 10:46+0100\n"
+"POT-Creation-Date: 2012-01-05 18:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,18 +226,4 @@ msgstr ""
 msgid ""
 "Specify the admin password.  You can access icecast2's admin interface via "
 "http://localhost:8000/ - and both monitor connection as well as block users."
-msgstr ""
-
-#. Type: string
-#. Description
-#: ../templates:10001
-msgid "Set local timezone: "
-msgstr ""
-
-#. Type: string
-#. Description
-#: ../templates:10001
-msgid ""
-"Set the local timezone at your broadcast station. A list of timezone "
-"settings can be found in the appendix of the Airtime manual."
 msgstr ""

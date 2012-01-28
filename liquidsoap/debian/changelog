@@ -1,3 +1,9 @@
+liquidsoap (1.0.0~squeeze~sfo-6) squeeze; urgency=low
+
+  * updated dependencies
+
+ -- Robin Gareus <robin@gareus.org>  Thu, 19 Jan 2012 22:25:33 +0100
+
 liquidsoap (1.0.0~squeeze~sfo-5) squeeze; urgency=low
 
   * renamed /etc/liquidsoap/radio.liq to avoid errors on startup.

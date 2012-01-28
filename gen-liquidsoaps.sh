@@ -38,15 +38,19 @@ COMMON_OPTS="-rfakeroot -uc -b"
 
 for dist in lucid maverick natty oneiric squeeze; do
 	set_dist $dist
-	dpkg-buildpackage $COMMON_OPTS -ai386  || exit
-	dpkg-buildpackage $COMMON_OPTS -aamd64 || exit
-	mkdir ../lqs_$dist 
-	mv -v ../liquidsoap_1.0.0~*sfo*_*.* ../lqs_$dist || exit
+	sudo DIST=$dist ARCH=amd64 pdebuild --pbuilder cowbuilder --debbuildopts "-b"  || exit
+	sudo DIST=$dist ARCH=i386 linux32 pdebuild --pbuilder cowbuilder --debbuildopts "-b"  || exit
+	#dpkg-buildpackage $COMMON_OPTS -ai386  || exit
+	#dpkg-buildpackage $COMMON_OPTS -aamd64 || exit
+	#mkdir ../lqs_$dist 
+	#mv -v ../liquidsoap_1.0.0~*sfo*_*.* ../lqs_$dist || exit
 done
 
 cd ..
 
 CHANGES=`ls -t lqs*/*.changes | head -n 10`
+CHANGES=`ls -t /var/cache/pbuilder/*-*/result/liquidsoap_*changes | head -n 10`
+
 ls -l $CHANGES
 #echo "debsign -k4F952B42 $CHANGES" # rg
-echo "debsign -k174C1854 $CHANGES" # sfo
+echo 'debsign -k174C1854 `ls -t /var/cache/pbuilder/*-*/result/liquidsoap_*changes | head -n 10`' # sfo

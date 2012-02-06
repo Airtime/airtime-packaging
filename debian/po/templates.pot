@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2012-01-05 18:08+0000\n"
+"POT-Creation-Date: 2012-02-06 16:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,6 +224,22 @@ msgstr ""
 #. Description
 #: ../templates:9001
 msgid ""
-"Specify the admin password.  You can access icecast2's admin interface via "
-"http://localhost:8000/ - and both monitor connection as well as block users."
+"Specify the admin password for Icecast.  You can access icecast2's admin "
+"interface via http://localhost:8000/ - and both monitor connection as well "
+"as block users."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:10001
+msgid "Airtime Admin Password:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:10001
+msgid ""
+"Specify a secure admin password for Airtime. You can access the Airtime "
+"administration interface at http://localhost/ to set up other user accounts, "
+"upload media, create playlists and schedule shows."
 msgstr ""

@@ -89,7 +89,16 @@ Template: airtime/icecast-adminpw
 Type: string
 Default: hackme
 _Description: Icecast2 Admin Password:
- Specify the admin password. 
+ Specify the admin password for Icecast. 
  You can access icecast2's admin interface via
  http://localhost:8000/ - and both monitor connection as
  well as block users.
+
+Template: airtime/admin-password
+Type: string
+Default: admin
+_Description: Airtime Admin Password:
+ Specify a secure admin password for Airtime.
+ You can access the Airtime administration interface
+ at http://localhost/ to set up other user accounts,
+ upload media, create playlists and schedule shows.

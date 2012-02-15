@@ -155,10 +155,12 @@ case "$1" in
         echo "The monit package does not appear to be installed on this server."
       fi
 
-     # get airtime admin password
-     db_get airtime/admin-password
-     AIRTIMEADMIN=$RET
-     sed -i "1s:md5('admin'):md5('$AIRTIMEADMIN'):g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
+     # get airtime admin password on new installs
+	if [ ! -e /var/log/airtime/pypo/pypo.log ]; then
+     		db_get airtime/admin-password
+     		AIRTIMEADMIN=$RET
+     		sed -i "1s:md5('admin'):md5('$AIRTIMEADMIN'):g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
+	fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe
     db_stop

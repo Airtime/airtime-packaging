@@ -39,8 +39,11 @@ db_go ||true
 #db_input high airtime/localtime-setup || true
 #db_go ||true
 
-db_input high airtime/admin-password || true
-db_go ||true
+# Only ask for an admin password on clean installs
+if [ ! -e /var/log/airtime/pypo/pypo.log ]; then
+	db_input high airtime/admin-password || true
+	db_go ||true
+fi
 
 #DEBHELPER#
 

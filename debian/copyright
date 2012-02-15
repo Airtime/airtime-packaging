@@ -16,6 +16,10 @@ Copyright:
  Martin Konecny
 License: GPL-3+
 
+Files: airtime/airtime_mvc/library/doctrine/migrations/*
+Copyright: http://www.doctrine-project.org/
+License: LGPL-2.1
+
 Files: airtime/airtime_mvc/library/php-amqplib/*
 Copyright:
  Barry Pederson
@@ -27,6 +31,10 @@ License: LGPL-2.1
 
 Files: airtime/airtime_mvc/library/propel/*
 Copyright: 2005-2011 Hans Lellelid, David Zuelke, Francois Zaninotto, William Durand
+License: Expat
+
+Files: airtime/airtime_mvc/library/soundcloud-api/*
+Copyright: 2011 Anton Lindqvist
 License: Expat
 
 Files: debian/*

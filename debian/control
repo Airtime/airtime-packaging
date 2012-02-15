@@ -41,6 +41,7 @@ Depends: apache2,
  tar (>= 1.22),
  unzip,
  vorbis-tools,
+ zendframework | libzend-framework-php,
  ${misc:Depends},
  ${python:Depends}
 Recommends: icecast2

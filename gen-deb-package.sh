@@ -1,8 +1,8 @@
 #/bin/sh
 
-VERSION=2.0.0
+VERSION=2.0.1
 SFOCUSTOM=""
-DEBVERSION=2.0.0
+DEBVERSION=2.0.1
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
@@ -30,13 +30,14 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 2.0.0 #############
+# FIXES for 2.0.1 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
 rm airtime/airtime_mvc/library/php-amqplib/LICENSE
 rm airtime/airtime_mvc/library/phing/LICENSE
 rm airtime/airtime_mvc/library/propel/LICENSE
+rm airtime/airtime_mvc/library/soundcloud-api/README.md
 
 # Disable install script check for Debian package, we don't need it
 sed -i '11s:DEB=$(dpkg:# DEB=$(dpkg:g' airtime/install_minimal/airtime-install
@@ -56,10 +57,13 @@ sed -i '87s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
 sed -i '88s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
 
 # Modify the Liquidsoap path to distro installed Liquidsoap path
-sed -i '6s:/usr/lib/airtime/pypo/bin/liquidsoap_bin/liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap
+sed -i '9s:/usr/lib/airtime/pypo/bin/liquidsoap_bin/liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap
 
 #Remove phing library
 rm -r airtime/airtime_mvc/library/phing/
+
+#Remove ZFDebug
+rm -r airtime/airtime_mvc/library/ZFDebug/
 
 #############################
 
@@ -67,7 +71,7 @@ cd ../
 tar czf airtime_${VERSION}.orig.tar.gz  airtime-${DEBVERSION}/airtime/
 cd ${BUILDDEST} || exit
 
-debuild -sa -k174C1854 $@ || exit
+debuild -k174C1854 $@ || exit
 
 ls -l /tmp/airtime*deb
 ls -l /tmp/airtime*changes

@@ -65,6 +65,9 @@ rm -r airtime/airtime_mvc/library/phing/
 #Remove ZFDebug
 rm -r airtime/airtime_mvc/library/ZFDebug/
 
+#Strip un-needed install scripts
+rm airtime/install_full
+
 #############################
 
 cd ../

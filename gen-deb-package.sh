@@ -1,8 +1,8 @@
 #/bin/sh
 
-VERSION=2.0.1
+VERSION=2.0.2
 SFOCUSTOM=""
-DEBVERSION=2.0.1
+DEBVERSION=2.0.2
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 2.0.1 #############
+# FIXES for 2.0.2 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -66,7 +66,7 @@ rm -r airtime/airtime_mvc/library/phing/
 rm -r airtime/airtime_mvc/library/ZFDebug/
 
 #Strip un-needed install scripts
-rm airtime/install_full
+rm -r airtime/install_full/
 
 #############################
 

@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=2.0.2
-SFOCUSTOM=""
+SFOCUSTOM="-2"
 DEBVERSION=2.0.2
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -27,7 +27,7 @@ echo "unzipping.."
 tar xzf ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
-mv -vi airtime-${VERSION} airtime
+mv -vi airtime-${VERSION}${SFOCUSTOM} airtime
 pwd
 
 # FIXES for 2.0.2 #############
@@ -50,11 +50,14 @@ rm -r airtime/python_apps/pypo/liquidsoap_bin/
 
 # Disable installation of Liquidsoap binaries
 sed -i '83s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '84s:if:#if:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '85s:shutil.copy:#shutil.copy:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '86s:else:#else:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '87s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '88s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '85s:binary_path:#binary_path:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '87s:try:#try:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '88s:shutil.copy:#shutil.copy:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '89s:except:#except:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '90s:    """:""":g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '98s:    """:""":g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '99s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '100s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
 
 # Modify the Liquidsoap path to distro installed Liquidsoap path
 sed -i '9s:/usr/lib/airtime/pypo/bin/liquidsoap_bin/liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap

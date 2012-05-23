@@ -66,7 +66,7 @@ sed -i '111s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
 sed -i '112s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
 
 # Modify the Liquidsoap path to distro installed Liquidsoap path
-sed -i '9s:/usr/bin/airtime-liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap
+#sed -i '9s:/usr/bin/airtime-liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap
 
 #Remove phing library
 rm -r airtime/airtime_mvc/library/phing/
@@ -76,41 +76,6 @@ rm -r airtime/airtime_mvc/library/ZFDebug/
 
 #Strip un-needed install scripts
 rm -r airtime/install_full/
-
-#Fix executable permissions
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/as3/ZeroClipboardPdf.as
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/copy_hover.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/as3/ZeroClipboard.as
-#chmod -x airtime/airtime_mvc/public/css/datatables/css/TableTools.css
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/csv.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.TableTools.js
-#chmod -x airtime/airtime_mvc/public/css/images/icon_copy.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/psd/file_types.psd
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/copy.png
-#chmod -x airtime/airtime_mvc/public/js/contextmenu/jquery.contextMenu.js
-#chmod -x airtime/airtime_mvc/public/css/TableTools.css
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/xls_hover.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/js/TableTools.js
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColVis.js
-#chmod -x airtime/airtime_mvc/public/css/images/icon_paste.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/print_hover.png
-#chmod -x airtime/airtime_mvc/public/css/images/icon_cut.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/css/TableTools_JUI.css
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/psd/printer.psd
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColReorder.js
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/psd/copy\ document.psd
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/print.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/xls.png
-#chmod -x airtime/airtime_mvc/public/css/jquery.contextMenu.css
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/images/csv_hover.png
-#chmod -x airtime/airtime_mvc/public/css/TableTools_JUI.css
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/css/TableTools.css
-#chmod -x airtime/airtime_mvc/public/css/images/icon_delete.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ZeroClipboard.js
-#chmod -x airtime/airtime_mvc/public/css/images/icon_edit.png
-#chmod -x airtime/airtime_mvc/public/css/images/icon_door.png
-#chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools/js/ZeroClipboard.js
-#chmod -x airtime/python_apps/api_clients/api_client.py
 
 #############################
 

@@ -192,8 +192,23 @@ case "$1" in
     # restart apache
     invoke-rc.d apache2 restart
 
-    # symlink the Liquidsoap path to standard location
+    # fix the Liquidsoap symlink if it doesn't point to standard location
+    if [ -h /usr/bin/airtime-liquidsoap ]; then
+      SYMLINK_TARGET=`readlink /usr/bin/airtime-liquidsoap`
+       if [ "$SYMLINK_TARGET" != "/usr/bin/liquidsoap" ]; then
+        echo "Liquidsoap symlink points to the wrong place, fixing it!"
+         rm /usr/bin/airtime-liquidsoap
+          ln -s /usr/bin/liquidsoap /usr/bin/airtime-liquidsoap
+       fi
+
+       if [ "$SYMLINK_TARGET" == "/usr/bin/liquidsoap" ]; then
+        echo "Liquidsoap symlink points to the right place!"
+       fi
+    fi
+
+    # symlink the Liquidsoap path to standard location, if symlink doesn't exist
     if [ ! -h /usr/bin/airtime-liquidsoap ]; then
+     echo "Creating symlink for Liquidsoap..."
       ln -s /usr/bin/liquidsoap /usr/bin/airtime-liquidsoap
     fi
 

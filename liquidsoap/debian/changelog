@@ -1,3 +1,9 @@
+liquidsoap (1.0.0~lucid~sfo-7) lucid; urgency=low
+
+  * Patch for smoother stream transitions
+
+ -- Daniel James <daniel@64studio.com>  Wed, 23 May 2012 12:37:44 +0100
+
 liquidsoap (1.0.0~squeeze~sfo-6) squeeze; urgency=low
 
   * updated dependencies

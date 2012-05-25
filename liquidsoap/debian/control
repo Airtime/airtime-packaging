@@ -2,7 +2,7 @@ Source: liquidsoap
 Section: sound
 Priority: optional
 Maintainer: Debian OCaml Maintainers <debian-ocaml-maint@lists.debian.org>
-Uploaders: Robin Gareus <robin@gareus.org>
+Uploaders: Daniel James <daniel@64studio.com>
 Build-Depends:
  debhelper (>= 7.0.1),
  libasound2,

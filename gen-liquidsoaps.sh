@@ -11,21 +11,21 @@ cp -r liquidsoap/* ${MIRRORPATH}/liquidsoap/
 tar -xzf ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz -C ${MIRRORPATH}
 cp -a ${MIRRORPATH}/airtime-${VERSION}/python_apps/pypo/liquidsoap_bin/*_* ${MIRRORPATH}/liquidsoap/bin/
 
-cd ${MIRRORPATH}/liquidsoap
+cd ${MIRRORPATH}/
 
-if test ! \( -d bin \
-	-a -f bin/liquidsoap_squeeze_amd64 \
-	-a -f bin/liquidsoap_squeeze_i386  \
-	-a -f bin/liquidsoap_lucid_amd64 \
-	-a -f bin/liquidsoap_lucid_i386  \
-	-a -f bin/liquidsoap_maverick_amd64 \
-	-a -f bin/liquidsoap_maverick_i386  \
-	-a -f bin/liquidsoap_natty_amd64 \
-	-a -f bin/liquidsoap_natty_i386  \
-	-a -f bin/liquidsoap_oneiric_amd64 \
-	-a -f bin/liquidsoap_oneiric_i386 \
-	-a -f bin/liquidsoap_precise_amd64 \
-	-a -f bin/liquidsoap_precise_i386 \) \
+if test ! \( -d liquidsoap/bin \
+	-a -f liquidsoap/bin/liquidsoap_squeeze_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_squeeze_i386  \
+	-a -f liquidsoap/bin/liquidsoap_lucid_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_lucid_i386  \
+	-a -f liquidsoap/bin/liquidsoap_maverick_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_maverick_i386  \
+	-a -f liquidsoap/bin/liquidsoap_natty_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_natty_i386  \
+	-a -f liquidsoap/bin/liquidsoap_oneiric_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_oneiric_i386 \
+	-a -f liquidsoap/bin/liquidsoap_precise_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_precise_i386 \) \
 	; then
 echo "ERROR: liquidsoap binaries not present in ${MIRRORPATH}/liquidsoap/bin/"
 #echo " `pwd`/bin"
@@ -40,20 +40,21 @@ fi
 
 function set_dist {
   DIST=$1
-	ed debian/changelog << EOF
+	ed liquidsoap/debian/changelog << EOF
 1,1s/) [^;]*;/) ${DIST};/
 1,1s/~[^-]*~/~${DIST}~/
 wq
 EOF
-head -n1 debian/changelog
+head -n1 liquidsoap/debian/changelog
 }
 
 COMMON_OPTS="-rfakeroot -uc -b"
 
 for dist in lucid maverick natty oneiric precise squeeze; do
 	set_dist $dist
-	pbuilder-dist $dist i386 build ${MIRRORPATH}/liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
-	pbuilder-dist $dist amd64 build ${MIRRORPATH}/liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
+	dpkg-source -b liquidsoap
+	pbuilder-dist $dist i386 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
+	pbuilder-dist $dist amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 	#sudo DIST=$dist ARCH=amd64 pdebuild --pbuilder cowbuilder --debbuildopts "-b" # || exit
 	#sudo DIST=$dist ARCH=i386 linux32 pdebuild --pbuilder cowbuilder --debbuildopts "-b" # || exit
 	#dpkg-buildpackage $COMMON_OPTS -ai386  || exit
@@ -64,7 +65,7 @@ done
 
 cd ..
 
-CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}_*.changes | head -n 12`
+CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 12`
 #CHANGES=`ls -t lqs*/*.changes | head -n 10`
 #CHANGES=`ls -t /var/cache/pbuilder/result/liquidsoap_*changes | head -n 10`
 

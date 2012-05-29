@@ -1,4 +1,4 @@
-liquidsoap (1.0.0~lucid~sfo-7) lucid; urgency=low
+liquidsoap (1.0.0~squeeze~sfo-7) squeeze; urgency=low
 
   * Patch for smoother stream transitions
 

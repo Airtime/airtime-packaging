@@ -1,17 +1,26 @@
 #!/bin/bash
+
+# Packaging script for Liquidsoap binaries. See https://wiki.sourcefabric.org/display/CC/Packaging+Liquidsoap
+
 VERSION=2.1.0
 SFOCUSTOM="-rc1b"
 LIQUIDSOAP_VERSION=1.0.0
 LIQUIDSOAP_CUSTOM="sfo-7"
 MIRRORPATH=/tmp
 
+# Copy the packaging files into the temporary build directory
+
 mkdir -p ${MIRRORPATH}/liquidsoap/bin/
 cp -r liquidsoap/* ${MIRRORPATH}/liquidsoap/
+
+# Unpack the Liquidsoap binaries from the Airtime tarball
 
 tar -xzf ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz -C ${MIRRORPATH}
 cp -a ${MIRRORPATH}/airtime-${VERSION}/python_apps/pypo/liquidsoap_bin/*_* ${MIRRORPATH}/liquidsoap/bin/
 
 cd ${MIRRORPATH}/
+
+# Test that the Liquidsoap binaries are all present
 
 if test ! \( -d liquidsoap/bin \
 	-a -f liquidsoap/bin/liquidsoap_squeeze_amd64 \
@@ -28,15 +37,16 @@ if test ! \( -d liquidsoap/bin \
 	-a -f liquidsoap/bin/liquidsoap_precise_i386 \) \
 	; then
 echo "ERROR: liquidsoap binaries not present in ${MIRRORPATH}/liquidsoap/bin/"
-#echo " `pwd`/bin"
-#echo
-#echo "# mkdir /tmp/airt; cd /tmp/airt"
-#echo "# wget http://apt.sourcefabric.org/misc/airtime_2.0.0-1_amd64.deb"
-#echo "# ar p airtime_2.0.0-1_amd64.deb data.tar.gz | tar xvz"
-#echo "# cp -a var/lib/airtime/tmp/python_apps/pypo/liquidsoap_bin \\"
-#echo " `pwd`/bin"
 exit 1
 fi
+
+# Use these lines to build for Debian squeeze
+
+#        dpkg-source -b liquidsoap
+#        pbuilder-dist squeeze i386 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
+#        pbuilder-dist squeeze amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
+
+# Set the correct distro name in the Ubuntu package changelog
 
 function set_dist {
   DIST=$1
@@ -48,29 +58,19 @@ EOF
 head -n1 liquidsoap/debian/changelog
 }
 
-COMMON_OPTS="-rfakeroot -uc -b"
+# Use these lines to build for Ubuntu
 
-for dist in lucid maverick natty oneiric precise squeeze; do
+for dist in lucid maverick natty oneiric precise; do
 	set_dist $dist
 	dpkg-source -b liquidsoap
 	pbuilder-dist $dist i386 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 	pbuilder-dist $dist amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
-	#sudo DIST=$dist ARCH=amd64 pdebuild --pbuilder cowbuilder --debbuildopts "-b" # || exit
-	#sudo DIST=$dist ARCH=i386 linux32 pdebuild --pbuilder cowbuilder --debbuildopts "-b" # || exit
-	#dpkg-buildpackage $COMMON_OPTS -ai386  || exit
-	#dpkg-buildpackage $COMMON_OPTS -aamd64 || exit
-	#mkdir ../lqs_$dist
-	#mv -v ../liquidsoap_1.0.0~*sfo*_*.* ../lqs_$dist || exit
 done
 
-cd ..
-
 CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 12`
-#CHANGES=`ls -t lqs*/*.changes | head -n 10`
-#CHANGES=`ls -t /var/cache/pbuilder/result/liquidsoap_*changes | head -n 10`
 
 ls -l $CHANGES
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/liquidsoap_*changes | head -n 12`' # dj
-#echo "debsign -k4F952B42 $CHANGES" # rg
-#echo 'debsign -k174C1854 `ls -t /var/cache/pbuilder/result/liquidsoap_*changes | head -n 10`' # sfo
+# Prompt user to sign the 12 newest packages with the Sourcefabric key
+
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/liquidsoap_*changes | head -n 12`'

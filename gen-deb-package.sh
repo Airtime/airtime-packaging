@@ -1,7 +1,7 @@
 #/bin/sh
 
 VERSION=2.1.0
-SFOCUSTOM="-rc1b"
+SFOCUSTOM="-rc2"
 DEBVERSION=2.1.0
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
@@ -49,24 +49,21 @@ sed -i '15s:exit 1:# We do not exit here:g' airtime/install_minimal/airtime-inst
 rm -r airtime/python_apps/pypo/liquidsoap_bin/
 
 # Disable installation of Liquidsoap binaries
-sed -i '86s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '88s:binary_path:#binary_path:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '90s:try:#try:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '91s:open:#open:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '93s:try:#try:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '94s:os.remove:#os.remove:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '95s:except:#except:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '97s:pass:#pass:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '99s:os.symlink:#os.symlink:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '100s:except:#except:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '101s:    """:""":g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '102s:    """:""":g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '110s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '111s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
-sed -i '112s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
-
-# Modify the Liquidsoap path to distro installed Liquidsoap path
-#sed -i '9s:/usr/bin/airtime-liquidsoap:/usr/bin/liquidsoap:g' airtime/python_apps/pypo/airtime-liquidsoap
+sed -i '84s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '86s:binary_path:#binary_path:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '88s:try:#try:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '89s:open:#open:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '91s:try:#try:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '92s:os.remove:#os.remove:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '93s:except:#except:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '95s:pass:#pass:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '97s:os.symlink:#os.symlink:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '98s:except:#except:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '99s:    """:""":g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '107s:    """:""":g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '108s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '109s:print:#print:g' airtime/python_apps/pypo/install/pypo-initialize.py
+sed -i '110s:sys.exit(1):#sys.exit(1):g' airtime/python_apps/pypo/install/pypo-initialize.py
 
 #Remove phing library
 rm -r airtime/airtime_mvc/library/phing/

@@ -1,8 +1,9 @@
 airtime (2.1.0-1) unstable; urgency=low
 
-  * Upstream 2.1.0-beta6 release
+  * Upstream 2.1.0 release
+  * Test the symlink to the Liquidsoap binary
 
- -- Daniel James <daniel@64studio.com>  Tue, 22 May 2012 12:55:11 +0100
+ -- Daniel James <daniel@64studio.com>  Mon, 04 June 2012 18:25:11 +0100
 
 airtime (2.0.3-1) unstable; urgency=low
 

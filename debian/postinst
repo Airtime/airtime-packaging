@@ -21,7 +21,7 @@ includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
-NEWVERSION="2.1.1"
+NEWVERSION="2.1.2"
 
 case "$1" in
   configure|reconfigure)
@@ -161,6 +161,13 @@ case "$1" in
      		AIRTIMEADMIN=$RET
      		sed -i "1s:md5('admin'):md5('$AIRTIMEADMIN'):g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
 	fi
+
+    # get the main storage directory specified by the user
+    db_get airtime/storage-directory
+     AIRTIMESTORAGE=$RET
+      if [ "$AIRTIMESTORAGE" != "/srv/airtime/stor/" ]; then
+       sed -i "1s:/srv/airtime/stor/:$AIRTIMESTORAGE:g" ${tmpdir}/install_minimal/include/airtime-install.ini
+      fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe
     db_stop

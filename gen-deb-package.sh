@@ -1,8 +1,8 @@
 #/bin/sh
 
-VERSION=2.1.1
-SFOCUSTOM="-ga"
-DEBVERSION=2.1.1
+VERSION=2.1.2
+SFOCUSTOM=""
+DEBVERSION=2.1.2
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${DEBVERSION}/
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 2.1.1 #############
+# FIXES for 2.1.2 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE

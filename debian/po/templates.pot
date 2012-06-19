@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2012-02-06 16:45+0000\n"
+"POT-Creation-Date: 2012-06-19 17:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -242,4 +242,18 @@ msgid ""
 "Specify a secure admin password for Airtime. You can access the Airtime "
 "administration interface at http://localhost/ to set up other user accounts, "
 "upload media, create playlists and schedule shows."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:11001
+msgid "Airtime Storage Directory:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:11001
+msgid ""
+"Specify the main storage path which Airtime will use, ending with a slash. "
+"You can also specify watched folders in the Airtime administration interface."
 msgstr ""

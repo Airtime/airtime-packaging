@@ -2,14 +2,14 @@ Template: airtime/apache-setup
 Type: select
 __Choices: dedicated v-host, no thanks
 Choices-de.UTF-8: v-host einrichten, nein danke
-Default: system-wide (all vhosts)
+Default: dedicated v-host
 _Description: Create apache2 config:
- This setup script can perform apache web-server configuration
- so that you can connect to airtime directly after this installation.
+ This setup script can perform Apache web server configuration
+ so that you can connect to Airtime directly after this installation.
  .
  Production systems should choose "dedicated v-host". This option
- will ask for a Server host-name (FQDN) and will create a minimal apache
- vhost configuration that you can adapt.
+ will ask for a server hostname (FQDN) and will create a minimal Apache
+ virtual host configuration that you can adapt.
  .
  "no, thanks": no problem. You're welcome to set it up however you like.
  Note that the files in /etc/airtime/ may come in handy doing so.
@@ -21,47 +21,43 @@ Type: select
 __Choices: remove default, no change
 Default: no change
 _Description: Remove 000-default apache config:
- By default the apache webserver comes with configuration
- to send all v-hosts to /var/www.
+ By default the Apache webserver is configured to send all virtual hosts
+ to the /var/www/ directory.
  .
- This option will invoke `sudo a2dissite default`
- .
- and is recommended when using airtime as vhost.
+ This option will invoke `sudo a2dissite default` and is recommended
+ when using a virtual host for Airtime.
 
 Template: airtime/apache-servername
 Type: string
 Default: localhost
-_Description: FQDN - apache-vhost ServerName:
- Enter the main hostname of the web server. 
- The DNS of this name must resolve to the apache server running on this
+_Description: FQDN - Apache virtual host ServerName:
+ Enter the main hostname of the web server.
+ The DNS of this name must resolve to the Apache server running on this
  machine.
  .
  e.g. "example.com" or "www.example.com" (without the quotes)
  .
  You can customize /etc/apache2/sites-enabled/airtime.vhost afterward
  and add ServerAliases and further custom configuration.
- .
- more info soon..
 
 Template: airtime/apache-serveradmin
 Type: string
 Default: root@localhost
-_Description: Email of the vhost-admin - ServerAdmin:
- required for dedicated vhost-setup.
+_Description: Email of the ServerAdmin:
+ An email address is required for the virtual host configuration.
 
 Template: airtime/icecast-setup
 Type: boolean
 Default: false
-_Description: Set up Icecast2 for live HTTP streaming?
- This option enables icecast2 on this server, and configures 
- passwords for both the icecast server and airtime.
+_Description: Enable Icecast2 and set passwords automatically?
+ This option enables a local Icecast streaming media server to start
+ on boot, and configures passwords for both the Icecast server and Airtime.
  .
- Note: these settings are here for convenience only.
- Strictly speaking they should be done during icecast
- installation - not airtime installation.
+ Note: these settings are here for convenience only. Strictly speaking
+ they should be done during Icecast installation - not Airtime installation.
  .
- PS. If you have already manually tweaked icecast configuration
- it may not work as expected.
+ If you wish to set Icecast server passwords manually,
+ you should answer No here.
 
 Template: airtime/icecast-hostname
 Type: string
@@ -75,14 +71,14 @@ Template: airtime/icecast-sourcepw
 Type: string
 Default: hackme
 _Description: Icecast2 Source Password:
- Specify a password to send A/V sources to icecast
+ Specify a password to send A/V sources to Icecast
 
 Template: airtime/icecast-relaypw
 Type: string
 Default: hackme
 _Description: Icecast2 Relay Password:
  Specify a password for stream relay access.
- This is not needed by airtime, however you should
+ This is not needed by Airtime, however you should
  change it from the default to lock down your system.
 
 Template: airtime/icecast-adminpw

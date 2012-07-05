@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: airtime@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-19 17:07+0100\n"
+"POT-Creation-Date: 2012-07-05 16:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,8 @@ msgstr ""
 #. Description
 #: ../templates:1002
 msgid ""
-"This setup script can perform apache web-server configuration so that you "
-"can connect to airtime directly after this installation."
+"This setup script can perform Apache web server configuration so that you "
+"can connect to Airtime directly after this installation."
 msgstr ""
 
 #. Type: select
@@ -47,7 +47,7 @@ msgstr ""
 #: ../templates:1002
 msgid ""
 "Production systems should choose \"dedicated v-host\". This option will ask "
-"for a Server host-name (FQDN) and will create a minimal apache vhost "
+"for a server hostname (FQDN) and will create a minimal Apache virtual host "
 "configuration that you can adapt."
 msgstr ""
 
@@ -81,34 +81,30 @@ msgstr ""
 #. Description
 #: ../templates:2002
 msgid ""
-"By default the apache webserver comes with configuration to send all v-hosts "
-"to /var/www."
+"By default the Apache webserver is configured to send all virtual hosts to "
+"the /var/www/ directory."
 msgstr ""
 
 #. Type: select
 #. Description
 #: ../templates:2002
-msgid "This option will invoke `sudo a2dissite default`"
-msgstr ""
-
-#. Type: select
-#. Description
-#: ../templates:2002
-msgid "and is recommended when using airtime as vhost."
+msgid ""
+"This option will invoke `sudo a2dissite default` and is recommended when "
+"using a virtual host for Airtime."
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:3001
-msgid "FQDN - apache-vhost ServerName:"
+msgid "FQDN - Apache virtual host ServerName:"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:3001
 msgid ""
-"Enter the main hostname of the web server.  The DNS of this name must "
-"resolve to the apache server running on this machine."
+"Enter the main hostname of the web server. The DNS of this name must resolve "
+"to the Apache server running on this machine."
 msgstr ""
 
 #. Type: string
@@ -127,34 +123,28 @@ msgstr ""
 
 #. Type: string
 #. Description
-#: ../templates:3001
-msgid "more info soon.."
+#: ../templates:4001
+msgid "Email of the ServerAdmin:"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../templates:4001
-msgid "Email of the vhost-admin - ServerAdmin:"
-msgstr ""
-
-#. Type: string
-#. Description
-#: ../templates:4001
-msgid "required for dedicated vhost-setup."
+msgid "An email address is required for the virtual host configuration."
 msgstr ""
 
 #. Type: boolean
 #. Description
 #: ../templates:5001
-msgid "Set up Icecast2 for live HTTP streaming?"
+msgid "Enable Icecast2 and set passwords automatically?"
 msgstr ""
 
 #. Type: boolean
 #. Description
 #: ../templates:5001
 msgid ""
-"This option enables icecast2 on this server, and configures  passwords for "
-"both the icecast server and airtime."
+"This option enables a local Icecast streaming media server to start on boot, "
+"and configures passwords for both the Icecast server and Airtime."
 msgstr ""
 
 #. Type: boolean
@@ -162,15 +152,15 @@ msgstr ""
 #: ../templates:5001
 msgid ""
 "Note: these settings are here for convenience only. Strictly speaking they "
-"should be done during icecast installation - not airtime installation."
+"should be done during Icecast installation - not Airtime installation."
 msgstr ""
 
 #. Type: boolean
 #. Description
 #: ../templates:5001
 msgid ""
-"PS. If you have already manually tweaked icecast configuration it may not "
-"work as expected."
+"If you wish to set Icecast server passwords manually, you should answer No "
+"here."
 msgstr ""
 
 #. Type: string
@@ -197,7 +187,7 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../templates:7001
-msgid "Specify a password to send A/V sources to icecast"
+msgid "Specify a password to send A/V sources to Icecast"
 msgstr ""
 
 #. Type: string
@@ -210,7 +200,7 @@ msgstr ""
 #. Description
 #: ../templates:8001
 msgid ""
-"Specify a password for stream relay access. This is not needed by airtime, "
+"Specify a password for stream relay access. This is not needed by Airtime, "
 "however you should change it from the default to lock down your system."
 msgstr ""
 

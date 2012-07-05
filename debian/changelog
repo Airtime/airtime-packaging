@@ -1,3 +1,10 @@
+airtime (2.1.3-1) unstable; urgency=low
+
+  * Upstream 2.1.3 release
+  * Prompt user to answer No to set Icecast passwords manually (CC-4013)
+
+ -- Daniel James <daniel@64studio.com>  Thu, 05 Jul 2012 17:01:20 +0100
+
 airtime (2.1.2-1) unstable; urgency=low
 
   * Upstream 2.1.2 release

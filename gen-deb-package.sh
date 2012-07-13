@@ -1,11 +1,11 @@
 #/bin/sh
 
 VERSION=2.1.3
-SFOCUSTOM=""
+SFOCUSTOM="-ga"
 DEBVERSION=2.1.3
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
-BUILDDEST=/tmp/airtime-${DEBVERSION}/
+BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian
 
 if [ ! -f ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz ]; then
@@ -16,7 +16,7 @@ fi
 
 #delete prev. deb package files
 echo "cleaning up."
-rm -f ${BUILDDEST}/../airtime_${DEBVERSION}*
+rm -f ${BUILDDEST}/../airtime_${VERSION}*
 rm -rf ${BUILDDEST}
 
 mkdir -p ${BUILDDEST}
@@ -77,7 +77,7 @@ rm -r airtime/install_full/
 #############################
 
 cd ../
-tar czf airtime_${VERSION}.orig.tar.gz  airtime-${DEBVERSION}/airtime/
+tar czf airtime_${VERSION}.orig.tar.gz  airtime-${VERSION}/airtime/
 cd ${BUILDDEST} || exit
 
 debuild -k174C1854 $@ || exit
@@ -85,9 +85,9 @@ debuild -k174C1854 $@ || exit
 ls -l /tmp/airtime*deb
 ls -l /tmp/airtime*changes
 
-lintian -i --pedantic ${BUILDDEST}/../airtime_${DEBVERSION}*.changes | tee /tmp/airtime-${DEBVERSION}.issues
+lintian -i --pedantic ${BUILDDEST}/../airtime_${VERSION}*.changes | tee /tmp/airtime-${VERSION}.issues
 
 exit
 echo -n "UPLOAD? [enter|CTRL-C]" ; read
 
-dput sfo /tmp/airtime_${DEBVERSION}*.changes
+dput sfo /tmp/airtime_${VERSION}*.changes

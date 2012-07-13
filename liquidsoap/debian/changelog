@@ -1,3 +1,9 @@
+liquidsoap (1.0.1~squeeze~sfo-1) squeeze; urgency=low
+
+  * Backport of upstream 1.0.1 release
+
+ -- Daniel James <daniel@64studio.com>  Fri, 13 Jul 2012 13:15:24 +0100
+
 liquidsoap (1.0.0~squeeze~sfo-7) squeeze; urgency=low
 
   * Patch for smoother stream transitions

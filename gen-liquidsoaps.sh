@@ -2,10 +2,10 @@
 
 # Packaging script for Liquidsoap binaries. See https://wiki.sourcefabric.org/display/CC/Packaging+Liquidsoap
 
-VERSION=2.1.0
-SFOCUSTOM="-rc1b"
-LIQUIDSOAP_VERSION=1.0.0
-LIQUIDSOAP_CUSTOM="sfo-7"
+VERSION=2.1.3
+SFOCUSTOM="-ga"
+LIQUIDSOAP_VERSION=1.0.1
+LIQUIDSOAP_CUSTOM="sfo-1"
 MIRRORPATH=/tmp
 
 # Copy the packaging files into the temporary build directory
@@ -42,9 +42,9 @@ fi
 
 # Use these lines to build for Debian squeeze
 
-#        dpkg-source -b liquidsoap
-#        pbuilder-dist squeeze i386 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
-#        pbuilder-dist squeeze amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
+        dpkg-source -b liquidsoap
+        pbuilder-dist squeeze i386 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
+        pbuilder-dist squeeze amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
 
 # Set the correct distro name in the Ubuntu package changelog
 
@@ -60,12 +60,12 @@ head -n1 liquidsoap/debian/changelog
 
 # Use these lines to build for Ubuntu
 
-for dist in lucid maverick natty oneiric precise; do
-	set_dist $dist
-	dpkg-source -b liquidsoap
-	pbuilder-dist $dist i386 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
-	pbuilder-dist $dist amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
-done
+#for dist in lucid maverick natty oneiric precise; do
+#	set_dist $dist
+#	dpkg-source -b liquidsoap
+#	pbuilder-dist $dist i386 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
+#	pbuilder-dist $dist amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
+#done
 
 CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 12`
 

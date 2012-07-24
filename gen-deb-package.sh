@@ -2,7 +2,7 @@
 
 VERSION=2.1.3
 SFOCUSTOM="-ga"
-DEBVERSION=2.1.3
+#DEBVERSION=2.1.3
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/

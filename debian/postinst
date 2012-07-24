@@ -13,7 +13,7 @@ WEB_USER=www-data
 WEB_GROUP=www-data
 
 package_name="airtime"
-datadir="/srv/airtime"
+#datadir="/srv/airtime"
 wwwdir="/usr/share/airtime"
 tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
@@ -191,10 +191,10 @@ case "$1" in
     fi
 
     # create data dir
-    mkdir -p $datadir
+    mkdir -p $AIRTIMESTORAGE
 
-    dpkg-statoverride --list $datadir || true
-    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $datadir
+    dpkg-statoverride --list $AIRTIMESTORAGE || true
+    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $AIRTIMESTORAGE
 
     # restart apache
     invoke-rc.d apache2 restart

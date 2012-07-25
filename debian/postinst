@@ -191,10 +191,10 @@ case "$1" in
     fi
 
     # create data dir
-    mkdir -p $AIRTIMESTORAGE
+#    mkdir -p $AIRTIMESTORAGE
 
-    dpkg-statoverride --list $AIRTIMESTORAGE || true
-    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $AIRTIMESTORAGE
+#    dpkg-statoverride --list $AIRTIMESTORAGE || true
+#    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $AIRTIMESTORAGE
 
     # restart apache
     invoke-rc.d apache2 restart

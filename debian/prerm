@@ -7,13 +7,15 @@ package_name="airtime"
 datadir="/var/lib/${package_name}/tmp"
 
 case "$1" in
-  purge|remove)
-
+  remove)
       cd $datadir/install_minimal/ && ./airtime-uninstall || true
   ;;
 
-  upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+  purge)
+      cd $datadir/install_minimal/ && ./airtime-uninstall --purge || true
+  ;;
 
+  upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
   ;;
 
   *)

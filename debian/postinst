@@ -9,11 +9,6 @@ if [ "$DPKG_DEBUG" = "developer" ]; then
     set -x
 fi
 
-WEB_USER=www-data
-WEB_GROUP=www-data
-
-package_name="airtime"
-#datadir="/srv/airtime"
 wwwdir="/usr/share/airtime"
 tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
@@ -189,12 +184,6 @@ case "$1" in
     else
      echo "The rabbitmq-server package does not appear to be installed on this server."
     fi
-
-    # create data dir
-#    mkdir -p $AIRTIMESTORAGE
-
-#    dpkg-statoverride --list $AIRTIMESTORAGE || true
-#    dpkg-statoverride --add --force --update $WEB_USER $WEB_GROUP 0750 $AIRTIMESTORAGE
 
     # restart apache
     invoke-rc.d apache2 restart

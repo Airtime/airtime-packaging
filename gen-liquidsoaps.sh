@@ -2,10 +2,10 @@
 
 # Packaging script for Liquidsoap binaries. See https://wiki.sourcefabric.org/display/CC/Packaging+Liquidsoap
 
-VERSION=2.1.3
+VERSION=2.2.0
 SFOCUSTOM="-ga"
 LIQUIDSOAP_VERSION=1.0.1
-LIQUIDSOAP_CUSTOM="sfo-1"
+LIQUIDSOAP_CUSTOM="sfo-2"
 MIRRORPATH=/tmp
 
 # Copy the packaging files into the temporary build directory

@@ -6,6 +6,7 @@ Uploaders: Daniel James <daniel@64studio.com>
 Build-Depends:
  debhelper (>= 7.0.1),
  libasound2,
+ libfaad2,
  libflac8,
  libmad0,
  libmp3lame0,

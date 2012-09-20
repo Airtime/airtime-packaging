@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # Packaging script for Liquidsoap binaries. See https://wiki.sourcefabric.org/display/CC/Packaging+Liquidsoap
+# Please download the zip file of Liquidsoap binaries to $MIRRORPATH before running this script
 
-VERSION=2.2.0
-SFOCUSTOM="-ga"
 LIQUIDSOAP_VERSION=1.0.1
 LIQUIDSOAP_CUSTOM="sfo-2"
 MIRRORPATH=/tmp
@@ -13,10 +12,10 @@ MIRRORPATH=/tmp
 mkdir -p ${MIRRORPATH}/liquidsoap/bin/
 cp -r liquidsoap/* ${MIRRORPATH}/liquidsoap/
 
-# Unpack the Liquidsoap binaries from the Airtime tarball
+# Unpack the Liquidsoap binaries from the zip file
 
-tar -xzf ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz -C ${MIRRORPATH}
-cp -a ${MIRRORPATH}/airtime-${VERSION}/python_apps/pypo/liquidsoap_bin/*_* ${MIRRORPATH}/liquidsoap/bin/
+bunzip2 ${MIRRORPATH}/liquidsoap_bin.tar.bz2
+tar -xvf /tmp/liquidsoap_bin.tar -C ${MIRRORPATH}/liquidsoap/bin/
 
 cd ${MIRRORPATH}/
 

@@ -1,3 +1,9 @@
+liquidsoap (1.0.1~squeeze~sfo-2) squeeze; urgency=low
+
+  * Patch for segfault on libfaad2 decode
+
+ -- Daniel James <daniel@64studio.com>  Thu, 20 Sep 2012 15:01:24 +0100
+
 liquidsoap (1.0.1~squeeze~sfo-1) squeeze; urgency=low
 
   * Backport of upstream 1.0.1 release

@@ -44,20 +44,7 @@ Recommends:
 Suggests:
  icecast2,
  festival,
- mplayer,
- libcamomile-ocaml-data,
- liguidsoap,
- liquidsoap-plugin-mad,
- liquidsoap-plugin-lame,
- liquidsoap-plugin-taglib,
- liquidsoap-plugin-vorbis,
- liquidsoap-plugin-flac,
- liquidsoap-plugin-voaacenc,
- liquidsoap-plugin-icecast,
- liquidsoap-plugin-faad,
- liquidsoap-plugin-pulseaudio,
- liquidsoap-plugin-samplerate,
- liquidsoap-plugin-xmlplaylist
+ mplayer
 Description: audio streaming language
  Liquidsoap is a powerful tool for building complex audio streaming systems,
  typically targeting internet radios (e.g. icecast streams).

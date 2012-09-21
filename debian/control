@@ -10,6 +10,7 @@ Package: airtime
 Architecture: all
 Pre-Depends: postgresql, python-virtualenv (>= 1.4.9)
 Depends: apache2,
+ coreutils (>= 7.5) | timeout,
  curl,
  ecasound,
  gzip (>= 1.3.12),
@@ -36,6 +37,8 @@ Depends: apache2,
  php5-gd,
  php-pear,
  php5-pgsql,
+ pwgen,
+ python,
  rabbitmq-server,
  sudo,
  sysv-rc, 
@@ -43,12 +46,11 @@ Depends: apache2,
  unzip,
  vorbis-tools,
  zendframework | libzend-framework-php,
- ${misc:Depends},
- ${python:Depends}
+ ${misc:Depends}
 Recommends: icecast2
 Suggests: airtime-audio-samples,
  alsa-utils
-Description: The open radio software for scheduling and remote station management.
+Description: open radio software for scheduling and remote station management.
  Airtime is an open source application that provides remote automation 
  of a radio station.
  .

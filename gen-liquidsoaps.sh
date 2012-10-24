@@ -14,8 +14,8 @@ cp -r liquidsoap/* ${MIRRORPATH}/liquidsoap/
 
 # Unpack the Liquidsoap binaries from the zip file
 
-bunzip2 ${MIRRORPATH}/liquidsoap_bin.tar.bz2
-tar -xvf /tmp/liquidsoap_bin.tar -C ${MIRRORPATH}/liquidsoap/bin/
+bunzip2 ${MIRRORPATH}/liquidsoap.tar.bz2
+tar -xvf /tmp/liquidsoap.tar -C ${MIRRORPATH}/liquidsoap/bin/
 
 cd ${MIRRORPATH}/
 
@@ -24,6 +24,8 @@ cd ${MIRRORPATH}/
 if test ! \( -d liquidsoap/bin \
 	-a -f liquidsoap/bin/liquidsoap_squeeze_amd64 \
 	-a -f liquidsoap/bin/liquidsoap_squeeze_i386  \
+        -a -f liquidsoap/bin/liquidsoap_wheezy_amd64 \
+        -a -f liquidsoap/bin/liquidsoap_wheezy_i386  \
 	-a -f liquidsoap/bin/liquidsoap_lucid_amd64 \
 	-a -f liquidsoap/bin/liquidsoap_lucid_i386  \
 	-a -f liquidsoap/bin/liquidsoap_maverick_amd64 \
@@ -33,7 +35,9 @@ if test ! \( -d liquidsoap/bin \
 	-a -f liquidsoap/bin/liquidsoap_oneiric_amd64 \
 	-a -f liquidsoap/bin/liquidsoap_oneiric_i386 \
 	-a -f liquidsoap/bin/liquidsoap_precise_amd64 \
-	-a -f liquidsoap/bin/liquidsoap_precise_i386 \) \
+	-a -f liquidsoap/bin/liquidsoap_precise_i386 \
+        -a -f liquidsoap/bin/liquidsoap_quantal_amd64 \
+        -a -f liquidsoap/bin/liquidsoap_quantal_i386 \) \
 	; then
 echo "ERROR: liquidsoap binaries not present in ${MIRRORPATH}/liquidsoap/bin/"
 exit 1
@@ -45,7 +49,7 @@ fi
         pbuilder-dist squeeze i386 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
         pbuilder-dist squeeze amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
 
-# Set the correct distro name in the Ubuntu package changelog
+# Set the correct distro name in the package changelog
 
 function set_dist {
   DIST=$1
@@ -57,19 +61,19 @@ EOF
 head -n1 liquidsoap/debian/changelog
 }
 
-# Use these lines to build for Ubuntu
+# Use these lines to build for other distros
 
-#for dist in lucid maverick natty oneiric precise; do
+#for dist in lucid maverick natty oneiric precise quantal wheezy; do
 #	set_dist $dist
 #	dpkg-source -b liquidsoap
 #	pbuilder-dist $dist i386 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 #	pbuilder-dist $dist amd64 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 #done
 
-CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 12`
+CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 16`
 
 ls -l $CHANGES
 
-# Prompt user to sign the 12 newest packages with the Sourcefabric key
+# Prompt user to sign the 16 newest packages with the Sourcefabric key
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/liquidsoap_*changes | head -n 12`'
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/liquidsoap_*changes | head -n 16`'

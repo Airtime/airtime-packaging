@@ -5,25 +5,31 @@ Maintainer: Debian OCaml Maintainers <debian-ocaml-maint@lists.debian.org>
 Uploaders: Daniel James <daniel@64studio.com>
 Build-Depends:
  debhelper (>= 7.0.1),
+ libao4 | libao2,
  libasound2,
  libfaad2,
  libflac8,
+ libgif4,
  libmad0,
  libmp3lame0,
  libjack0,
+ libjpeg8,
+ libjson0,
  libogg0,
  libpcre3,
+ libpng12-0,
  libportaudio2,
+ libpulse0,
  libsamplerate0,
  libstdc++6,
- libao4 | libao2,
- libpulse0,
  libtag1c2a | libtagc0 | libtag1-vanilla,
+ libtiff4,
  libvorbis0a,
  libvorbisenc2,
  libvorbisfile3,
  libx11-6,
- libjson0
+ libxpm4,
+ zlib1g
 Standards-Version: 3.9.2
 Vcs-Git: git://git.debian.org/git/pkg-ocaml-maint/packages/liquidsoap.git
 Vcs-Browser: http://git.debian.org/?p=pkg-ocaml-maint/packages/liquidsoap.git

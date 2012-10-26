@@ -2,7 +2,7 @@
 # Script for generating official Airtime packages
 
 VERSION=2.2.0
-SFOCUSTOM="-rc1"
+SFOCUSTOM=""
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
@@ -50,6 +50,10 @@ rm -r airtime/airtime_mvc/library/ZFDebug/
 
 #Strip un-needed install scripts
 rm -r airtime/install_full/
+
+#Strip snapshot generation files
+rm airtime/gen-snapshot.sh
+rm -r airtime/debian/
 
 #############################
 

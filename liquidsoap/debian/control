@@ -13,7 +13,7 @@ Build-Depends:
  libmad0,
  libmp3lame0,
  libjack0,
- libjpeg8,
+ libjpeg8 | libjpeg62,
  libjson0,
  libogg0,
  libpcre3,

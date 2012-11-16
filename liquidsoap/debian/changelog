@@ -1,3 +1,9 @@
+liquidsoap (1.0.1~squeeze~sfo-3) squeeze; urgency=low
+
+  * Patch for memory leak bug in web streams
+
+ -- Daniel James <daniel@64studio.com>  Fri, 16 Nov 2012 11:32:30 +0000
+
 liquidsoap (1.0.1~squeeze~sfo-2) squeeze; urgency=low
 
   * Patch for segfault on libfaad2 decode

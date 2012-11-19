@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML \
+1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Liquidsoap :: Script loading</title>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div id="logo">
+      <h1>Liquidsoap</h1>
+      <h2>audio stream generation</h2>
+    </div>
+  <div>
+   <ul id="menu">
+     <li id="menu-about">
+       <a href="index.html">about</a></li>
+     <li id="menu-doc-index">
+       <a href="documentation.html">documentation</a></li>
+     <li id="menu-doc-api">
+       <a href="reference.html">API</a></li>
+     <li id="menu-doc-snippets">
+       <a href="scripts/index.html">snippets</a></li>
+     <li id="menu-developers">
+       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+   </ul>
+  </div>
+  </div>
+  <div id="content"><div>
+  <h3>Script loading</h3>
+<p>
+When you run liquidsoap for streaming, the command line has the following form:
+</p>
+<pre class="syntax ">$ liquidsoap script_or_expr_1 ... script_or_expr_N
+</pre>
+<p>
+This allows you to ask liquidsoap to load definition and settings from
+some scripts so that the become available when processing the next ones.
+</p>
+<p>
+For example you can store your passwords by defined the variable <code>xxx</code>
+in <code>secret.liq</code>, and then refer to that variable in your main script 
+<code>main.liq</code>. You would then run <code>liquidsoap secret.liq main.liq</code>. If you ever 
+need to communicate <code>main.liq</code> there won't be any risk of divulgating your 
+password.
+</p>
+<h4>The pervasive script library</h4>
+<p>
+In fact, liquidsoap also implicitly loads scripts before those that you specify 
+on the command-line. These scripts are meant to contain standard utilities.
+Liquidsoap finds them in <code>LIBDIR/liquidsoap/VERSION</code> where <code>LIBDIR</code> depends on 
+your configuration (it is typically <code>/usr/local/lib</code> or <code>/usr/lib</code>) and 
+<code>VERSION</code> is the version of liquidsoap (<em>e.g.</em> <code>0.3.8</code> or <code>svn</code>).
+</p>
+<p>
+Currently, liquidsoap loads <code>pervasives.liq</code> from the library directory,
+and this file includes some others.
+You can add your personal standard library in that directory
+if you find it useful.
+</p>
+  </div></div>
+  <div>
+    <div id="footer"> 2003-2011 Savonet team</div>
+  </div>
+  </div>
+</body></html>

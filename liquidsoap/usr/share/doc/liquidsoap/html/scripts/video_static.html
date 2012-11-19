@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" \
+                    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Liquidsoap :: Audio Stream Generation</title>
+  <link href="../css/style.css" type="text/css" rel="stylesheet" />
+  <link href="../css/homepage.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div id="logo">
+        <h1>Liquidsoap</h1>
+        <h2>Audio Stream Generation</h2>
+      </div>
+      <div>
+      <ul id="menu">
+          <li id="menu-about">
+            <a href="../index.html">about</a></li>
+          <li id="menu-support">
+            <a href="../documentation.html">documentation</a></li>
+          <li id="menu-developers">
+            <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+      </ul>
+     </div>
+    </div>
+    <div id="content">
+      <h3>video_static.liq</h3>
+      <pre> # Log to stdout
+ set("log.file",false)
+ set("log.stdout",true)
+ set("log.level",4)
+ # Enable video
+ set("frame.video.width",640)
+ set("frame.video.height",480)
+
+ audio_file = "/tmp/bla.mp3"
+ video_file = "/tmp/bla.jpg"
+
+ # Grab file's title
+ r = request.create(audio_file)
+ title = 
+   if request.resolve(r) then
+     meta = request.metadata(r)
+     meta["title"]
+   else
+     # File not readable
+     log("Error: cannot decode audio file!")
+     shutdown () 
+     ""
+   end
+ title = 
+   if title == "" then
+      "Unknow title"
+   else
+      title
+   end
+
+ # The audio song.
+ audio = request.queue(interactive=false,queue=[r])
+
+ # Create a video source with the image for video track
+ video = single(video_file)
+
+ # Mux audio and video
+ #source = mux_audio(audio=audio,video)
+ source = mux_video(video=video,audio)
+
+ # Disable real-time processing, to process with the maximun speed
+ source = clock(sync=false,source)
+
+ # Output to a theora file, shutdown on stop
+ output.file(%ogg(%vorbis,%theora),
+             id="youtube",fallible=true,
+             on_stop=shutdown,reopen_on_metadata=true,
+             "/tmp/#{title}.ogv",
+             source)
+</pre>      <a href="video_static.liq">Download</a>
+    </div>
+    <div>
+      <div id="footer"> 2003-2011 Savonet team</div>
+    </div>
+  </div>
+</body>
+</html>

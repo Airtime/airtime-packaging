@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML \
+1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Liquidsoap :: Bubble</title>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div id="logo">
+      <h1>Liquidsoap</h1>
+      <h2>audio stream generation</h2>
+    </div>
+  <div>
+   <ul id="menu">
+     <li id="menu-about">
+       <a href="index.html">about</a></li>
+     <li id="menu-doc-index">
+       <a href="documentation.html">documentation</a></li>
+     <li id="menu-doc-api">
+       <a href="reference.html">API</a></li>
+     <li id="menu-doc-snippets">
+       <a href="scripts/index.html">snippets</a></li>
+     <li id="menu-developers">
+       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+   </ul>
+  </div>
+  </div>
+  <div id="content"><div>
+  <h3>Bubble</h3>
+<p>
+Bubble is a simple program which scans your audio files and stores their metadata in a SQLite database. It can rewrite paths into URI so that you can index remote files mounted locally and rewrite the local path into the general URI before storing it in the database. For example if you mount your Samba workground in <code>/mnt/samba/workgroup</code> using <code>fusesmb</code>, you'll ask bubble to rewrite <code>/mnt/samba/workgroup</code> into <code>smb://</code>.
+</p>
+<p>
+Bubble has been designed to be interfaced with liquidsoap to provide a protocol for selecting files by queries on metadata. URI rewriting makes it possible to query from another machine than the one where the indexer runs, and also makes sure that the file will appear as a remote one to liquidsoap, so that it will be fully downloaded to a safe local place before being played.
+</p>
+<p>
+To add the bubble protocol to liquidsoap, we use the following code:
+</p>
+<pre class="syntax liq">bubble = "/home/dbaelde/savonet/bubble/src/bubble-query " ^
+         "-d /var/local/cache/bubble/bubble.sql "
+add_protocol(
+  "bubble",
+  fun (arg,delay) -&gt; get_process_lines(bubble^quote(arg)))
+</pre>
+<div align="right">
+<a href="scripts/bubble_full.liq">
+<img class="grab" src="./images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+You could then have an IRC bot which accepts queries like play “Alabama song” and transforms it into the URI <code>bubble:title="Alabama song"</code> before queueing it in a liquidsoap instance. The bubble protocol in liquidsoap will call the <code>bubble-query</code> script which will translate the query from Bubble to SQLite and return a list of ten random matches, which liquidsoap will try.
+</p>
+<p>
+Although it has been used for months as distributed on our old <a href="http://savonet.svn.sourceforge.net/viewvc/savonet/oldies/bubble/src/" target="_blank">SVN 
+repository</a>,
+bubble is mostly a proof-of-concept tool. It is very concise and can be tailored to custom needs.
+</p>
+  </div></div>
+  <div>
+    <div id="footer"> 2003-2011 Savonet team</div>
+  </div>
+  </div>
+</body></html>

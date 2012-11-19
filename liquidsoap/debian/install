@@ -1,3 +1,3 @@
 etc/logrotate.d/liquidsoap
-doc/radio.liq.example etc/liquidsoap
-
+etc/liquidsoap/radio.liq.example
+usr/lib/liquidsoap/1.0.1/*

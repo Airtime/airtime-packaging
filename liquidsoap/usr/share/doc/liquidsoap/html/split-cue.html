@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML \
+1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Liquidsoap :: Split a CUE sheet.</title>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div id="logo">
+      <h1>Liquidsoap</h1>
+      <h2>audio stream generation</h2>
+    </div>
+  <div>
+   <ul id="menu">
+     <li id="menu-about">
+       <a href="index.html">about</a></li>
+     <li id="menu-doc-index">
+       <a href="documentation.html">documentation</a></li>
+     <li id="menu-doc-api">
+       <a href="reference.html">API</a></li>
+     <li id="menu-doc-snippets">
+       <a href="scripts/index.html">snippets</a></li>
+     <li id="menu-developers">
+       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+   </ul>
+  </div>
+  </div>
+  <div id="content"><div>
+  <h3>Split and re-encode a CUE sheet.</h3>
+<p>
+CUE sheets are sometimes distributed along with a single audio file containing a whole CD.
+Liquidsoap can parse CUE sheets as playlists and use them in your request-based sources.
+</p>
+<p>
+Here's for instance an example of a simple code to split a CUE sheet into several mp3 files
+with <code>id3v2</code> tags:
+</p>
+<pre class="syntax liq"> # Log to stdout
+ set("log.file",false)
+ set("log.stdout",true)
+ set("log.level",4)
+
+ # Initial playlist
+ cue = "/path/to/sheet.cue"
+
+ # Create a reloadable playlist with this CUE sheet.
+ # Tell liquidsoap to shutdown when we are done.
+ x = playlist.reloadable(cue, on_done=shutdown)
+
+ # We will never reload this playlist so we drop the first
+ # returned value:
+ s = snd(x)
+
+ # Add a cue_cut to cue-in/cue-out according to
+ # markers in "sheet.cue"
+ s = cue_cut(s)
+
+ # Shove all that to a output.file operator.
+ output.file(%mp3(id3v2=true,bitrate=320), 
+             fallible=true,
+             reopen_on_metadata=true,
+             "/path/to/$(track) - $(title).mp3",
+             s)
+</pre>
+<div align="right">
+<a href="scripts/split_cue.liq">
+<img class="grab" src="./images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+  </div></div>
+  <div>
+    <div id="footer"> 2003-2011 Savonet team</div>
+  </div>
+  </div>
+</body></html>

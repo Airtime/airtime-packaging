@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" \
+                    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Liquidsoap :: Audio Stream Generation</title>
+  <link href="../css/style.css" type="text/css" rel="stylesheet" />
+  <link href="../css/homepage.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div id="logo">
+        <h1>Liquidsoap</h1>
+        <h2>Audio Stream Generation</h2>
+      </div>
+      <div>
+      <ul id="menu">
+          <li id="menu-about">
+            <a href="../index.html">about</a></li>
+          <li id="menu-support">
+            <a href="../documentation.html">documentation</a></li>
+          <li id="menu-developers">
+            <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+      </ul>
+     </div>
+    </div>
+    <div id="content">
+      <h3>simple_crossfade.liq</h3>
+      <pre># A simple (long) cross-fade
+def crossfade(a,b)
+  add(normalize=false,
+	  [ sequence([ blank(duration=5.),
+	               fade.initial(duration=10.,b) ]),
+	    fade.final(duration=10.,a) ])
+end
+
+# Partially apply next to give it a jingle source.
+# It will fade out the old source, then play the jingle.
+# At the same time it fades in the new source.
+def next(j,a,b)
+  add(normalize=false,
+	  [ sequence(merge=true,
+	             [ blank(duration=3.),
+	               fade.initial(duration=6.,b) ]),
+	    sequence([fade.final(duration=9.,a),
+	              j,fallback([])]) ])
+end
+
+# A similar transition,
+# which does a cross-fading from A to B
+# and adds a jingle
+def transition(j,a,b)
+  add(normalize=false,
+	  [ fade.initial(b),
+	    sequence(merge=true,
+	            [blank(duration=1.),j,fallback([])]),
+	    fade.final(a) ])
+end
+</pre>      <a href="simple_crossfade.liq">Download</a>
+    </div>
+    <div>
+      <div id="footer"> 2003-2011 Savonet team</div>
+    </div>
+  </div>
+</body>
+</html>

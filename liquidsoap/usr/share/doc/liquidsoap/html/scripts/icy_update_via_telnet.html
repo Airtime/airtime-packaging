@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" \
+                    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Liquidsoap :: Audio Stream Generation</title>
+  <link href="../css/style.css" type="text/css" rel="stylesheet" />
+  <link href="../css/homepage.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div id="logo">
+        <h1>Liquidsoap</h1>
+        <h2>Audio Stream Generation</h2>
+      </div>
+      <div>
+      <ul id="menu">
+          <li id="menu-about">
+            <a href="../index.html">about</a></li>
+          <li id="menu-support">
+            <a href="../documentation.html">documentation</a></li>
+          <li id="menu-developers">
+            <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+      </ul>
+     </div>
+    </div>
+    <div id="content">
+      <h3>icy_update_via_telnet.liq</h3>
+      <pre>def icy_update(v) =
+  # Parse the argument
+  l = string.split(separator=",",v)
+  def split(l,v) =
+    v = string.split(separator="=",v)
+    if list.length(v) >= 2 then
+      list.append(l,[(list.nth(v,0),list.nth(v,1))])
+    else
+      l
+    end
+  end
+  meta = list.fold(split,[],l)
+
+  # Update metadata
+  icy.update_metadata(mount="/mystream",password="hackme",
+                      host="myserver.net",meta)
+  "Done !"
+end
+
+server.register("update",namespace="metadata",
+                 description="Update metadata",
+                 usage="update title=foo,album=bar,..",
+                 icy_update)
+</pre>      <a href="icy_update_via_telnet.liq">Download</a>
+    </div>
+    <div>
+      <div id="footer"> 2003-2011 Savonet team</div>
+    </div>
+  </div>
+</body>
+</html>

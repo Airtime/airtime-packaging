@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML \
+1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Liquidsoap :: LADSPA plugins</title>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div id="logo">
+      <h1>Liquidsoap</h1>
+      <h2>audio stream generation</h2>
+    </div>
+  <div>
+   <ul id="menu">
+     <li id="menu-about">
+       <a href="index.html">about</a></li>
+     <li id="menu-doc-index">
+       <a href="documentation.html">documentation</a></li>
+     <li id="menu-doc-api">
+       <a href="reference.html">API</a></li>
+     <li id="menu-doc-snippets">
+       <a href="scripts/index.html">snippets</a></li>
+     <li id="menu-developers">
+       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+   </ul>
+  </div>
+  </div>
+  <div id="content"><div>
+  <h3>LADSPA plugins in Liquidsoap</h3>
+<p>
+<a href="http://www.ladspa.org/" target="_blank">LADSPA</a> is a standard that allows software audio processors and effects to be plugged into a 
+wide range of audio synthesis and recording packages.
+</p>
+<p>
+If enabled, Liquidsoap supports LADSPA plugins. In this case,
+installed plugins are detected at run-time and are all available in Liquidsoap under a name 
+of the form: <code>ladspa.plugin</code>, for instance <code>ladspa.karaoke</code>, <code>ladspa.flanger</code> etc..
+</p>
+<p>
+The full list of those operators can be found using <code>liquidsoap --list-plugins</code>.
+Also, as usual, <code>liquidsoap -h ladspa.plugin</code> returns a detailed description of each LADSPA's operators.
+For instance:
+</p>
+<pre class="syntax ">./liquidsoap -h ladspa.flanger           
+*** One entry in scripting values:
+Flanger by Steve Harris &lt;steve@plugin.org.uk&gt;.
+Category: Source / Sound Processing
+Type: (?id:string,?delay_base:'a,?feedback:'b,
+ ?lfo_frequency:'c,?max_slowdown:'d,
+ source(audio='#e,video='#f,midi='#g))-&gt;
+source(audio='#e,video='#f,midi='#g)
+where 'a, 'b, 'c, 'd is either float or ()-&gt;float
+Flag: hidden
+Parameters:
+* id : string (default "")
+    Force the value of the source ID.
+* delay_base : anything that is either float or ()-&gt;float (default 6.32499980927)
+    Delay base (ms) (0.1 &lt;= delay_base &lt;= 25).
+* feedback : anything that is either float or ()-&gt;float (default 0.)
+    Feedback (-1 &lt;= feedback &lt;= 1).
+* lfo_frequency : anything that is either float or ()-&gt;float (default 0.334370166063)
+    LFO frequency (Hz) (0.05 &lt;= lfo_frequency &lt;= 100).
+* max_slowdown : anything that is either float or ()-&gt;float (default 2.5)
+    Max slowdown (ms) (0 &lt;= max_slowdown &lt;= 10).
+* (unlabeled) : source(audio='#e,video='#f,midi='#g) (default None)
+</pre>
+<p>
+For advanced users, it is worth nothing that most of the parameters associated with LADSPA operators
+can take a function, for instance in the above: <code>max_slowdown : anything that is either float or ()-&gt;float</code>.
+This means that those parameters may be dynamically changed while running a liquidsoap script.
+</p>
+  </div></div>
+  <div>
+    <div id="footer"> 2003-2011 Savonet team</div>
+  </div>
+  </div>
+</body></html>

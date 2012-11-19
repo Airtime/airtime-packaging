@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" \
+                    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Liquidsoap :: Audio Stream Generation</title>
+  <link href="../css/style.css" type="text/css" rel="stylesheet" />
+  <link href="../css/homepage.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <div id="logo">
+        <h1>Liquidsoap</h1>
+        <h2>Audio Stream Generation</h2>
+      </div>
+      <div>
+      <ul id="menu">
+          <li id="menu-about">
+            <a href="../index.html">about</a></li>
+          <li id="menu-support">
+            <a href="../documentation.html">documentation</a></li>
+          <li id="menu-developers">
+            <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+      </ul>
+     </div>
+    </div>
+    <div id="content">
+      <h3>source_skip_command.liq</h3>
+      <pre># Add a skip function to a source
+# when it does not have one
+# by default
+def add_skip_command(s) =
+ # A command to skip
+ def skip(_) =
+   source.skip(s)
+   "Done!"
+ end
+ # Register the command:
+ server.register(namespace="#{source.id(s)}",
+                 usage="skip",
+                 description="Skip the current song.",
+                 "skip",skip)
+end
+
+# Attach a skip command to the source s:
+add_skip_command(s)
+</pre>      <a href="source_skip_command.liq">Download</a>
+    </div>
+    <div>
+      <div id="footer"> 2003-2011 Savonet team</div>
+    </div>
+  </div>
+</body>
+</html>

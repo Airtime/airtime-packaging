@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML \
+1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Liquidsoap :: Liquidsoap execution phases</title>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <div id="logo">
+      <h1>Liquidsoap</h1>
+      <h2>audio stream generation</h2>
+    </div>
+  <div>
+   <ul id="menu">
+     <li id="menu-about">
+       <a href="index.html">about</a></li>
+     <li id="menu-doc-index">
+       <a href="documentation.html">documentation</a></li>
+     <li id="menu-doc-api">
+       <a href="reference.html">API</a></li>
+     <li id="menu-doc-snippets">
+       <a href="scripts/index.html">snippets</a></li>
+     <li id="menu-developers">
+       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+   </ul>
+  </div>
+  </div>
+  <div id="content"><div>
+  <h3>Liquidsoap execution phases</h3>
+<p>
+There are various stages of running liquidsoap:
+</p>
+<ul>
+<li>
+<b>Parsing</b>: read scripts and scripting expressions, can fail with syntax errors.</li>
+<li>
+<b>Static analysis</b>: infer the type of all expressions, leaves some type unknown and may fail with type errors.</li>
+<li>
+<b>Instantiation</b>: when script is executed, sources get created. Remaining unknown <a href="stream_contents.html">stream types</a> are forced according to <code>frame.*.channels</code> settings, <a href="clock.html">clocks</a> are assigned (but unknown clocks may remain) and some sources are checked to be <a href="source.htmls">infallible</a>. Each of these steps may raise an error.</li>
+<li>
+<b>Collection</b>: Unknown clocks become the default wallclock so that all sources are assigned to one clock. Active sources newly attached to clocks are initialized for streaming, shutdown sources are detached from their clocks, and clocks are started or destroyed as needed. Streaming has started.</li>
+</ul>
+<p>
+Usually, liquidsoap is ran by passing one or several scripts and expressions to execute. Those expressions set up some sources, and outputs typically don't change anymore. If those initially provided active sources fail to be initialized (invalid parameter, fail to connect, etc.) liquidsoap will terminate with an error.
+</p>
+<p>
+It is however possible to <b>dynamically</b> create active sources,
+through registered server commands, event handlers, etc.
+They will be initialized and run as statically created ones.
+In <b>interactive</b> mode (passing the <code>--interactive</code> option)
+it is also possible to input expressions in a liquidsoap prompt,
+and their execution can trigger the creation of new outputs.
+</p>
+<p>
+Outputs can be desactivated using <code>source.shutdown()</code>:
+they will stop streaming and will be destroyed.
+</p>
+<p>
+The full liquidsoap instance
+can be shutdown using the <code>shutdown()</code> command.
+</p>
+  </div></div>
+  <div>
+    <div id="footer"> 2003-2011 Savonet team</div>
+  </div>
+  </div>
+</body></html>

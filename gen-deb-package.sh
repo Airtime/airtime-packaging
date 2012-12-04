@@ -1,8 +1,8 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-VERSION=2.2.0
-SFOCUSTOM=""
+VERSION=2.2.1
+SFOCUSTOM="-ga"
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi airtime-${VERSION} airtime
 pwd
 
-# FIXES for 2.2.0 #############
+# FIXES for 2.2.1 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE

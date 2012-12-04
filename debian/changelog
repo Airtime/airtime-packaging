@@ -1,3 +1,9 @@
+airtime (2.2.1-1) unstable; urgency=low
+
+  * Upstream 2.2.1 release
+
+ -- Daniel James <daniel@64studio.com>  Tue, 04 Dec 2012 11:10:37 +0000
+
 airtime (2.2.0-2) unstable; urgency=low
 
   * Added dependency on flac package for metaflac support

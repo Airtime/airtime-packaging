@@ -2,7 +2,7 @@
 # Script for generating official Airtime packages
 
 VERSION=2.2.1
-SFOCUSTOM="-ga"
+SFOCUSTOM="-ga-2"
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/

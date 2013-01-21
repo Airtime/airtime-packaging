@@ -21,10 +21,6 @@ tar -xvzf ${MIRRORPATH}/silan_${SILAN_VERSION}${SILAN_CUSTOM}.tar.gz -C ${MIRROR
 
 cd ${MIRRORPATH}/silan/
 
-# Tweak the build dependency for libavutil
-
-sed -i "85s/libavutil >= 50.0.0/libavutil >= 49.0.0/g" silan-${SILAN_VERSION}/configure.ac
-
 # Set the correct distro name in the package changelog
 
 function set_dist {
@@ -35,28 +31,20 @@ sed -i "1s/${SILAN_VERSION}${SILAN_CUSTOM}/${SILAN_VERSION}~${DIST}~sfo${SILAN_C
 head -n1 silan-${SILAN_VERSION}/debian/changelog
 }
 
-# Use these lines to build for Debian squeeze
+# Use these lines to build for various distros
 
-for dist in squeeze; do
-        set_dist $dist
-        dpkg-source -b silan-${SILAN_VERSION}
-        pbuilder-dist ${dist} i386 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
-#        pbuilder-dist ${dist} amd64 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
+#for dist in lucid natty oneiric precise quantal squeeze wheezy; do
+for dist in lucid; do
+	set_dist $dist
+	dpkg-source -b silan-${SILAN_VERSION}
+	pbuilder-dist $dist i386 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
+	pbuilder-dist $dist amd64 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
 done
 
-# Use these lines to build for other distros
-
-#for dist in lucid maverick natty oneiric precise quantal wheezy; do
-#	set_dist $dist
-#	dpkg-source -b silan-${SILAN_VERSION}
-#	pbuilder-dist $dist i386 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
-#	pbuilder-dist $dist amd64 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
-#done
-
-CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 16`
+CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 14`
 
 ls -l $CHANGES
 
-# Prompt user to sign the 16 newest packages with the Sourcefabric key
+# Prompt user to sign the 14 newest packages with the Sourcefabric key
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/silan_*changes | head -n 16`'
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/silan_*changes | head -n 14`'

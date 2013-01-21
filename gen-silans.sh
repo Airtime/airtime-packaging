@@ -33,7 +33,7 @@ head -n1 silan-${SILAN_VERSION}/debian/changelog
 
 # Use these lines to build for various distros
 
-#for dist in lucid natty oneiric precise quantal squeeze wheezy; do
+#for dist in lucid oneiric precise quantal squeeze wheezy; do
 for dist in lucid; do
 	set_dist $dist
 	dpkg-source -b silan-${SILAN_VERSION}
@@ -41,10 +41,10 @@ for dist in lucid; do
 	pbuilder-dist $dist amd64 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
 done
 
-CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 14`
+CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 12`
 
 ls -l $CHANGES
 
-# Prompt user to sign the 14 newest packages with the Sourcefabric key
+# Prompt user to sign the 12 newest packages with the Sourcefabric key
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/silan_*changes | head -n 14`'
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/silan_*changes | head -n 12`'

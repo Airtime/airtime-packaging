@@ -2,7 +2,7 @@
 # Script for generating official Airtime packages
 
 VERSION=2.3.0
-SFOCUSTOM="-rc2"
+SFOCUSTOM="-rc2a"
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/

@@ -2,7 +2,7 @@
 # Script for generating official Airtime packages
 
 VERSION=2.3.0
-SFOCUSTOM="-rc1"
+SFOCUSTOM="-rc2"
 DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
@@ -51,6 +51,9 @@ rm -r airtime/install_full/
 #Strip snapshot generation files
 rm airtime/gen-snapshot.sh
 rm -r airtime/debian/
+
+#Remove Liquidsoap binary
+#rm -r airtime/python_apps/pypo/liquidsoap_bin/
 
 #############################
 

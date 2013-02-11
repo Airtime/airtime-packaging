@@ -76,6 +76,14 @@ case "$1" in
 
       # insert a specific hostname, if provided, into API configuration
       if [ "${SN}" != "localhost" ]; then
+
+        # new installs
+        if [ -f /var/lib/airtime/tmp/airtime_mvc/build/airtime.conf -a -f /var/lib/airtime/tmp/python_apps/api_clients/api_client.cfg ]; then
+        sed -i "s/base_url = localhost/base_url = ${SN}/" /var/lib/airtime/tmp/airtime_mvc/build/airtime.conf
+        sed -i "s/host = 'localhost'/host = '${SN}'/" /var/lib/airtime/tmp/python_apps/api_clients/api_client.cfg
+        fi
+
+        # upgrades
         if [ -f /etc/airtime/airtime.conf -a -f /etc/airtime/api_client.cfg ]; then
         sed -i "s/base_url = localhost/base_url = ${SN}/" /etc/airtime/airtime.conf
         sed -i "s/host = 'localhost'/host = '${SN}'/" /etc/airtime/api_client.cfg

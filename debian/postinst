@@ -73,6 +73,14 @@ case "$1" in
       if [ $RETVAL -eq 0 ]; then
       a2ensite airtime-vhost
       fi
+
+      # insert a specific hostname, if provided, into API configuration
+      if [ "${SN}" != "localhost" ]; then
+        if [ -f /etc/airtime/airtime.conf -a -f /etc/airtime/api_client.cfg ]; then
+        sed -i "s/base_url = localhost/base_url = ${SN}/" /etc/airtime/airtime.conf
+        sed -i "s/host = 'localhost'/host = '${SN}'/" /etc/airtime/api_client.cfg
+        fi
+      fi
     fi
 
     # enable the rewrite module

@@ -9,7 +9,12 @@ OPUS_VERSION="1.0.1"
 OPUS_CUSTOM="-1"
 MIRRORPATH=/tmp
 
-# Clean up previous builds
+# Function to set the correct distro name in the package changelog and apply the Debian packaging diff
+
+function set_dist {
+  DIST=$1
+
+# Clean up previous build
 
 rm -rf ${MIRRORPATH}/opus/
 
@@ -17,11 +22,6 @@ rm -rf ${MIRRORPATH}/opus/
 
 mkdir -p ${MIRRORPATH}/opus/
 cd ${MIRRORPATH}/opus/
-
-# Function to set the correct distro name in the package changelog and apply the Debian packaging diff
-
-function set_dist {
-  DIST=$1
 
 # Unpack the source tarball and the Debian packaging diff
 

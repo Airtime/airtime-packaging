@@ -26,19 +26,20 @@ function set_dist {
 # Unpack the source tarball and the Debian packaging diff
 
 tar -xvzf ${MIRRORPATH}/opus_${OPUS_VERSION}.orig.tar.gz
-gunzip ${MIRRORPATH}/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff.gz
+cp ${MIRRORPATH}/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff.gz ${MIRRORPATH}/opus/
+gunzip ${MIRRORPATH}/opus/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff.gz
 
 # Replace experimental with the name of the distro we are building for...
 
-sed -i "s/(${OPUS_VERSION}${OPUS_CUSTOM}) experimental;/(${OPUS_VERSION}~${DIST}~sfo${OPUS_CUSTOM}) ${DIST};/" ${MIRRORPATH}/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
+sed -i "s/(${OPUS_VERSION}${OPUS_CUSTOM}) experimental;/(${OPUS_VERSION}~${DIST}~sfo${OPUS_CUSTOM}) ${DIST};/" ${MIRRORPATH}/opus/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
 
 # ...then check the result
 
-grep "(${OPUS_VERSION}~${DIST}~sfo${OPUS_CUSTOM}) ${DIST};" ${MIRRORPATH}/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
+grep "(${OPUS_VERSION}~${DIST}~sfo${OPUS_CUSTOM}) ${DIST};" ${MIRRORPATH}/opus/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
 
 # Patch the upstream source with the Debian packaging changes, then close the function
 
-patch -p0 < ${MIRRORPATH}/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
+patch -p0 < ${MIRRORPATH}/opus/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
 }
 
 # Use these lines to build for various distros

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Packaging script for Liquidsoap binaries. See https://wiki.sourcefabric.org/display/CC/Packaging+Liquidsoap
-# Please download the zip file of Liquidsoap binaries to $MIRRORPATH before running this script
+# Please download the tarball of Liquidsoap binaries to $MIRRORPATH before running this script
 
-LIQUIDSOAP_VERSION=1.0.1
-LIQUIDSOAP_CUSTOM="sfo-4"
+LIQUIDSOAP_VERSION=1.1.0
+LIQUIDSOAP_CUSTOM="sfo-1"
 MIRRORPATH=/tmp
 
 # Copy the packaging files into the temporary build directory
@@ -12,10 +12,9 @@ MIRRORPATH=/tmp
 mkdir -p ${MIRRORPATH}/liquidsoap/bin/
 cp -r liquidsoap/* ${MIRRORPATH}/liquidsoap/
 
-# Unpack the Liquidsoap binaries from the zip file
+# Unpack the Liquidsoap binaries from the tarball
 
-bunzip2 ${MIRRORPATH}/liquidsoap.tar.bz2
-tar -xvf /tmp/liquidsoap.tar -C ${MIRRORPATH}/liquidsoap/bin/
+tar -xvzf /tmp/liquidsoap-${LIQUIDSOAP_VERSION}.tar.gz -C ${MIRRORPATH}/liquidsoap/bin/
 
 cd ${MIRRORPATH}/
 

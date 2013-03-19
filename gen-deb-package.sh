@@ -3,7 +3,7 @@
 
 VERSION=2.3.0
 SFOCUSTOM="-ga"
-DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}${SFOCUSTOM}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
+DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian

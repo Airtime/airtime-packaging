@@ -44,7 +44,7 @@ patch -p0 < ${MIRRORPATH}/opus/opus_${OPUS_VERSION}${OPUS_CUSTOM}.diff
 
 # Use these lines to build for various distros
 
-for dist in lucid oneiric precise quantal squeeze wheezy; do
+for dist in lucid precise squeeze wheezy; do
 	set_dist $dist
         dpkg-source -b opus-${OPUS_VERSION}
 	pbuilder-dist $dist i386 build opus_${OPUS_VERSION}~${dist}~sfo${OPUS_CUSTOM}.dsc

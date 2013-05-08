@@ -51,10 +51,10 @@ for dist in lucid precise squeeze wheezy; do
 	pbuilder-dist $dist amd64 build opus_${OPUS_VERSION}~${dist}~sfo${OPUS_CUSTOM}.dsc
 done
 
-CHANGES=`ls -t ~/pbuilder/*_result/opus_${OPUS_VERSION}*.changes | head -n 12`
+CHANGES=`ls -t ~/pbuilder/*_result/opus_${OPUS_VERSION}*.changes | head -n 8`
 
 ls -l $CHANGES
 
-# Prompt user to sign the 12 newest packages with the Sourcefabric key
+# Prompt user to sign the 8 newest packages with the Sourcefabric key
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/opus_${OPUS_VERSION}*changes | head -n 12`'
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/opus_${OPUS_VERSION}*changes | head -n 8`'

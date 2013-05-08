@@ -48,7 +48,7 @@ for dist in lucid precise squeeze wheezy; do
 	set_dist $dist
         dpkg-source -b opus-${OPUS_VERSION}
 	pbuilder-dist $dist i386 build opus_${OPUS_VERSION}~${dist}~sfo${OPUS_CUSTOM}.dsc
-	pbuilder-dist $dist amd64 build opus_${OPUS_VERSION}~${dist}~sfo${OPUS_CUSTOM}.dsc
+	pbuilder-dist $dist amd64 build --binary-arch opus_${OPUS_VERSION}~${dist}~sfo${OPUS_CUSTOM}.dsc
 done
 
 CHANGES=`ls -t ~/pbuilder/*_result/opus_${OPUS_VERSION}*.changes | head -n 8`

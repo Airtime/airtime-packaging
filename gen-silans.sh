@@ -28,7 +28,7 @@ head -n1 silan-${SILAN_VERSION}/debian/changelog
 
 # Use these lines to build for various distros
 
-for dist in oneiric precise quantal squeeze wheezy; do
+for dist in precise quantal raring squeeze wheezy; do
 #for dist in lucid; do
         tar -xvzf ${MIRRORPATH}/silan_${SILAN_VERSION}${SILAN_CUSTOM}.tar.gz -C ${MIRRORPATH}/silan/
 	set_dist $dist

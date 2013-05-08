@@ -34,7 +34,7 @@ for dist in precise quantal raring squeeze wheezy; do
 	set_dist $dist
 	dpkg-source -b silan-${SILAN_VERSION}
 	pbuilder-dist $dist i386 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
-	pbuilder-dist $dist amd64 build silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
+	pbuilder-dist $dist amd64 build --binary-arch silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
 done
 
 CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 12`

@@ -1,23 +1,510 @@
-# Dependecies for a Debian Squeeze amd64 system of the Liquidsoap binary shipped with Airtime 2.2.0
+# Dependecies for Liquidsoap 1.1.1 binaries shipped with Airtime 2.4.0
+# To update, run the command:
+# ldd /path/to/binaries/liquidsoap* >> liquidsoap-deps 
 
-libao4 (>= 1.0.0),
-libasound2 (>> 1.0.18),
-libc6 (>= 2.7),
-libfaad2,
-libflac8 (>= 1.2.1),
-libgcc1 (>= 1:4.1.1),
-libmad0 (>= 0.15.1b-3),
-libmp3lame0,
-libogg0 (>= 1.0rc3),
-libpcre3 (>= 7.7),
-libportaudio2,
-libpulse0 (>= 0.9.21),
-libstdc++6 (>= 4.1.1),
-libtag1c2a (>= 1.6-2~),
-libvorbis0a (>= 1.1.2),
-libvorbisenc2 (>= 1.1.2),
-libvorbisfile3 (>= 1.1.2),
-libx11-6,
-wget,
-sox,
+# All Liquidsoap packages also require the packages:
+
+wget
+sox
 adduser
+
+/tmp/liquidsoap-1.1.1/liquidsoap_lucid_amd64:
+	linux-vdso.so.1 =>  (0x00007fffb998a000)
+	libpulse.so.0 => /usr/lib/x86_64-linux-gnu/libpulse.so.0 (0x00007ff2fa4b9000)
+	libpulse-simple.so.0 => /usr/lib/x86_64-linux-gnu/libpulse-simple.so.0 (0x00007ff2fa2b5000)
+	libportaudio.so.2 => /usr/lib/x86_64-linux-gnu/libportaudio.so.2 (0x00007ff2fa086000)
+	libasound.so.2 => /usr/lib/x86_64-linux-gnu/libasound.so.2 (0x00007ff2f9d99000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff2f9a9d000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007ff2f987f000)
+	libfaad.so.2 => /usr/lib/libfaad.so.2 (0x00007ff2f963d000)
+	libtag.so.1 => /usr/lib/x86_64-linux-gnu/libtag.so.1 (0x00007ff2f9339000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007ff2f9038000)
+	libao.so.2 => not found
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff2f8e34000)
+	libmp3lame.so.0 => /usr/lib/x86_64-linux-gnu/libmp3lame.so.0 (0x00007ff2f8ba9000)
+	libFLAC.so.8 => /usr/lib/x86_64-linux-gnu/libFLAC.so.8 (0x00007ff2f895f000)
+	libogg.so.0 => /usr/lib/x86_64-linux-gnu/libogg.so.0 (0x00007ff2f8758000)
+	libmad.so.0 => /usr/lib/x86_64-linux-gnu/libmad.so.0 (0x00007ff2f8537000)
+	libopus.so.0 => /usr/lib/libopus.so.0 (0x00007ff2f82f6000)
+	libvorbis.so.0 => /usr/lib/x86_64-linux-gnu/libvorbis.so.0 (0x00007ff2f80ca000)
+	libvorbisenc.so.2 => /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2 (0x00007ff2f7bfa000)
+	libvorbisfile.so.3 => /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3 (0x00007ff2f79f2000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007ff2f77b5000)
+	libX11.so.6 => /usr/lib/x86_64-linux-gnu/libX11.so.6 (0x00007ff2f7480000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007ff2f726a000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff2f6eab000)
+	libjson.so.0 => /usr/lib/x86_64-linux-gnu/libjson.so.0 (0x00007ff2f6ca2000)
+	libpulsecommon-1.1.so => /usr/lib/x86_64-linux-gnu/libpulsecommon-1.1.so (0x00007ff2f6a44000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007ff2f6800000)
+	libjack.so.0 => /usr/lib/x86_64-linux-gnu/libjack.so.0 (0x00007ff2f65bb000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007ff2f63b3000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007ff2fa71f000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff2f619c000)
+	libxcb.so.1 => /usr/lib/x86_64-linux-gnu/libxcb.so.1 (0x00007ff2f5f7d000)
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007ff2f5d74000)
+	libsndfile.so.1 => /usr/lib/x86_64-linux-gnu/libsndfile.so.1 (0x00007ff2f5b0c000)
+	libasyncns.so.0 => /usr/lib/x86_64-linux-gnu/libasyncns.so.0 (0x00007ff2f5906000)
+	libXau.so.6 => /usr/lib/x86_64-linux-gnu/libXau.so.6 (0x00007ff2f5702000)
+	libXdmcp.so.6 => /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007ff2f54fc000)
+	libnsl.so.1 => /lib/x86_64-linux-gnu/libnsl.so.1 (0x00007ff2f52e2000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007ff2f50c5000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_lucid_i386:
+	linux-gate.so.1 =>  (0xf7755000)
+	libpulse.so.0 => /usr/lib/i386-linux-gnu/libpulse.so.0 (0xf76e9000)
+	libpulse-simple.so.0 => /usr/lib/i386-linux-gnu/libpulse-simple.so.0 (0xf76e4000)
+	libportaudio.so.2 => not found
+	libasound.so.2 => /usr/lib/i386-linux-gnu/libasound.so.2 (0xf75f1000)
+	libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xf75c5000)
+	libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xf75aa000)
+	libfaad.so.2 => not found
+	libtag.so.1 => not found
+	libstdc++.so.6 => /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf74c4000)
+	libao.so.2 => not found
+	libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xf74bf000)
+	libmp3lame.so.0 => not found
+	libFLAC.so.8 => /usr/lib/i386-linux-gnu/libFLAC.so.8 (0xf7470000)
+	libogg.so.0 => /usr/lib/i386-linux-gnu/libogg.so.0 (0xf7468000)
+	libmad.so.0 => not found
+	libopus.so.0 => not found
+	libvorbis.so.0 => /usr/lib/i386-linux-gnu/libvorbis.so.0 (0xf743d000)
+	libvorbisenc.so.2 => /usr/lib/i386-linux-gnu/libvorbisenc.so.2 (0xf72c4000)
+	libvorbisfile.so.3 => not found
+	libpcre.so.3 => /lib/i386-linux-gnu/libpcre.so.3 (0xf7288000)
+	libX11.so.6 => /usr/lib/i386-linux-gnu/libX11.so.6 (0xf7154000)
+	libgcc_s.so.1 => /lib/i386-linux-gnu/libgcc_s.so.1 (0xf7136000)
+	libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf6f8c000)
+	libjson.so.0 => /usr/lib/i386-linux-gnu/libjson.so.0 (0xf6f84000)
+	libpulsecommon-1.1.so => /usr/lib/i386-linux-gnu/libpulsecommon-1.1.so (0xf6f1f000)
+	libdbus-1.so.3 => /lib/i386-linux-gnu/libdbus-1.so.3 (0xf6ed6000)
+	librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xf6ecd000)
+	/lib/ld-linux.so.2 (0xf7756000)
+	libxcb.so.1 => /usr/lib/i386-linux-gnu/libxcb.so.1 (0xf6eab000)
+	libwrap.so.0 => /lib/i386-linux-gnu/libwrap.so.0 (0xf6ea1000)
+	libsndfile.so.1 => /usr/lib/i386-linux-gnu/libsndfile.so.1 (0xf6e2f000)
+	libasyncns.so.0 => /usr/lib/i386-linux-gnu/libasyncns.so.0 (0xf6e28000)
+	libXau.so.6 => /usr/lib/i386-linux-gnu/libXau.so.6 (0xf6e24000)
+	libXdmcp.so.6 => /usr/lib/i386-linux-gnu/libXdmcp.so.6 (0xf6e1c000)
+	libnsl.so.1 => /lib/i386-linux-gnu/libnsl.so.1 (0xf6e02000)
+	libresolv.so.2 => /lib/i386-linux-gnu/libresolv.so.2 (0xf6dea000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_precise_amd64:
+	linux-vdso.so.1 =>  (0x00007fff01fff000)
+	libpulse.so.0 => /usr/lib/x86_64-linux-gnu/libpulse.so.0 (0x00007f84cb287000)
+	libpulse-simple.so.0 => /usr/lib/x86_64-linux-gnu/libpulse-simple.so.0 (0x00007f84cb083000)
+	libportaudio.so.2 => /usr/lib/x86_64-linux-gnu/libportaudio.so.2 (0x00007f84cae54000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f84cab58000)
+	libfaad.so.2 => /usr/lib/libfaad.so.2 (0x00007f84ca916000)
+	libtag.so.1 => /usr/lib/x86_64-linux-gnu/libtag.so.1 (0x00007f84ca611000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f84ca311000)
+	libao.so.4 => /usr/lib/x86_64-linux-gnu/libao.so.4 (0x00007f84ca108000)
+	libasound.so.2 => /usr/lib/x86_64-linux-gnu/libasound.so.2 (0x00007f84c9e1a000)
+	libvo-aacenc.so.0 => /usr/lib/x86_64-linux-gnu/libvo-aacenc.so.0 (0x00007f84c9bfb000)
+	libmp3lame.so.0 => /usr/lib/x86_64-linux-gnu/libmp3lame.so.0 (0x00007f84c9971000)
+	libFLAC.so.8 => /usr/lib/x86_64-linux-gnu/libFLAC.so.8 (0x00007f84c9726000)
+	libogg.so.0 => /usr/lib/x86_64-linux-gnu/libogg.so.0 (0x00007f84c951f000)
+	libmad.so.0 => /usr/lib/x86_64-linux-gnu/libmad.so.0 (0x00007f84c92ff000)
+	libopus.so.0 => /usr/lib/libopus.so.0 (0x00007f84c90bd000)
+	libvorbis.so.0 => /usr/lib/x86_64-linux-gnu/libvorbis.so.0 (0x00007f84c8e91000)
+	libvorbisenc.so.2 => /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2 (0x00007f84c89c2000)
+	libvorbisfile.so.3 => /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3 (0x00007f84c87b9000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f84c857c000)
+	libX11.so.6 => /usr/lib/x86_64-linux-gnu/libX11.so.6 (0x00007f84c8248000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f84c802a000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f84c7e26000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f84c7c10000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f84c7850000)
+	libjson.so.0 => /usr/lib/x86_64-linux-gnu/libjson.so.0 (0x00007f84c7648000)
+	libpulsecommon-1.1.so => /usr/lib/x86_64-linux-gnu/libpulsecommon-1.1.so (0x00007f84c73ea000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007f84c71a5000)
+	libjack.so.0 => /usr/lib/x86_64-linux-gnu/libjack.so.0 (0x00007f84c6f61000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f84c6d59000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f84c6b41000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f84cb4ed000)
+	libxcb.so.1 => /usr/lib/x86_64-linux-gnu/libxcb.so.1 (0x00007f84c6923000)
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007f84c6719000)
+	libsndfile.so.1 => /usr/lib/x86_64-linux-gnu/libsndfile.so.1 (0x00007f84c64b2000)
+	libasyncns.so.0 => /usr/lib/x86_64-linux-gnu/libasyncns.so.0 (0x00007f84c62ac000)
+	libXau.so.6 => /usr/lib/x86_64-linux-gnu/libXau.so.6 (0x00007f84c60a8000)
+	libXdmcp.so.6 => /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f84c5ea2000)
+	libnsl.so.1 => /lib/x86_64-linux-gnu/libnsl.so.1 (0x00007f84c5c88000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f84c5a6b000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_precise_i386:
+	linux-gate.so.1 =>  (0xf76fa000)
+	libpulse.so.0 => /usr/lib/i386-linux-gnu/libpulse.so.0 (0xf768e000)
+	libpulse-simple.so.0 => /usr/lib/i386-linux-gnu/libpulse-simple.so.0 (0xf7689000)
+	libportaudio.so.2 => not found
+	libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xf765c000)
+	libfaad.so.2 => not found
+	libtag.so.1 => not found
+	libstdc++.so.6 => /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf7577000)
+	libao.so.4 => not found
+	libasound.so.2 => /usr/lib/i386-linux-gnu/libasound.so.2 (0xf7484000)
+	libvo-aacenc.so.0 => not found
+	libmp3lame.so.0 => not found
+	libFLAC.so.8 => /usr/lib/i386-linux-gnu/libFLAC.so.8 (0xf7436000)
+	libogg.so.0 => /usr/lib/i386-linux-gnu/libogg.so.0 (0xf742d000)
+	libmad.so.0 => not found
+	libopus.so.0 => not found
+	libvorbis.so.0 => /usr/lib/i386-linux-gnu/libvorbis.so.0 (0xf7402000)
+	libvorbisenc.so.2 => /usr/lib/i386-linux-gnu/libvorbisenc.so.2 (0xf728a000)
+	libvorbisfile.so.3 => not found
+	libpcre.so.3 => /lib/i386-linux-gnu/libpcre.so.3 (0xf724d000)
+	libX11.so.6 => /usr/lib/i386-linux-gnu/libX11.so.6 (0xf7119000)
+	libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xf70fe000)
+	libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xf70f9000)
+	libgcc_s.so.1 => /lib/i386-linux-gnu/libgcc_s.so.1 (0xf70da000)
+	libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf6f31000)
+	libjson.so.0 => /usr/lib/i386-linux-gnu/libjson.so.0 (0xf6f29000)
+	libpulsecommon-1.1.so => /usr/lib/i386-linux-gnu/libpulsecommon-1.1.so (0xf6ec4000)
+	libdbus-1.so.3 => /lib/i386-linux-gnu/libdbus-1.so.3 (0xf6e7b000)
+	/lib/ld-linux.so.2 (0xf76fb000)
+	librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xf6e71000)
+	libxcb.so.1 => /usr/lib/i386-linux-gnu/libxcb.so.1 (0xf6e50000)
+	libwrap.so.0 => /lib/i386-linux-gnu/libwrap.so.0 (0xf6e46000)
+	libsndfile.so.1 => /usr/lib/i386-linux-gnu/libsndfile.so.1 (0xf6dd4000)
+	libasyncns.so.0 => /usr/lib/i386-linux-gnu/libasyncns.so.0 (0xf6dcd000)
+	libXau.so.6 => /usr/lib/i386-linux-gnu/libXau.so.6 (0xf6dc8000)
+	libXdmcp.so.6 => /usr/lib/i386-linux-gnu/libXdmcp.so.6 (0xf6dc1000)
+	libnsl.so.1 => /lib/i386-linux-gnu/libnsl.so.1 (0xf6da7000)
+	libresolv.so.2 => /lib/i386-linux-gnu/libresolv.so.2 (0xf6d8f000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_quantal_amd64:
+	linux-vdso.so.1 =>  (0x00007fff77efd000)
+	libpulse.so.0 => /usr/lib/x86_64-linux-gnu/libpulse.so.0 (0x00007f7cae720000)
+	libpulse-simple.so.0 => /usr/lib/x86_64-linux-gnu/libpulse-simple.so.0 (0x00007f7cae51c000)
+	libportaudio.so.2 => /usr/lib/x86_64-linux-gnu/libportaudio.so.2 (0x00007f7cae2ed000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f7cadff1000)
+	libfaad.so.2 => /usr/lib/libfaad.so.2 (0x00007f7caddaf000)
+	libtag.so.1 => /usr/lib/x86_64-linux-gnu/libtag.so.1 (0x00007f7cadaaa000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f7cad7aa000)
+	libao.so.4 => /usr/lib/x86_64-linux-gnu/libao.so.4 (0x00007f7cad5a1000)
+	libasound.so.2 => /usr/lib/x86_64-linux-gnu/libasound.so.2 (0x00007f7cad2b3000)
+	libvo-aacenc.so.0 => /usr/lib/x86_64-linux-gnu/libvo-aacenc.so.0 (0x00007f7cad094000)
+	libmp3lame.so.0 => /usr/lib/x86_64-linux-gnu/libmp3lame.so.0 (0x00007f7cace0a000)
+	libFLAC.so.8 => /usr/lib/x86_64-linux-gnu/libFLAC.so.8 (0x00007f7cacbbf000)
+	libogg.so.0 => /usr/lib/x86_64-linux-gnu/libogg.so.0 (0x00007f7cac9b8000)
+	libmad.so.0 => /usr/lib/x86_64-linux-gnu/libmad.so.0 (0x00007f7cac798000)
+	libopus.so.0 => /usr/lib/libopus.so.0 (0x00007f7cac556000)
+	libvorbis.so.0 => /usr/lib/x86_64-linux-gnu/libvorbis.so.0 (0x00007f7cac32a000)
+	libvorbisenc.so.2 => /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2 (0x00007f7cabe5b000)
+	libvorbisfile.so.3 => /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3 (0x00007f7cabc52000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f7caba15000)
+	libX11.so.6 => /usr/lib/x86_64-linux-gnu/libX11.so.6 (0x00007f7cab6e1000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f7cab4c3000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f7cab2bf000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f7cab0a9000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f7caace9000)
+	libjson.so.0 => /usr/lib/x86_64-linux-gnu/libjson.so.0 (0x00007f7caaae1000)
+	libpulsecommon-1.1.so => /usr/lib/x86_64-linux-gnu/libpulsecommon-1.1.so (0x00007f7caa883000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007f7caa63e000)
+	libjack.so.0 => /usr/lib/x86_64-linux-gnu/libjack.so.0 (0x00007f7caa3fa000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f7caa1f2000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f7ca9fda000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f7cae986000)
+	libxcb.so.1 => /usr/lib/x86_64-linux-gnu/libxcb.so.1 (0x00007f7ca9dbc000)
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007f7ca9bb2000)
+	libsndfile.so.1 => /usr/lib/x86_64-linux-gnu/libsndfile.so.1 (0x00007f7ca994b000)
+	libasyncns.so.0 => /usr/lib/x86_64-linux-gnu/libasyncns.so.0 (0x00007f7ca9745000)
+	libXau.so.6 => /usr/lib/x86_64-linux-gnu/libXau.so.6 (0x00007f7ca9541000)
+	libXdmcp.so.6 => /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f7ca933b000)
+	libnsl.so.1 => /lib/x86_64-linux-gnu/libnsl.so.1 (0x00007f7ca9121000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f7ca8f04000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_quantal_i386:
+	linux-gate.so.1 =>  (0xf77c8000)
+	libpulse.so.0 => /usr/lib/i386-linux-gnu/libpulse.so.0 (0xf775c000)
+	libpulse-simple.so.0 => /usr/lib/i386-linux-gnu/libpulse-simple.so.0 (0xf7757000)
+	libportaudio.so.2 => not found
+	libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xf772a000)
+	libfaad.so.2 => not found
+	libtag.so.1 => not found
+	libstdc++.so.6 => /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf7645000)
+	libao.so.4 => not found
+	libasound.so.2 => /usr/lib/i386-linux-gnu/libasound.so.2 (0xf7552000)
+	libvo-aacenc.so.0 => not found
+	libmp3lame.so.0 => not found
+	libFLAC.so.8 => /usr/lib/i386-linux-gnu/libFLAC.so.8 (0xf7504000)
+	libogg.so.0 => /usr/lib/i386-linux-gnu/libogg.so.0 (0xf74fb000)
+	libmad.so.0 => not found
+	libopus.so.0 => not found
+	libvorbis.so.0 => /usr/lib/i386-linux-gnu/libvorbis.so.0 (0xf74d0000)
+	libvorbisenc.so.2 => /usr/lib/i386-linux-gnu/libvorbisenc.so.2 (0xf7358000)
+	libvorbisfile.so.3 => not found
+	libpcre.so.3 => /lib/i386-linux-gnu/libpcre.so.3 (0xf731b000)
+	libX11.so.6 => /usr/lib/i386-linux-gnu/libX11.so.6 (0xf71e7000)
+	libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xf71cc000)
+	libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xf71c7000)
+	libgcc_s.so.1 => /lib/i386-linux-gnu/libgcc_s.so.1 (0xf71a8000)
+	libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf6fff000)
+	libjson.so.0 => /usr/lib/i386-linux-gnu/libjson.so.0 (0xf6ff7000)
+	libpulsecommon-1.1.so => /usr/lib/i386-linux-gnu/libpulsecommon-1.1.so (0xf6f92000)
+	libdbus-1.so.3 => /lib/i386-linux-gnu/libdbus-1.so.3 (0xf6f49000)
+	/lib/ld-linux.so.2 (0xf77c9000)
+	librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xf6f3f000)
+	libxcb.so.1 => /usr/lib/i386-linux-gnu/libxcb.so.1 (0xf6f1e000)
+	libwrap.so.0 => /lib/i386-linux-gnu/libwrap.so.0 (0xf6f14000)
+	libsndfile.so.1 => /usr/lib/i386-linux-gnu/libsndfile.so.1 (0xf6ea2000)
+	libasyncns.so.0 => /usr/lib/i386-linux-gnu/libasyncns.so.0 (0xf6e9b000)
+	libXau.so.6 => /usr/lib/i386-linux-gnu/libXau.so.6 (0xf6e96000)
+	libXdmcp.so.6 => /usr/lib/i386-linux-gnu/libXdmcp.so.6 (0xf6e8f000)
+	libnsl.so.1 => /lib/i386-linux-gnu/libnsl.so.1 (0xf6e75000)
+	libresolv.so.2 => /lib/i386-linux-gnu/libresolv.so.2 (0xf6e5d000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_raring_amd64:
+	linux-vdso.so.1 =>  (0x00007fff67dff000)
+	libpulse.so.0 => /usr/lib/x86_64-linux-gnu/libpulse.so.0 (0x00007f19d9870000)
+	libpulse-simple.so.0 => /usr/lib/x86_64-linux-gnu/libpulse-simple.so.0 (0x00007f19d966c000)
+	libportaudio.so.2 => /usr/lib/x86_64-linux-gnu/libportaudio.so.2 (0x00007f19d943d000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f19d9141000)
+	libfaad.so.2 => /usr/lib/libfaad.so.2 (0x00007f19d8eff000)
+	libtag.so.1 => /usr/lib/x86_64-linux-gnu/libtag.so.1 (0x00007f19d8bfa000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f19d88fa000)
+	libao.so.4 => /usr/lib/x86_64-linux-gnu/libao.so.4 (0x00007f19d86f1000)
+	libasound.so.2 => /usr/lib/x86_64-linux-gnu/libasound.so.2 (0x00007f19d8403000)
+	libvo-aacenc.so.0 => /usr/lib/x86_64-linux-gnu/libvo-aacenc.so.0 (0x00007f19d81e4000)
+	libmp3lame.so.0 => /usr/lib/x86_64-linux-gnu/libmp3lame.so.0 (0x00007f19d7f5a000)
+	libFLAC.so.8 => /usr/lib/x86_64-linux-gnu/libFLAC.so.8 (0x00007f19d7d0f000)
+	libogg.so.0 => /usr/lib/x86_64-linux-gnu/libogg.so.0 (0x00007f19d7b08000)
+	libmad.so.0 => /usr/lib/x86_64-linux-gnu/libmad.so.0 (0x00007f19d78e8000)
+	libopus.so.0 => /usr/lib/libopus.so.0 (0x00007f19d76a6000)
+	libvorbis.so.0 => /usr/lib/x86_64-linux-gnu/libvorbis.so.0 (0x00007f19d747a000)
+	libvorbisenc.so.2 => /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2 (0x00007f19d6fab000)
+	libvorbisfile.so.3 => /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3 (0x00007f19d6da2000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f19d6b65000)
+	libX11.so.6 => /usr/lib/x86_64-linux-gnu/libX11.so.6 (0x00007f19d6831000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f19d6613000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f19d640f000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f19d61f9000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f19d5e39000)
+	libjson.so.0 => /usr/lib/x86_64-linux-gnu/libjson.so.0 (0x00007f19d5c31000)
+	libpulsecommon-1.1.so => /usr/lib/x86_64-linux-gnu/libpulsecommon-1.1.so (0x00007f19d59d3000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007f19d578e000)
+	libjack.so.0 => /usr/lib/x86_64-linux-gnu/libjack.so.0 (0x00007f19d554a000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f19d5342000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f19d512a000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f19d9ad6000)
+	libxcb.so.1 => /usr/lib/x86_64-linux-gnu/libxcb.so.1 (0x00007f19d4f0c000)
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007f19d4d02000)
+	libsndfile.so.1 => /usr/lib/x86_64-linux-gnu/libsndfile.so.1 (0x00007f19d4a9b000)
+	libasyncns.so.0 => /usr/lib/x86_64-linux-gnu/libasyncns.so.0 (0x00007f19d4895000)
+	libXau.so.6 => /usr/lib/x86_64-linux-gnu/libXau.so.6 (0x00007f19d4691000)
+	libXdmcp.so.6 => /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f19d448b000)
+	libnsl.so.1 => /lib/x86_64-linux-gnu/libnsl.so.1 (0x00007f19d4271000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f19d4054000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_raring_i386:
+	linux-gate.so.1 =>  (0xf7748000)
+	libpulse.so.0 => /usr/lib/i386-linux-gnu/libpulse.so.0 (0xf76dc000)
+	libpulse-simple.so.0 => /usr/lib/i386-linux-gnu/libpulse-simple.so.0 (0xf76d7000)
+	libportaudio.so.2 => not found
+	libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xf76aa000)
+	libfaad.so.2 => not found
+	libtag.so.1 => not found
+	libstdc++.so.6 => /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf75c5000)
+	libao.so.4 => not found
+	libasound.so.2 => /usr/lib/i386-linux-gnu/libasound.so.2 (0xf74d2000)
+	libvo-aacenc.so.0 => not found
+	libmp3lame.so.0 => not found
+	libFLAC.so.8 => /usr/lib/i386-linux-gnu/libFLAC.so.8 (0xf7484000)
+	libogg.so.0 => /usr/lib/i386-linux-gnu/libogg.so.0 (0xf747b000)
+	libmad.so.0 => not found
+	libopus.so.0 => not found
+	libvorbis.so.0 => /usr/lib/i386-linux-gnu/libvorbis.so.0 (0xf7450000)
+	libvorbisenc.so.2 => /usr/lib/i386-linux-gnu/libvorbisenc.so.2 (0xf72d8000)
+	libvorbisfile.so.3 => not found
+	libpcre.so.3 => /lib/i386-linux-gnu/libpcre.so.3 (0xf729b000)
+	libX11.so.6 => /usr/lib/i386-linux-gnu/libX11.so.6 (0xf7167000)
+	libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xf714c000)
+	libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xf7147000)
+	libgcc_s.so.1 => /lib/i386-linux-gnu/libgcc_s.so.1 (0xf7128000)
+	libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf6f7f000)
+	libjson.so.0 => /usr/lib/i386-linux-gnu/libjson.so.0 (0xf6f77000)
+	libpulsecommon-1.1.so => /usr/lib/i386-linux-gnu/libpulsecommon-1.1.so (0xf6f12000)
+	libdbus-1.so.3 => /lib/i386-linux-gnu/libdbus-1.so.3 (0xf6ec9000)
+	/lib/ld-linux.so.2 (0xf7749000)
+	librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xf6ebf000)
+	libxcb.so.1 => /usr/lib/i386-linux-gnu/libxcb.so.1 (0xf6e9e000)
+	libwrap.so.0 => /lib/i386-linux-gnu/libwrap.so.0 (0xf6e94000)
+	libsndfile.so.1 => /usr/lib/i386-linux-gnu/libsndfile.so.1 (0xf6e22000)
+	libasyncns.so.0 => /usr/lib/i386-linux-gnu/libasyncns.so.0 (0xf6e1b000)
+	libXau.so.6 => /usr/lib/i386-linux-gnu/libXau.so.6 (0xf6e16000)
+	libXdmcp.so.6 => /usr/lib/i386-linux-gnu/libXdmcp.so.6 (0xf6e0f000)
+	libnsl.so.1 => /lib/i386-linux-gnu/libnsl.so.1 (0xf6df5000)
+	libresolv.so.2 => /lib/i386-linux-gnu/libresolv.so.2 (0xf6ddd000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_squeeze_amd64:
+	linux-vdso.so.1 =>  (0x00007fff24ce4000)
+	libpulse.so.0 => /usr/lib/x86_64-linux-gnu/libpulse.so.0 (0x00007f28f034a000)
+	libpulse-simple.so.0 => /usr/lib/x86_64-linux-gnu/libpulse-simple.so.0 (0x00007f28f0146000)
+	libportaudio.so.2 => /usr/lib/x86_64-linux-gnu/libportaudio.so.2 (0x00007f28eff17000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f28efc1b000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f28ef9fe000)
+	libfaad.so.2 => /usr/lib/libfaad.so.2 (0x00007f28ef7bb000)
+	libtag.so.1 => /usr/lib/x86_64-linux-gnu/libtag.so.1 (0x00007f28ef4b7000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f28ef1b7000)
+	libao.so.4 => /usr/lib/x86_64-linux-gnu/libao.so.4 (0x00007f28eefad000)
+	libasound.so.2 => /usr/lib/x86_64-linux-gnu/libasound.so.2 (0x00007f28eecc0000)
+	libvo-aacenc.so.0 => /usr/lib/x86_64-linux-gnu/libvo-aacenc.so.0 (0x00007f28eeaa1000)
+	libmp3lame.so.0 => /usr/lib/x86_64-linux-gnu/libmp3lame.so.0 (0x00007f28ee816000)
+	libFLAC.so.8 => /usr/lib/x86_64-linux-gnu/libFLAC.so.8 (0x00007f28ee5cc000)
+	libogg.so.0 => /usr/lib/x86_64-linux-gnu/libogg.so.0 (0x00007f28ee3c5000)
+	libmad.so.0 => /usr/lib/x86_64-linux-gnu/libmad.so.0 (0x00007f28ee1a4000)
+	libopus.so.0 => /usr/lib/libopus.so.0 (0x00007f28edf63000)
+	libvorbis.so.0 => /usr/lib/x86_64-linux-gnu/libvorbis.so.0 (0x00007f28edd37000)
+	libvorbisenc.so.2 => /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2 (0x00007f28ed867000)
+	libvorbisfile.so.3 => /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3 (0x00007f28ed65f000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f28ed422000)
+	libX11.so.6 => /usr/lib/x86_64-linux-gnu/libX11.so.6 (0x00007f28ed0ed000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f28ecee9000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f28eccd3000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f28ec913000)
+	libjson.so.0 => /usr/lib/x86_64-linux-gnu/libjson.so.0 (0x00007f28ec70b000)
+	libpulsecommon-1.1.so => /usr/lib/x86_64-linux-gnu/libpulsecommon-1.1.so (0x00007f28ec4ad000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007f28ec268000)
+	libjack.so.0 => /usr/lib/x86_64-linux-gnu/libjack.so.0 (0x00007f28ec024000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f28ebe1c000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f28f05b0000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f28ebc04000)
+	libxcb.so.1 => /usr/lib/x86_64-linux-gnu/libxcb.so.1 (0x00007f28eb9e6000)
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007f28eb7dc000)
+	libsndfile.so.1 => /usr/lib/x86_64-linux-gnu/libsndfile.so.1 (0x00007f28eb575000)
+	libasyncns.so.0 => /usr/lib/x86_64-linux-gnu/libasyncns.so.0 (0x00007f28eb36f000)
+	libXau.so.6 => /usr/lib/x86_64-linux-gnu/libXau.so.6 (0x00007f28eb16b000)
+	libXdmcp.so.6 => /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f28eaf65000)
+	libnsl.so.1 => /lib/x86_64-linux-gnu/libnsl.so.1 (0x00007f28ead4b000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f28eab2e000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_squeeze_i386:
+	linux-gate.so.1 =>  (0xf76f4000)
+	libpulse.so.0 => /usr/lib/i386-linux-gnu/libpulse.so.0 (0xf7688000)
+	libpulse-simple.so.0 => /usr/lib/i386-linux-gnu/libpulse-simple.so.0 (0xf7683000)
+	libportaudio.so.2 => not found
+	libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xf7656000)
+	libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xf763b000)
+	libfaad.so.2 => not found
+	libtag.so.1 => not found
+	libstdc++.so.6 => /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf7555000)
+	libao.so.4 => not found
+	libasound.so.2 => /usr/lib/i386-linux-gnu/libasound.so.2 (0xf7463000)
+	libvo-aacenc.so.0 => not found
+	libmp3lame.so.0 => not found
+	libFLAC.so.8 => /usr/lib/i386-linux-gnu/libFLAC.so.8 (0xf7414000)
+	libogg.so.0 => /usr/lib/i386-linux-gnu/libogg.so.0 (0xf740c000)
+	libmad.so.0 => not found
+	libopus.so.0 => not found
+	libvorbis.so.0 => /usr/lib/i386-linux-gnu/libvorbis.so.0 (0xf73e1000)
+	libvorbisenc.so.2 => /usr/lib/i386-linux-gnu/libvorbisenc.so.2 (0xf7268000)
+	libvorbisfile.so.3 => not found
+	libpcre.so.3 => /lib/i386-linux-gnu/libpcre.so.3 (0xf722c000)
+	libX11.so.6 => /usr/lib/i386-linux-gnu/libX11.so.6 (0xf70f8000)
+	libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xf70f3000)
+	libgcc_s.so.1 => /lib/i386-linux-gnu/libgcc_s.so.1 (0xf70d4000)
+	libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf6f2b000)
+	libjson.so.0 => /usr/lib/i386-linux-gnu/libjson.so.0 (0xf6f23000)
+	libpulsecommon-1.1.so => /usr/lib/i386-linux-gnu/libpulsecommon-1.1.so (0xf6ebe000)
+	libdbus-1.so.3 => /lib/i386-linux-gnu/libdbus-1.so.3 (0xf6e75000)
+	/lib/ld-linux.so.2 (0xf76f5000)
+	librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xf6e6b000)
+	libxcb.so.1 => /usr/lib/i386-linux-gnu/libxcb.so.1 (0xf6e4a000)
+	libwrap.so.0 => /lib/i386-linux-gnu/libwrap.so.0 (0xf6e40000)
+	libsndfile.so.1 => /usr/lib/i386-linux-gnu/libsndfile.so.1 (0xf6dce000)
+	libasyncns.so.0 => /usr/lib/i386-linux-gnu/libasyncns.so.0 (0xf6dc7000)
+	libXau.so.6 => /usr/lib/i386-linux-gnu/libXau.so.6 (0xf6dc2000)
+	libXdmcp.so.6 => /usr/lib/i386-linux-gnu/libXdmcp.so.6 (0xf6dbb000)
+	libnsl.so.1 => /lib/i386-linux-gnu/libnsl.so.1 (0xf6da1000)
+	libresolv.so.2 => /lib/i386-linux-gnu/libresolv.so.2 (0xf6d89000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_wheezy_amd64:
+	linux-vdso.so.1 =>  (0x00007fff193cf000)
+	libpulse.so.0 => /usr/lib/x86_64-linux-gnu/libpulse.so.0 (0x00007fe7a9720000)
+	libpulse-simple.so.0 => /usr/lib/x86_64-linux-gnu/libpulse-simple.so.0 (0x00007fe7a951c000)
+	libportaudio.so.2 => /usr/lib/x86_64-linux-gnu/libportaudio.so.2 (0x00007fe7a92ed000)
+	libasound.so.2 => /usr/lib/x86_64-linux-gnu/libasound.so.2 (0x00007fe7a9000000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe7a8d04000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe7a8ae6000)
+	libfaad.so.2 => /usr/lib/libfaad.so.2 (0x00007fe7a88a4000)
+	libtag.so.1 => /usr/lib/x86_64-linux-gnu/libtag.so.1 (0x00007fe7a85a0000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fe7a829f000)
+	libao.so.4 => /usr/lib/x86_64-linux-gnu/libao.so.4 (0x00007fe7a8096000)
+	libvo-aacenc.so.0 => /usr/lib/x86_64-linux-gnu/libvo-aacenc.so.0 (0x00007fe7a7e77000)
+	libmp3lame.so.0 => /usr/lib/x86_64-linux-gnu/libmp3lame.so.0 (0x00007fe7a7bec000)
+	libFLAC.so.8 => /usr/lib/x86_64-linux-gnu/libFLAC.so.8 (0x00007fe7a79a2000)
+	libogg.so.0 => /usr/lib/x86_64-linux-gnu/libogg.so.0 (0x00007fe7a779b000)
+	libmad.so.0 => /usr/lib/x86_64-linux-gnu/libmad.so.0 (0x00007fe7a757a000)
+	libopus.so.0 => /usr/lib/libopus.so.0 (0x00007fe7a7339000)
+	libvorbis.so.0 => /usr/lib/x86_64-linux-gnu/libvorbis.so.0 (0x00007fe7a710d000)
+	libvorbisenc.so.2 => /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2 (0x00007fe7a6c3d000)
+	libvorbisfile.so.3 => /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3 (0x00007fe7a6a35000)
+	libXpm.so.4 => /usr/lib/x86_64-linux-gnu/libXpm.so.4 (0x00007fe7a6824000)
+	libtiff.so.4 => /usr/lib/x86_64-linux-gnu/libtiff.so.4 (0x00007fe7a65c0000)
+	libjpeg.so.8 => /usr/lib/x86_64-linux-gnu/libjpeg.so.8 (0x00007fe7a6370000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fe7a6159000)
+	libpng12.so.0 => /lib/x86_64-linux-gnu/libpng12.so.0 (0x00007fe7a5f30000)
+	libgif.so.4 => /usr/lib/x86_64-linux-gnu/libgif.so.4 (0x00007fe7a5d27000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007fe7a5aea000)
+	libX11.so.6 => /usr/lib/x86_64-linux-gnu/libX11.so.6 (0x00007fe7a57b5000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe7a55b1000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fe7a539b000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe7a4fdb000)
+	libjson.so.0 => /usr/lib/x86_64-linux-gnu/libjson.so.0 (0x00007fe7a4dd3000)
+	libpulsecommon-1.1.so => /usr/lib/x86_64-linux-gnu/libpulsecommon-1.1.so (0x00007fe7a4b75000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007fe7a4930000)
+	libjack.so.0 => /usr/lib/x86_64-linux-gnu/libjack.so.0 (0x00007fe7a46ec000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fe7a44e4000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fe7a9986000)
+	libxcb.so.1 => /usr/lib/x86_64-linux-gnu/libxcb.so.1 (0x00007fe7a42c5000)
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007fe7a40bb000)
+	libsndfile.so.1 => /usr/lib/x86_64-linux-gnu/libsndfile.so.1 (0x00007fe7a3e54000)
+	libasyncns.so.0 => /usr/lib/x86_64-linux-gnu/libasyncns.so.0 (0x00007fe7a3c4e000)
+	libXau.so.6 => /usr/lib/x86_64-linux-gnu/libXau.so.6 (0x00007fe7a3a4a000)
+	libXdmcp.so.6 => /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007fe7a3844000)
+	libnsl.so.1 => /lib/x86_64-linux-gnu/libnsl.so.1 (0x00007fe7a362a000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007fe7a340d000)
+
+/tmp/liquidsoap-1.1.1/liquidsoap_wheezy_i386:
+	linux-gate.so.1 =>  (0xf7754000)
+	libpulse.so.0 => /usr/lib/i386-linux-gnu/libpulse.so.0 (0xf76e8000)
+	libpulse-simple.so.0 => /usr/lib/i386-linux-gnu/libpulse-simple.so.0 (0xf76e3000)
+	libportaudio.so.2 => not found
+	libasound.so.2 => /usr/lib/i386-linux-gnu/libasound.so.2 (0xf75f0000)
+	libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xf75c4000)
+	libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xf75a9000)
+	libfaad.so.2 => not found
+	libtag.so.1 => not found
+	libstdc++.so.6 => /usr/lib/i386-linux-gnu/libstdc++.so.6 (0xf74c3000)
+	libao.so.4 => not found
+	libvo-aacenc.so.0 => not found
+	libmp3lame.so.0 => not found
+	libFLAC.so.8 => /usr/lib/i386-linux-gnu/libFLAC.so.8 (0xf7474000)
+	libogg.so.0 => /usr/lib/i386-linux-gnu/libogg.so.0 (0xf746c000)
+	libmad.so.0 => not found
+	libopus.so.0 => not found
+	libvorbis.so.0 => /usr/lib/i386-linux-gnu/libvorbis.so.0 (0xf7441000)
+	libvorbisenc.so.2 => /usr/lib/i386-linux-gnu/libvorbisenc.so.2 (0xf72c8000)
+	libvorbisfile.so.3 => not found
+	libXpm.so.4 => not found
+	libtiff.so.4 => /usr/lib/i386-linux-gnu/libtiff.so.4 (0xf7265000)
+	libjpeg.so.8 => /usr/lib/i386-linux-gnu/libjpeg.so.8 (0xf720e000)
+	libz.so.1 => /lib/i386-linux-gnu/libz.so.1 (0xf71f7000)
+	libpng12.so.0 => /lib/i386-linux-gnu/libpng12.so.0 (0xf71cd000)
+	libgif.so.4 => not found
+	libpcre.so.3 => /lib/i386-linux-gnu/libpcre.so.3 (0xf7191000)
+	libX11.so.6 => /usr/lib/i386-linux-gnu/libX11.so.6 (0xf705d000)
+	libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xf7057000)
+	libgcc_s.so.1 => /lib/i386-linux-gnu/libgcc_s.so.1 (0xf7039000)
+	libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf6e90000)
+	libjson.so.0 => /usr/lib/i386-linux-gnu/libjson.so.0 (0xf6e88000)
+	libpulsecommon-1.1.so => /usr/lib/i386-linux-gnu/libpulsecommon-1.1.so (0xf6e23000)
+	libdbus-1.so.3 => /lib/i386-linux-gnu/libdbus-1.so.3 (0xf6dd9000)
+	librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xf6dd0000)
+	/lib/ld-linux.so.2 (0xf7755000)
+	libxcb.so.1 => /usr/lib/i386-linux-gnu/libxcb.so.1 (0xf6daf000)
+	libwrap.so.0 => /lib/i386-linux-gnu/libwrap.so.0 (0xf6da5000)
+	libsndfile.so.1 => /usr/lib/i386-linux-gnu/libsndfile.so.1 (0xf6d32000)
+	libasyncns.so.0 => /usr/lib/i386-linux-gnu/libasyncns.so.0 (0xf6d2b000)
+	libXau.so.6 => /usr/lib/i386-linux-gnu/libXau.so.6 (0xf6d27000)
+	libXdmcp.so.6 => /usr/lib/i386-linux-gnu/libXdmcp.so.6 (0xf6d20000)
+	libnsl.so.1 => /lib/i386-linux-gnu/libnsl.so.1 (0xf6d06000)
+	libresolv.so.2 => /lib/i386-linux-gnu/libresolv.so.2 (0xf6ced000)

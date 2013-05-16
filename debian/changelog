@@ -1,3 +1,9 @@
+airtime (2.4.0~beta1a-1) unstable; urgency=low
+
+  * Upstream 2.4.0-beta1 release
+
+ -- Daniel James <daniel@64studio.com>  Thu, 16 May 2013 17:35:55 +0100
+
 airtime (2.3.1-1) unstable; urgency=low
 
   * Upstream 2.3.1 release

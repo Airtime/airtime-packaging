@@ -1,22 +1,21 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-VERSION=2.3.1
-SFOCUSTOM="-ga"
-DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}${SFOCUSTOM}.tar.gz/download
+VERSION=2.4.0
+SFOCUSTOM="beta1a"
+DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian
 
-if [ ! -f ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz ]; then
+if [ ! -f ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz ]; then
 	curl -L \
-		-o ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz \
+		-o ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz \
 		${DLURL}
 fi
 
 #delete prev. deb package files
 echo "cleaning up."
-rm -f ${BUILDDEST}/../airtime_${VERSION}*
 rm -rf ${BUILDDEST}
 
 mkdir -p ${BUILDDEST}
@@ -24,13 +23,13 @@ mkdir -p ${BUILDDEST}
 cd ${BUILDDEST} || exit
 echo "unzipping.."
 
-tar xzf ${MIRRORPATH}/airtime-${VERSION}${SFOCUSTOM}.tar.gz || exit
+tar xzf ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
-mv -vi airtime-${VERSION} airtime
+mv -vi airtime-${VERSION}* airtime
 pwd
 
-# FIXES for 2.3.1 #############
+# FIXES for 2.4.0 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -52,13 +51,10 @@ rm -r airtime/install_full/
 rm airtime/gen-snapshot.sh
 rm -r airtime/debian/
 
-#Remove Liquidsoap binary
-#rm -r airtime/python_apps/pypo/liquidsoap_bin/
-
 #############################
 
 cd ../
-tar czf airtime_${VERSION}.orig.tar.gz  airtime-${VERSION}/airtime/
+tar czf airtime_${VERSION}~${SFOCUSTOM}.orig.tar.gz  airtime-${VERSION}/airtime/
 cd ${BUILDDEST} || exit
 
 debuild -k174C1854 $@ || exit

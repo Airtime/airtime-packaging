@@ -1,6 +1,6 @@
 # Dependecies for Liquidsoap 1.1.1 binaries shipped with Airtime 2.4.0
 # To update, run the command:
-# ldd /path/to/binaries/liquidsoap* >> liquidsoap-deps 
+# ldd /path/to/binaries/liquidsoap* >> liquidsoap-deps
 
 # All Liquidsoap packages also require the packages:
 

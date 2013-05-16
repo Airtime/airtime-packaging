@@ -41,8 +41,8 @@ fi
 # Use these lines to build for Debian squeeze
 
         dpkg-source -b liquidsoap
-        pbuilder-dist squeeze build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
-        pbuilder-dist squeeze i386 build liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
+        pbuilder-dist squeeze build --binary-arch liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
+        pbuilder-dist squeeze i386 build --binary-arch liquidsoap_${LIQUIDSOAP_VERSION}~squeeze~${LIQUIDSOAP_CUSTOM}.dsc
 
 # Set the correct distro name in the package changelog
 
@@ -61,8 +61,8 @@ head -n1 liquidsoap/debian/changelog
 #for dist in lucid precise quantal raring wheezy; do
 #	set_dist $dist
 #	dpkg-source -b liquidsoap
-#	pbuilder-dist $dist build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
-#	pbuilder-dist $dist i386 build liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
+#	pbuilder-dist $dist build --binary-arch liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
+#	pbuilder-dist $dist i386 build --binary-arch liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 #done
 
 CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 12`

@@ -2,17 +2,17 @@
 # Script for generating official Airtime packages
 
 VERSION=2.4.0
-SFOCUSTOM="beta1a"
-DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz/download
+SFOCUSTOM="ga"
+#DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz/download
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian
 
-if [ ! -f ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz ]; then
-	curl -L \
-		-o ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz \
-		${DLURL}
-fi
+#if [ ! -f ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz ]; then
+#	curl -L \
+#		-o ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz \
+#		${DLURL}
+#fi
 
 #delete prev. deb package files
 echo "cleaning up."
@@ -23,7 +23,8 @@ mkdir -p ${BUILDDEST}
 cd ${BUILDDEST} || exit
 echo "unzipping.."
 
-tar xzf ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
+#tar xzf ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
+cp -r ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM} .
 cp -a $DEBDIR debian || exit
 
 mv -vi airtime-${VERSION}* airtime
@@ -51,10 +52,14 @@ rm -r airtime/install_full/
 rm airtime/gen-snapshot.sh
 rm -r airtime/debian/
 
+#Fix executable bit
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColReorder.js
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColVis.js
+
 #############################
 
 cd ../
-tar czf airtime_${VERSION}~${SFOCUSTOM}.orig.tar.gz  airtime-${VERSION}/airtime/
+tar czf airtime_${VERSION}.orig.tar.gz  airtime-${VERSION}/airtime/
 cd ${BUILDDEST} || exit
 
 debuild -k174C1854 $@ || exit

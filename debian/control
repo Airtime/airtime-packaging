@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Daniel James <daniel@64studio.com>
 Build-Depends: debhelper (>= 7.0.50~), po-debconf
 Standards-Version: 3.9.3
-Homepage: http://www.sourcefabric.org/en/products/airtime_overview/
+Homepage: http://www.sourcefabric.org/en/airtime/
 
 Package: airtime
 Architecture: all
@@ -55,9 +55,9 @@ Depends: apache2,
 Recommends: icecast2, php-apc
 Suggests: airtime-audio-samples,
  alsa-utils
-Description: open radio software for scheduling and remote station management.
+Description: open broadcast software for scheduling and remote station management.
  Airtime is an open source application that provides remote automation 
- of a radio station.
+ of a broadcast station.
  .
  Major features:
  .

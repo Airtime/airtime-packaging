@@ -16,7 +16,7 @@ includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
-NEWVERSION="2.3.1"
+NEWVERSION="2.4.0"
 
 case "$1" in
   configure|reconfigure)
@@ -154,6 +154,7 @@ case "$1" in
       if [ -f /etc/default/monit ]; then
         echo "Setting up monit configuration..."
          sed -i 's:startup=.*:startup=1:g' /etc/default/monit
+         sed -i 's:START=.*:START=yes:g' /etc/default/monit
 
            MONITCONFIGURED=$(grep "include /etc/monit/conf.d" /etc/monit/monitrc || true)
            if [ -z "$MONITCONFIGURED" ]; then

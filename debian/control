@@ -55,7 +55,7 @@ Depends: apache2,
 Recommends: icecast2, php-apc
 Suggests: airtime-audio-samples,
  alsa-utils
-Description: open broadcast software for scheduling and remote station management.
+Description: open broadcast software for scheduling and station management.
  Airtime is an open source application that provides remote automation 
  of a broadcast station.
  .

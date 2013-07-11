@@ -23,7 +23,7 @@ mkdir -p ${BUILDDEST}
 cd ${BUILDDEST} || exit
 echo "unzipping.."
 
-#tar xzf ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
+tar xzf ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
 cp -r ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM} .
 cp -a $DEBDIR debian || exit
 

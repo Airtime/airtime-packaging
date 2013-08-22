@@ -41,9 +41,14 @@ Package: liquidsoap
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends},
- wget,
+ adduser,
+ libao-ocaml,
+ libcamomile-ocaml-data,
+ libmad-ocaml,
+ libsoundtouch-ocaml,
+ libtaglib-ocaml,
  sox,
- adduser
+ wget
 Recommends:
  logrotate,
  mp3gain,

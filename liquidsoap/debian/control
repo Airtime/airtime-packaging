@@ -45,7 +45,6 @@ Depends: ${shlibs:Depends},
  libao-ocaml,
  libcamomile-ocaml-data,
  libmad-ocaml,
- libsoundtouch-ocaml,
  libtaglib-ocaml,
  sox,
  wget

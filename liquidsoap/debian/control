@@ -42,10 +42,7 @@ Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends},
  adduser,
- libao-ocaml,
  libcamomile-ocaml-data,
- libmad-ocaml,
- libtaglib-ocaml,
  sox,
  wget
 Recommends:

@@ -1,18 +1,18 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-VERSION=2.4.0
+VERSION=2.4.1
 SFOCUSTOM="ga"
-#DLURL=http://sourceforge.net/projects/airtime/files/${VERSION}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz/download
+DLURL=https://github.com/sourcefabric/Airtime/archive/airtime-${VERSION}-${SFOCUSTOM}.tar.gz
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian
 
-#if [ ! -f ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz ]; then
-#	curl -L \
-#		-o ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz \
-#		${DLURL}
-#fi
+if [ ! -f ${MIRRORPATH}/Airtime-airtime-${VERSION}-${SFOCUSTOM}.tar.gz ]; then
+	curl -L \
+		-o ${MIRRORPATH}/Airtime-airtime-${VERSION}-${SFOCUSTOM}.tar.gz \
+		${DLURL}
+fi
 
 #delete prev. deb package files
 echo "cleaning up."
@@ -23,14 +23,13 @@ mkdir -p ${BUILDDEST}
 cd ${BUILDDEST} || exit
 echo "unzipping.."
 
-tar xzf ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
-cp -r ${MIRRORPATH}/airtime-${VERSION}-${SFOCUSTOM} .
+tar xzf ${MIRRORPATH}/Airtime-airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
-mv -vi airtime-${VERSION}* airtime
+mv -vi Airtime-airtime-${VERSION}* airtime
 pwd
 
-# FIXES for 2.4.0 #############
+# FIXES for 2.4.1 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -52,6 +51,11 @@ rm -r airtime/install_full/
 rm airtime/gen-snapshot.sh
 rm -r airtime/debian/
 
+#Strip development files
+rm -r airtime/dev_tools
+rm airtime/.gitignore
+rm airtime/.zfproject.xml
+
 #Fix executable bit
 chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColReorder.js
 chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColVis.js
@@ -64,12 +68,12 @@ cd ${BUILDDEST} || exit
 
 debuild -k174C1854 $@ || exit
 
-ls -l /tmp/airtime*deb
-ls -l /tmp/airtime*changes
+ls -l ${MIRRORPATH}/airtime*deb
+ls -l ${MIRRORPATH}/airtime*changes
 
-lintian -i --pedantic ${BUILDDEST}/../airtime_${VERSION}*.changes | tee /tmp/airtime-${VERSION}.issues
+lintian -i --pedantic ../airtime_${VERSION}*.changes | tee ../airtime-${VERSION}.issues
 
 exit
 echo -n "UPLOAD? [enter|CTRL-C]" ; read
 
-dput sfo /tmp/airtime_${VERSION}*.changes
+dput sfo ../airtime_${VERSION}*.changes

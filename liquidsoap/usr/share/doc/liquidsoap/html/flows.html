@@ -25,7 +25,7 @@
      <li id="menu-doc-snippets">
        <a href="scripts/index.html">snippets</a></li>
      <li id="menu-developers">
-       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+       <a href="https://github.com/savonet/liquidsoap/issues">developers</a></li>
    </ul>
   </div>
   </div>
@@ -60,15 +60,200 @@ form <code>codec/bitrate</code> (e.g. <code>mp3/128k</code>) or <code>codec</cod
 bitrate.
 </p>
 <p>
-You can register a stream with any <code>user</code> and <code>password</code> parameters.
-Those parameters are only useful if you use additional services such as the 
+You can register a stream with any <code>user</code> and <code>password</code> parameters. Those
+parameters are only useful if you use additional services such as the
 command-line client, or if you want to claim that you “own” a registered radio.
 All this is relatively informal for now, but may be tightened in future
 developments of Flows.
 </p>
+<h3>Getting information from flows</h3>
+<p>
+If you develop a website and registered your radio as explained above, flows can
+be used as a convenient way to retrieve metadata in javascript, get a list of
+friendly radios, etc. The flows service currently consists of a list of radios
+broadcasting using Liquidsoap, with their corresponding streams and
+metadata.
+</p>
+<h4>List of radios</h4>
+<p>
+<b>Note: When the list gets big enough, this API should be changed to return paginated results.</b>
+</p>
+<p>
+A list of radios, encoded in JSON format, can be obtained by querying the
+following url:
+</p>
+<pre class="syntax ">http://flows.liquidsoap.fm/radios
+</pre>
+<p>
+Output is a JSON string like this:
+</p>
+<pre class="syntax javascript">[{ "token"       : "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
+   "name"        : "RadioPi - Canal Jazz",
+   "website"     : "http://www.radiopi.org/",
+   "description" : "Cool vibes from Chatenay!",
+   "genre"       : "jazz",
+   "longitude"   : 2.26670002937317,
+   "latitude"    : 48.7667007446289,
+   "title"       : "Bud Powell - Un Poco Loco",
+   "artist"      : "Va-1939-1999 - 60 Ans De Jazz",
+   "streams"     : [{ "format" : "mp3/128k",
+                      "url"    : "http://radiopi.org:8080/jazz" }]}
+ ...
+</pre>
+<h4>Single radio</h4>
+<p>
+A single radio, encoded in JSON format, can be obtained by querying the
+following url:
+</p>
+<pre class="syntax ">http://flows.liquidsoap.fm/radio?name=foo&website=bar
+</pre>
+<p>
+All argument are optional and should be in UTF8 and properly encoded for a HTTP
+GET request.
+</p>
+<p>
+A direct request using a radio's token can also be performed at this URL:
+</p>
+<pre class="syntax ">http://flows.liquidsoap.fm/radio/:token
+</pre>
+<p>
+Output is a JSON string like this:
+</p>
+<pre class="syntax javascript">{ "token"       : "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
+  "name"        : "RadioPi - Canal Jazz",
+  "website"     : "http://www.radiopi.org/",
+  "description" : "Cool vibes from Chatenay!",
+  "genre"       : "jazz",
+  "longitude"   : 2.26670002937317,
+  "latitude"    : 48.7667007446289,
+  "title"       : "Bud Powell - Un Poco Loco",
+  "artist"      : "Va-1939-1999 - 60 Ans De Jazz",
+  "streams"     : [{ "format" : "mp3/128k",
+                     "url"    : "http://radiopi.org:8080/jazz" }]}
+</pre>
+<h4>Stream redirection</h4>
+<p>
+Flows can also be used to provide a single url for all your listeners, allowing
+you to change the actual listening url of your radio while preserving your
+playlists.
+</p>
+<p>
+If you radio's token is <code>:token</code> and has a stream of format <code>:format</code>, then the
+following url will redirect any request to your stream's URL.
+</p>
+<pre class="syntax ">http://flows.liquidsoap.fm/radio/:token/:format
+</pre>
+<h4>Playlist</h4>
+<p>
+As for streams, if you radio's token is <code>:token</code> then the following link will
+return a <a href="http://en.wikipedia.org/wiki/PLS_(file_format" target="_blank">PLS</a>) playlist:
+</p>
+<pre class="syntax ">http://flows.liquidsoap.fm/radio/:token.pls
+</pre>
+<h4>Real-time notifications</h4>
+<p>
+It is oftentimes difficult to properly implement a regular update of your
+radio's currently playing information on a website or an online player. Using
+Flows, you can very easily implement real-time notifications of the song
+currently being played by your radio.
+</p>
+<p>
+First, you need to know your radio's token. You can do so by querying a single
+radio, as described above, or querying all radios and finding yours in the list.
+</p>
+<p>
+Then, in your webpage's head, you need to add javascript code adapted from this
+example:
+</p>
+<pre class="syntax html">&lt;script src="http://flows.liquidsoap.fm/socket.io/socket.io.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  var socket = io.connect("http://flows.liquidsoap.fm");
+
+  socket.emit('join', radio_token);
+
+  socket.on('joined', function (radio) {
+    console.log("Successfully joined " + radio.name + " notification channel. Current title is: " + radio.title + ".");
+  });
+
+  socket.on('error', function (data) {
+    console.log("Error: " + data + ".");
+  });
+
+  socket.on(radio_token, function (data) {
+    console.log("Got new notification " + data.cmd + " for radio " + data.radio.name + ": " + JSON.stringify(data));
+  });
+&lt;/script&gt;
+</pre>
+<p>
+Received messages are objects of the form:
+</p>
+<pre class="syntax javascript">{ cmd   : "metadata",
+  radio : { token       : "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
+            name        : "RadioPi - Canal Jazz",
+            website     : "http://www.radiopi.org/",
+            description : "Cool vibes from Chatenay!",
+            genre       : "jazz",
+            longitude   : 2.26670002937317,
+            latitude    : 48.7667007446289,
+            title       : "Bud Powell - Un Poco Loco",
+            artist      : "Va-1939-1999 - 60 Ans De Jazz",
+            streams     : [{ format : "mp3/128k",
+                             url    : "http://radiopi.org:8080/jazz" }]}}
+</pre>
+<p>
+Messages with command <code>"metadata"</code> are the one you want to use to update
+information displayed about your radio.
+</p>
+<h4>Twitter notifications</h4>
+<p>
+<b>Note: The twitter API is deprecated for now.</b>
+</p>
+<p>
+You can register twitter notifications on any twitter account with radio that
+you own. The API is designed to allow implementing this feature on your
+website. It works as follows:
+</p>
+<p>
+First you issue a <code>HTTP</code> <code>GET</code> request, authenticated with your radio
+credentials at this address:
+</p>
+<pre class="syntax ">http://flows.liquidsoap.fm/radio/:token/twitter/auth?redirect_to=:link
+</pre>
+<p>
+Then you should receive a response of the form:
+</p>
+<pre class="syntax ">{"url":"https://api.twitter.com/oauth/authenticate?oauth_token=..."}
+</pre>
+<p>
+You should then visit the returned url with a browser or redirect your website
+visitor to this address. There, twitter should ask you to authorize the <code>Savonet
+Flows</code> application for the twitter user that you or your visitor are using.
+</p>
+<p>
+Once done, you should be automatically redirected to <code>:link</code> where <code>:link</code> is
+the parameter passed in the initial <code>HTTP</code> <code>GET</code> request. From this point, all
+metadata updates for the that radio should be forwarded to the twitter account
+that was just authorized.
+</p>
+<h4>Command-line client</h4>
+<p>
+A command-line client is also available. It can be used to:
+</p>
+<ul>
+<li>
+Change your radio's name</li>
+<li>
+Change your radio's location</li>
+<li>
+Register and unregister twitter notifications</li>
+</ul>
+<p>
+The code is still being developped. It can be accessed at this url:
+<a href="https://github.com/savonet/flows-client">https://github.com/savonet/flows-client</a>
+</p>
   </div></div>
   <div>
-    <div id="footer"> 2003-2011 Savonet team</div>
+    <div id="footer"> 2003-2013 Savonet team</div>
   </div>
   </div>
 </body></html>

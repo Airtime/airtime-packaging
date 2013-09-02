@@ -26,6 +26,7 @@
 * "icecast_redirect.liq":icecast_redirect.html
 * "icy_update_via_telnet.liq":icy_update_via_telnet.html
 * "input_mplayer.liq":input_mplayer.html
+* "interactive_bool.liq":interactive_bool.html
 * "lang_dummy_example.liq":lang_dummy_example.html
 * "lang_fun_def.liq":lang_fun_def.html
 * "lang_func_type.liq":lang_func_type.html
@@ -35,6 +36,7 @@
 * "lastfm_uri.liq":lastfm_uri.html
 * "manual_dump.liq":manual_dump.html
 * "on_blank.liq":on_blank.html
+* "osc_metadata.liq":osc_metadata.html
 * "out.sh":out.html
 * "out_playlist.sh":out_playlist.html
 * "out_smartcross.sh":out_smartcross.html

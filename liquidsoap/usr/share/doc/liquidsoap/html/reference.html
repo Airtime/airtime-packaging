@@ -25,7 +25,7 @@
      <li id="menu-doc-snippets">
        <a href="scripts/index.html">snippets</a></li>
      <li id="menu-developers">
-       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+       <a href="https://github.com/savonet/liquidsoap/issues">developers</a></li>
    </ul>
   </div>
   </div>
@@ -86,6 +86,8 @@ information that liquidsoap puts in streams: track limits and metadata.
 <a href="#String">String</a></li>
 <li>
 <a href="#System">System</a></li>
+<li>
+<a href="#Uncategorized">Uncategorized</a></li>
 </ul>
 <h3><a name="Source___Conversions">Source / Conversions</a></h3>
 <h5><a name="audio_to_stereo">audio_to_stereo</a></h5>
@@ -164,7 +166,7 @@ Produce mono audio by taking the mean of all audio channels.
  source(audio=0,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
 <p>
-Add audio channnels to a stream.
+Mux an audio stream into an audio-free stream.
 </p>
 <ul>
 <li>
@@ -179,13 +181,28 @@ Add audio channnels to a stream.
  source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a+1,video='#b,midi='#c)</pre>
 <p>
-Add audio channnels to a stream.
+Mux a mono audio stream into another stream.
 </p>
 <ul>
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
 <code>mono</code> (<code>source(audio=1,video=0,midi=0)</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#a,video='#b,midi='#c)</code>)</li>
+</ul>
+<h5><a name="mux_stereo">mux_stereo</a></h5>
+<pre class="syntax ">(?id:string,stereo:source(audio=2,video=0,midi=0),
+ source(audio='#a,video='#b,midi='#c))-&gt;
+source(audio='#a+2,video='#b,midi='#c)</pre>
+<p>
+Mux a stereo audio stream into another stream.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>stereo</code> (<code>source(audio=2,video=0,midi=0)</code>)</li>
 <li>
 <code>(unlabeled)</code> (<code>source(audio='#a,video='#b,midi='#c)</code>)</li>
 </ul>
@@ -245,6 +262,17 @@ Creates a source that fails to produce anything.
 <ul>
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>)</li>
+</ul>
+<h5><a name="gstreamer_hls">gstreamer.hls</a></h5>
+<pre class="syntax ">(?id:string,'a)-&gt;source(audio=2,video=1,midi=0)</pre>
+<p>
+Play an http live stream.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>(unlabeled)</code> (<code>'a</code>): URI of the HLS stream index.</li>
 </ul>
 <h5><a name="in">in</a></h5>
 <pre class="syntax ">(?id:string,?start:bool,?on_start:(()-&gt;unit),
@@ -315,6 +343,53 @@ Stream data from an external application.
 <code>samplerate</code> (<code>int</code> &ndash; defaults to <code>44100</code>): Samplerate.</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): Command to execute.</li>
+</ul>
+<h5><a name="input_gstreamer_audio">input.gstreamer.audio</a></h5>
+<pre class="syntax ">(?id:string,?max:float,?pipeline:string)-&gt;
+source(audio='#a+1,video=0,midi=0)</pre>
+<p>
+Stream audio from a GStreamer pipeline.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>max</code> (<code>float</code> &ndash; defaults to <code>10.</code>): Maximum duration of the buffered data.</li>
+<li>
+<code>pipeline</code> (<code>string</code> &ndash; defaults to <code>"audiotestsrc"</code>): GStreamer pipeline to input from.</li>
+</ul>
+<h5><a name="input_gstreamer_audio_video">input.gstreamer.audio_video</a></h5>
+<pre class="syntax ">(?id:string,?audio_pipeline:string,?max:float,
+ ?pipeline:string,?video_pipeline:string)-&gt;
+source(audio=2,video=1,midi=0)</pre>
+<p>
+Stream audio+video from a GStreamer pipeline.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>audio_pipeline</code> (<code>string</code> &ndash; defaults to <code>"audiotestsrc"</code>): Audio pipeline to input from.</li>
+<li>
+<code>max</code> (<code>float</code> &ndash; defaults to <code>10.</code>): Maximum duration of the buffered data.</li>
+<li>
+<code>pipeline</code> (<code>string</code> &ndash; defaults to <code>""</code>): Main GStreamer pipeline.</li>
+<li>
+<code>video_pipeline</code> (<code>string</code> &ndash; defaults to <code>"videotestsrc"</code>): Video pipeline to input from.</li>
+</ul>
+<h5><a name="input_gstreamer_video">input.gstreamer.video</a></h5>
+<pre class="syntax ">(?id:string,?max:float,?pipeline:string)-&gt;
+source(audio=0,video=1,midi=0)</pre>
+<p>
+Stream video from a GStreamer pipeline.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>max</code> (<code>float</code> &ndash; defaults to <code>10.</code>): Maximum duration of the buffered data.</li>
+<li>
+<code>pipeline</code> (<code>string</code> &ndash; defaults to <code>"videotestsrc"</code>): GStreamer pipeline to input from.</li>
 </ul>
 <h5><a name="input_harbor">input.harbor</a></h5>
 <pre class="syntax ">(?id:string,?auth:((string,string)-&gt;bool),?buffer:float,
@@ -398,7 +473,7 @@ Forwards the given http stream. The relay can be paused/resumed using the start/
 <li>
 <code>timeout</code> (<code>float</code> &ndash; defaults to <code>30.</code>): Timeout for source connectionn.</li>
 <li>
-<code>user_agent</code> (<code>string</code> &ndash; defaults to <code>"Liquidsoap/1.0.1 (Unix; OCaml 3.12.1)"</code>): User agent.</li>
+<code>user_agent</code> (<code>string</code> &ndash; defaults to <code>"Liquidsoap/1.1.1 (Unix; OCaml 3.12.1)"</code>): User agent.</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): URL of an http stream (default port is 80).</li>
 </ul>
@@ -467,7 +542,7 @@ Forwards the given lastfm stream. The relay can be paused/resumed using the star
 <li>
 <code>user</code> (<code>string</code>): Lastfm user.</li>
 <li>
-<code>user_agent</code> (<code>string</code> &ndash; defaults to <code>"Liquidsoap/1.0.1 (Unix; OCaml 3.12.1)"</code>): User agent.</li>
+<code>user_agent</code> (<code>string</code> &ndash; defaults to <code>"Liquidsoap/1.1.1 (Unix; OCaml 3.12.1)"</code>): User agent.</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): URI of a lastfm stream (e.g. lastfm://user/toots5446/playlist).</li>
 </ul>
@@ -595,6 +670,30 @@ Input encoded data from UDP, without any control whatsoever.
 <li>
 <code>(unlabeled)</code> (<code>string</code>): Mime type.</li>
 </ul>
+<h5><a name="input_v4l2">input.v4l2</a></h5>
+<pre class="syntax ">(?id:string,?device:string)-&gt;
+source(audio=0,video=1,midi=0)</pre>
+<p>
+Stream from a video4linux 2 input device, such as a webcam.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>device</code> (<code>string</code> &ndash; defaults to <code>"/dev/video0"</code>): V4L2 device to use.</li>
+</ul>
+<h5><a name="input_v4l2_with_audio">input.v4l2_with_audio</a></h5>
+<pre class="syntax ">(?id:string,?device:string)-&gt;
+source(audio=2,video=1,midi=0)</pre>
+<p>
+Stream from a video4linux 2 input device, such as a webcam.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>device</code> (<code>string</code> &ndash; defaults to <code>"/dev/video0"</code>): V4L2 device to use.</li>
+</ul>
 <h5><a name="noise">noise</a></h5>
 <pre class="syntax ">(?id:string,?duration:float)-&gt;
 source(audio='a,video='b,midi=0)</pre>
@@ -631,28 +730,30 @@ Loop on a playlist of URIs.
 <li>
 <code>prefix</code> (<code>string</code> &ndash; defaults to <code>""</code>): Add a constant prefix to all requests. Useful for passing extra information using annotate, or for resolution through a particular protocol, such as replaygain.</li>
 <li>
-<code>reload</code> (<code>int</code> &ndash; defaults to <code>0</code>): Amount of time (in seconds or rounds) before which the playlist is reloaded; 0 means never.</li>
+<code>reload</code> (<code>int</code> &ndash; defaults to <code>0</code>): Amount of time (in seconds or rounds), when applicable, before which the playlist is reloaded; 0 means never.</li>
 <li>
-<code>reload_mode</code> (<code>string</code> &ndash; defaults to <code>"seconds"</code>): Unit of the reload parameter, either 'rounds' or 'seconds'.</li>
+<code>reload_mode</code> (<code>string</code> &ndash; defaults to <code>"seconds"</code>): Unit of the reload parameter, either 'rounds', 'seconds' or 'watch' (reload the file whenever it is changed).</li>
 <li>
 <code>timeout</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Timeout (in sec.) for a single download.</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): URI where to find the playlist.</li>
 </ul>
 <h5><a name="playlist_once">playlist.once</a></h5>
-<pre class="syntax ">(?id:string,?random:bool,?on_done:(()-&gt;unit),string)-&gt;
-source('a)</pre>
+<pre class="syntax ">(?id:string,?random:bool,?on_done:(()-&gt;unit),
+ ?reload_mode:string,string)-&gt;source('a)</pre>
 <p>
 Custom playlist source written using the script language.
 Will read directory or playlist, play all files and stop
 </p>
 <ul>
 <li>
-<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID. </li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
 <code>random</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Randomize playlist content</li>
 <li>
 <code>on_done</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Function to execute when the playlist is finished</li>
+<li>
+<code>reload_mode</code> (<code>string</code> &ndash; defaults to <code>""</code>): If set to “watch”, will be reloaded when the playlist is changed</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): Playlist URI</li>
 </ul>
@@ -691,9 +792,9 @@ Loop on a playlist of local files, and never fail. In order to do so, it has to 
 <li>
 <code>prefix</code> (<code>string</code> &ndash; defaults to <code>""</code>): Add a constant prefix to all requests. Useful for passing extra information using annotate, or for resolution through a particular protocol, such as replaygain.</li>
 <li>
-<code>reload</code> (<code>int</code> &ndash; defaults to <code>0</code>): Amount of time (in seconds or rounds) before which the playlist is reloaded; 0 means never.</li>
+<code>reload</code> (<code>int</code> &ndash; defaults to <code>0</code>): Amount of time (in seconds or rounds), when applicable, before which the playlist is reloaded; 0 means never.</li>
 <li>
-<code>reload_mode</code> (<code>string</code> &ndash; defaults to <code>"seconds"</code>): Unit of the reload parameter, either 'rounds' or 'seconds'.</li>
+<code>reload_mode</code> (<code>string</code> &ndash; defaults to <code>"seconds"</code>): Unit of the reload parameter, either 'rounds', 'seconds' or 'watch' (reload the file whenever it is changed).</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): URI where to find the playlist.</li>
 </ul>
@@ -1094,6 +1195,96 @@ Display video stream using the Graphics library.
 <li>
 <code>(unlabeled)</code> (<code>source(audio=0,video=1,midi=0)</code>)</li>
 </ul>
+<h5><a name="output_gstreamer_audio">output.gstreamer.audio</a></h5>
+<pre class="syntax ">(?id:string,?clock_safe:bool,?fallible:bool,
+ ?on_start:(()-&gt;unit),?on_stop:(()-&gt;unit),
+ ?pipeline:string,?start:bool,
+ source(audio='#a+1,video='#b,midi='#c))-&gt;
+active_source(audio='#a+1,video='#b,midi='#c)</pre>
+<p>
+Output stream to a GStreamer pipeline.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>clock_safe</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Use the dedicated GStreamer clock.</li>
+<li>
+<code>fallible</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Allow the child source to fail, in which case the output will be (temporarily) stopped.</li>
+<li>
+<code>on_start</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Callback executed when outputting starts.</li>
+<li>
+<code>on_stop</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Callback executed when outputting stops.</li>
+<li>
+<code>pipeline</code> (<code>string</code> &ndash; defaults to <code>"autoaudiosink"</code>): GStreamer pipeline for sink.</li>
+<li>
+<code>start</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#a+1,video='#b,midi='#c)</code>)</li>
+</ul>
+<h5><a name="output_gstreamer_audio_video">output.gstreamer.audio_video</a></h5>
+<pre class="syntax ">(?id:string,?asynchronous:bool,?audio_pipeline:string,
+ ?blocking:bool,?clock_safe:bool,?fallible:bool,
+ ?on_start:(()-&gt;unit),?on_stop:(()-&gt;unit),
+ ?pipeline:string,?start:bool,?video_pipeline:string,
+ source(audio='#a+1,video='#b+1,midi='#c))-&gt;
+active_source(audio='#a+1,video='#b+1,midi='#c)</pre>
+<p>
+Output stream to a GStreamer pipeline.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>asynchronous</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Use asynchronous implementation (GStreamer is pulling from us).</li>
+<li>
+<code>audio_pipeline</code> (<code>string</code> &ndash; defaults to <code>"autoaudiosink"</code>): GStreamer pipeline for audio sink.</li>
+<li>
+<code>blocking</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Pushing buffers is blocking.</li>
+<li>
+<code>clock_safe</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Use the dedicated GStreamer clock.</li>
+<li>
+<code>fallible</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Allow the child source to fail, in which case the output will be (temporarily) stopped.</li>
+<li>
+<code>on_start</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Callback executed when outputting starts.</li>
+<li>
+<code>on_stop</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Callback executed when outputting stops.</li>
+<li>
+<code>pipeline</code> (<code>string</code> &ndash; defaults to <code>""</code>): GStreamer pipeline for sink.</li>
+<li>
+<code>start</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.</li>
+<li>
+<code>video_pipeline</code> (<code>string</code> &ndash; defaults to <code>"videoconvert ! autovideosink"</code>): GStreamer pipeline for video sink.</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#a+1,video='#b+1,midi='#c)</code>)</li>
+</ul>
+<h5><a name="output_gstreamer_video">output.gstreamer.video</a></h5>
+<pre class="syntax ">(?id:string,?clock_safe:bool,?fallible:bool,
+ ?on_start:(()-&gt;unit),?on_stop:(()-&gt;unit),
+ ?pipeline:string,?start:bool,
+ source(audio='#a,video='#b+1,midi='#c))-&gt;
+active_source(audio='#a,video='#b+1,midi='#c)</pre>
+<p>
+Output stream to a GStreamer pipeline.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>clock_safe</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Use the dedicated GStreamer clock.</li>
+<li>
+<code>fallible</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Allow the child source to fail, in which case the output will be (temporarily) stopped.</li>
+<li>
+<code>on_start</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Callback executed when outputting starts.</li>
+<li>
+<code>on_stop</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Callback executed when outputting stops.</li>
+<li>
+<code>pipeline</code> (<code>string</code> &ndash; defaults to <code>"videoconvert ! autovideosink"</code>): GStreamer pipeline for sink.</li>
+<li>
+<code>start</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#a,video='#b+1,midi='#c)</code>)</li>
+</ul>
 <h5><a name="output_harbor">output.harbor</a></h5>
 <pre class="syntax ">(?id:string,?auth:((string,string)-&gt;bool),?buffer:int,
  ?burst:int,?chunk:int,?dumpfile:string,?encoding:string,
@@ -1197,7 +1388,7 @@ Encode and output the stream to an icecast2 or shoutcast server.
 <li>
 <code>genre</code> (<code>string</code> &ndash; defaults to <code>"Misc"</code>)</li>
 <li>
-<code>headers</code> (<code>[(string*string)]</code> &ndash; defaults to <code>[("User-Agent","Liquidsoap/1.0.1 (Unix; OCaml 3.12.1)")]</code>): Additional headers.</li>
+<code>headers</code> (<code>[(string*string)]</code> &ndash; defaults to <code>[("User-Agent","Liquidsoap/1.1.1 (Unix; OCaml 3.12.1)")]</code>): Additional headers.</li>
 <li>
 <code>host</code> (<code>string</code> &ndash; defaults to <code>"localhost"</code>)</li>
 <li>
@@ -1296,7 +1487,7 @@ Output the source's stream to an OSS output device.
 <pre class="syntax ">(?id:string,?buflen:int,?clock_safe:bool,?fallible:bool,
  ?on_start:(()-&gt;unit),?on_stop:(()-&gt;unit),?start:bool,
  source(audio='#a+1,video='#b,midi='#c))-&gt;
-source(audio='#a+1,video='#b,midi='#c)</pre>
+active_source(audio='#a+1,video='#b,midi='#c)</pre>
 <p>
 Output the source's stream to a portaudio output device.
 </p>
@@ -1420,7 +1611,7 @@ Output to shoutcast.
 <li>
 <code>genre</code> (<code>string</code> &ndash; defaults to <code>"Misc"</code>)</li>
 <li>
-<code>url</code> (<code>string</code> &ndash; defaults to <code>"http://savonet.sf.net/"</code>)</li>
+<code>url</code> (<code>string</code> &ndash; defaults to <code>"http://liquidsoap.fm"</code>)</li>
 <li>
 <code>name</code> (<code>string</code> &ndash; defaults to <code>"Liquidsoap Radio!"</code>)</li>
 <li>
@@ -1523,12 +1714,9 @@ Multiply the amplitude of the signal.
 <code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi='#d)</code>)</li>
 </ul>
 <h5><a name="bpm">bpm</a></h5>
-<pre class="syntax ">(?id:string,?every:int,
+<pre class="syntax ">(?id:string,?every:float,((float)-&gt;unit),
  source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
-<p>
-WARNING: This is only EXPERIMENTAL!
-</p>
 <p>
 Detect the BPM.
 </p>
@@ -1536,7 +1724,9 @@ Detect the BPM.
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>every</code> (<code>int</code> &ndash; defaults to <code>500</code>)</li>
+<code>every</code> (<code>float</code> &ndash; defaults to <code>1.</code>): Interval at which BPM is computed (in second).</li>
+<li>
+<code>(unlabeled)</code> (<code>(float)-&gt;unit</code>): Callback function.</li>
 <li>
 <code>(unlabeled)</code> (<code>source(audio='#a,video='#b,midi='#c)</code>)</li>
 </ul>
@@ -1683,8 +1873,8 @@ Add echo.
 <code>(unlabeled)</code> (<code>source(audio='#c,video='#d,midi='#e)</code>)</li>
 </ul>
 <h5><a name="fade_final">fade.final</a></h5>
-<pre class="syntax ">(?id:string,?duration:float,?type:string,
- source(audio='#a,video='#b,midi='#c))-&gt;
+<pre class="syntax ">(?id:string,?duration:float,?override:string,
+ ?type:string,source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
 <p>
 Fade a stream to silence.
@@ -1694,6 +1884,8 @@ Fade a stream to silence.
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
 <code>duration</code> (<code>float</code> &ndash; defaults to <code>3.</code>): Duration of the fading. This value can be set on a per-file basis using the metadata field passed as override.</li>
+<li>
+<code>override</code> (<code>string</code> &ndash; defaults to <code>"liq_fade_final"</code>): Metadata field which, if present and containing a float, overrides the 'duration' parameter for current track.</li>
 <li>
 <code>type</code> (<code>string</code> &ndash; defaults to <code>"lin"</code>): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.</li>
 <li>
@@ -2079,14 +2271,155 @@ Flanger effect.
 <code>(unlabeled)</code> (<code>source(audio='#d,video='#e,midi='#f)</code>)</li>
 </ul>
 <h5><a name="helium">helium</a></h5>
-<pre class="syntax ">(source(audio='#a,video='#b,midi='#c))-&gt;
-source(audio='#a,video='#b,midi='#c)</pre>
+<pre class="syntax ">(source(audio='#a+1,video=0,midi=0))-&gt;
+source(audio='#a+1,video=0,midi=0)</pre>
 <p>
 Increases the pitch, making voices sound like on helium.
 </p>
 <ul>
 <li>
-<code>(unlabeled)</code> (<code>source(audio='#a,video='#b,midi='#c)</code>): The input source.</li>
+<code>(unlabeled)</code> (<code>source(audio='#a+1,video=0,midi=0)</code>): The input source.</li>
+</ul>
+<h5><a name="ladspa_amp_mono">ladspa.amp_mono</a></h5>
+<pre class="syntax ">(?id:string,?gain:'a,
+ source(audio='#b,video='#c,midi='#d))-&gt;
+source(audio='#b,video='#c,midi='#d)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+Mono Amplifier by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>gain</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>): Gain (0 &lt;= <code>gain</code>).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi='#d)</code>)</li>
+</ul>
+<h5><a name="ladspa_amp_stereo">ladspa.amp_stereo</a></h5>
+<pre class="syntax ">(?id:string,?gain:'a,source(audio=2,video=0,midi=0))-&gt;
+source(audio=2,video=0,midi=0)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+Stereo Amplifier by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>gain</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>): Gain (0 &lt;= <code>gain</code>).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio=2,video=0,midi=0)</code>)</li>
+</ul>
+<h5><a name="ladspa_delay_5s">ladspa.delay_5s</a></h5>
+<pre class="syntax ">(?id:string,?delay:'a,?dry_wet_balance:'b,
+ source(audio='#c,video='#d,midi='#e))-&gt;
+source(audio='#c,video='#d,midi='#e)
+where 'a, 'b is either float or ()-&gt;float</pre>
+<p>
+Simple Delay Line by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>delay</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>): Delay (Seconds) (0 &lt;= <code>delay</code> &lt;= 5).</li>
+<li>
+<code>dry_wet_balance</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>0.5</code>): Dry/Wet Balance (0 &lt;= <code>dry_wet_balance</code> &lt;= 1).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#c,video='#d,midi='#e)</code>)</li>
+</ul>
+<h5><a name="ladspa_hpf">ladspa.hpf</a></h5>
+<pre class="syntax ">(?id:string,?cutoff_frequency:'a,
+ source(audio='#b,video='#c,midi='#d))-&gt;
+source(audio='#b,video='#c,midi='#d)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+Simple High Pass Filter by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>cutoff_frequency</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>440.</code>): Cutoff Frequency (Hz) (0 &lt;= <code>cutoff_frequency</code> &lt;= 22050).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi='#d)</code>)</li>
+</ul>
+<h5><a name="ladspa_lpf">ladspa.lpf</a></h5>
+<pre class="syntax ">(?id:string,?cutoff_frequency:'a,
+ source(audio='#b,video='#c,midi='#d))-&gt;
+source(audio='#b,video='#c,midi='#d)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+Simple Low Pass Filter by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>cutoff_frequency</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>440.</code>): Cutoff Frequency (Hz) (0 &lt;= <code>cutoff_frequency</code> &lt;= 22050).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi='#d)</code>)</li>
+</ul>
+<h5><a name="ladspa_noise_white">ladspa.noise_white</a></h5>
+<pre class="syntax ">(?id:string,?amplitude:'a)-&gt;
+source(audio='#b,video='#c,midi='#d)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+White Noise Source by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>amplitude</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>): Amplitude (0 &lt;= <code>amplitude</code>).</li>
+</ul>
+<h5><a name="ladspa_sine_faac">ladspa.sine_faac</a></h5>
+<pre class="syntax ">(?id:string,?amplitude:'a,
+ source(audio='#b,video='#c,midi='#d))-&gt;
+source(audio='#b,video='#c,midi='#d)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+Sine Oscillator (Freq:audio, Amp:control) by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>amplitude</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>): Amplitude (0 &lt;= <code>amplitude</code>).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi='#d)</code>)</li>
+</ul>
+<h5><a name="ladspa_sine_fcaa">ladspa.sine_fcaa</a></h5>
+<pre class="syntax ">(?id:string,?frequency:'a,
+ source(audio='#b,video='#c,midi='#d))-&gt;
+source(audio='#b,video='#c,midi='#d)
+where 'a is either float or ()-&gt;float</pre>
+<p>
+Sine Oscillator (Freq:control, Amp:audio) by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>frequency</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>440.</code>): Frequency (Hz) (0 &lt;= <code>frequency</code> &lt;= 22050).</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi='#d)</code>)</li>
+</ul>
+<h5><a name="ladspa_sine_fcac">ladspa.sine_fcac</a></h5>
+<pre class="syntax ">(?id:string,?amplitude:'a,?frequency:'b)-&gt;
+source(audio='#c,video='#d,midi='#e)
+where 'a, 'b is either float or ()-&gt;float</pre>
+<p>
+Sine Oscillator (Freq:control, Amp:control) by Richard Furse (LADSPA example plugins).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>amplitude</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>): Amplitude (0 &lt;= <code>amplitude</code>).</li>
+<li>
+<code>frequency</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>440.</code>): Frequency (Hz) (0 &lt;= <code>frequency</code> &lt;= 22050).</li>
 </ul>
 <h5><a name="limit">limit</a></h5>
 <pre class="syntax ">(?id:string,?attack:'a,?gain:'b,?knee:'c,?ratio:float,
@@ -2226,8 +2559,8 @@ source(audio='#a+1,video=0,midi=0)</code>): Transition function, composing from 
 </ul>
 <h5><a name="soundtouch">soundtouch</a></h5>
 <pre class="syntax ">(?id:string,?pitch:'a,?rate:'b,?tempo:'c,
- source(audio='#d,video='#e,midi='#f))-&gt;
-source(audio='#d,video='#e,midi='#f)
+ source(audio='#d+1,video=0,midi=0))-&gt;
+source(audio='#d+1,video=0,midi=0)
 where 'a, 'b, 'c is either float or ()-&gt;float</pre>
 <p>
 WARNING: This is only EXPERIMENTAL!
@@ -2245,7 +2578,7 @@ Change the rate, the tempo or the pitch of the sound.
 <li>
 <code>tempo</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>1.</code>)</li>
 <li>
-<code>(unlabeled)</code> (<code>source(audio='#d,video='#e,midi='#f)</code>)</li>
+<code>(unlabeled)</code> (<code>source(audio='#d+1,video=0,midi=0)</code>)</li>
 </ul>
 <h5><a name="stereo_ms_decode">stereo.ms.decode</a></h5>
 <pre class="syntax ">(?id:string,?width:float,source(audio=2,video=0,midi=0))-&gt;
@@ -2563,15 +2896,15 @@ Prevents the child from being ready again too fast after a end of track
 <h5><a name="drop_metadata">drop_metadata</a></h5>
 <pre class="syntax ">(source('a))-&gt;source('a)</pre>
 <p>
-Removes all metadata coming from a source
+Removes all metadata coming from a source.
 </p>
 <ul>
 <li>
 <code>(unlabeled)</code> (<code>source('a)</code>)</li>
 </ul>
 <h5><a name="eat_blank">eat_blank</a></h5>
-<pre class="syntax ">(?id:string,?at_beginning:bool,?length:float,
- ?threshold:float,?track_sensitive:bool,
+<pre class="syntax ">(?id:string,?at_beginning:bool,?max_blank:float,
+ ?min_noise:float,?threshold:float,?track_sensitive:bool,
  source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
 <p>
@@ -2583,7 +2916,9 @@ Eat blanks, i.e., drop the contents of the stream until it is not blank anymore.
 <li>
 <code>at_beginning</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Only eat at the beginning of a track.</li>
 <li>
-<code>length</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum silence length allowed, in seconds.</li>
+<code>max_blank</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum duration of silence allowed, in seconds.</li>
+<li>
+<code>min_noise</code> (<code>float</code> &ndash; defaults to <code>0.</code>): Minimum duration of noise required to end silence, in seconds.</li>
 <li>
 <code>threshold</code> (<code>float</code> &ndash; defaults to <code>-40.</code>): Power in decibels under which the stream is considered silent.</li>
 <li>
@@ -2657,7 +2992,7 @@ Rewrite metadata on the fly using a function.
 <h5><a name="merge_tracks">merge_tracks</a></h5>
 <pre class="syntax ">(source('a))-&gt;source('a)</pre>
 <p>
-Merge all tracks from a source, provided that it does not fail
+Merge all tracks from a source.
 </p>
 <ul>
 <li>
@@ -2695,8 +3030,9 @@ Use notify to display metadata info.
 <code>(unlabeled)</code> (<code>source('a)</code>)</li>
 </ul>
 <h5><a name="on_blank">on_blank</a></h5>
-<pre class="syntax ">(?id:string,?length:float,?on_noise:(()-&gt;unit),
- ?threshold:float,?track_sensitive:bool,(()-&gt;unit),
+<pre class="syntax ">(?id:string,?max_blank:float,?min_noise:float,
+ ?on_noise:(()-&gt;unit),?threshold:float,
+ ?track_sensitive:bool,(()-&gt;unit),
  source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
 <p>
@@ -2706,7 +3042,9 @@ Calls a given handler when detecting a blank.
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>length</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum silence length allowed, in seconds.</li>
+<code>max_blank</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum duration of silence allowed, in seconds.</li>
+<li>
+<code>min_noise</code> (<code>float</code> &ndash; defaults to <code>0.</code>): Minimum duration of noise required to end silence, in seconds.</li>
 <li>
 <code>on_noise</code> (<code>()-&gt;unit</code> &ndash; defaults to <code>{()}</code>): Handler called when noise is detected.</li>
 <li>
@@ -2884,7 +3222,7 @@ Append speech-synthesized tracks reading the metadata.
 <h5><a name="sequence">sequence</a></h5>
 <pre class="syntax ">(?id:string,?merge:bool,[source('a)])-&gt;source('a)</pre>
 <p>
-Play only one track of every successive source, except for the last one which is played as much as available.
+Play only one track of every successive source, except for the last one which is played as much as available. Sources are released after being used, allowing them to shutdown cleanly and free their resources.
 </p>
 <ul>
 <li>
@@ -2906,8 +3244,8 @@ Register a server/telnet command to update a source's metadata. Returns a new so
 <code>(unlabeled)</code> (<code>source('a)</code>)</li>
 </ul>
 <h5><a name="skip_blank">skip_blank</a></h5>
-<pre class="syntax ">(?id:string,?length:float,?threshold:float,
- ?track_sensitive:bool,
+<pre class="syntax ">(?id:string,?threshold:float,?max_blank:float,
+ ?min_noise:float,?track_sensitive:bool,
  source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
 <p>
@@ -2917,9 +3255,11 @@ Skip track when detecting a blank.
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>length</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum silence length allowed, in seconds.</li>
-<li>
 <code>threshold</code> (<code>float</code> &ndash; defaults to <code>-40.</code>): Power in decibels under which the stream is considered silent.</li>
+<li>
+<code>max_blank</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum silence length allowed, in seconds.</li>
+<li>
+<code>min_noise</code> (<code>float</code> &ndash; defaults to <code>0.</code>): Minimum duration of noise required to end silence, in seconds.</li>
 <li>
 <code>track_sensitive</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Reset blank counter at each track.</li>
 <li>
@@ -3006,8 +3346,8 @@ Keep track of the last N metadata packets in the stream, and make the history av
 <code>(unlabeled)</code> (<code>source('a)</code>)</li>
 </ul>
 <h5><a name="strip_blank">strip_blank</a></h5>
-<pre class="syntax ">(?id:string,?length:float,?threshold:float,
- ?track_sensitive:bool,
+<pre class="syntax ">(?id:string,?max_blank:float,?min_noise:float,
+ ?threshold:float,?track_sensitive:bool,
  source(audio='#a,video='#b,midi='#c))-&gt;
 source(audio='#a,video='#b,midi='#c)</pre>
 <p>
@@ -3017,7 +3357,9 @@ Make the source unavailable when it is streaming blank.
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>length</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum silence length allowed, in seconds.</li>
+<code>max_blank</code> (<code>float</code> &ndash; defaults to <code>20.</code>): Maximum duration of silence allowed, in seconds.</li>
+<li>
+<code>min_noise</code> (<code>float</code> &ndash; defaults to <code>0.</code>): Minimum duration of noise required to end silence, in seconds.</li>
 <li>
 <code>threshold</code> (<code>float</code> &ndash; defaults to <code>-40.</code>): Power in decibels under which the stream is considered silent.</li>
 <li>
@@ -3031,8 +3373,7 @@ Make the source unavailable when it is streaming blank.
  ?transitions:[(source('a),source('a))-&gt;source('a)],
  [((()-&gt;bool)*source('a))])-&gt;source('a)</pre>
 <p>
-At the beginning of a track, select the first source
-whose predicate is true.
+At the beginning of a track, select the first source whose predicate is true.
 </p>
 <ul>
 <li>
@@ -3050,34 +3391,27 @@ whose predicate is true.
 </ul>
 <h3><a name="Source___Video_Processing">Source / Video Processing</a></h3>
 <h5><a name="video_add_image">video.add_image</a></h5>
-<pre class="syntax ">(?id:string,?alpha:int,?duration:float,?file:string,
- ?height:int,?metadata:string,?width:int,?x:int,?y:int,
- source(audio='#a,video='#b+1,midi='#c))-&gt;
-source(audio='#a,video='#b+1,midi='#c)</pre>
+<pre class="syntax ">(?id:string,?width:int,?height:int,?x:int,?y:int,file:'a,
+ source(audio='#b,video='#c,midi=0))-&gt;
+source(audio='#b,video='#c,midi=0)</pre>
 <p>
-Add a static image on the first video channel. The image can be changed based on metadata found at the beginning of a track.
+Add a static image on the first video channel.
 </p>
 <ul>
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>alpha</code> (<code>int</code> &ndash; defaults to <code>-1</code>): Color to convert to alpha (in 0xRRGGBB format, negative means no alpha).</li>
+<code>width</code> (<code>int</code> &ndash; defaults to <code>0</code>): Scale to width (zero means frame width, negative means original width).</li>
 <li>
-<code>duration</code> (<code>float</code> &ndash; defaults to <code>0.</code>)</li>
+<code>height</code> (<code>int</code> &ndash; defaults to <code>0</code>): Scale to height (zero means frame height, negative means original height).</li>
 <li>
-<code>file</code> (<code>string</code> &ndash; defaults to <code>""</code>): Path to image file.</li>
+<code>x</code> (<code>int</code> &ndash; defaults to <code>4611686018427387903</code>): x position.</li>
 <li>
-<code>height</code> (<code>int</code> &ndash; defaults to <code>-1</code>): Scale to width (negative means original height).</li>
+<code>y</code> (<code>int</code> &ndash; defaults to <code>4611686018427387903</code>): y position.</li>
 <li>
-<code>metadata</code> (<code>string</code> &ndash; defaults to <code>""</code>): Metadata on which file name should be read (empty means disabled).</li>
+<code>file</code> (<code>'a</code>): Path to the image file.</li>
 <li>
-<code>width</code> (<code>int</code> &ndash; defaults to <code>-1</code>): Scale to width (negative means original width).</li>
-<li>
-<code>x</code> (<code>int</code> &ndash; defaults to <code>0</code>): x position (negative means from right).</li>
-<li>
-<code>y</code> (<code>int</code> &ndash; defaults to <code>0</code>): y position (negative means from bottom).</li>
-<li>
-<code>(unlabeled)</code> (<code>source(audio='#a,video='#b+1,midi='#c)</code>)</li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c,midi=0)</code>)</li>
 </ul>
 <h5><a name="video_add_text">video.add_text</a></h5>
 <pre class="syntax ">(?id:string,?color:int,?cycle:bool,?font:string,
@@ -3113,6 +3447,39 @@ Add a scrolling line of text on video frames.
 <code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)</li>
 </ul>
 <h5><a name="video_add_text_gd">video.add_text.gd</a></h5>
+<pre class="syntax ">(?id:string,?color:int,?cycle:bool,?font:string,
+ ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
+ source(audio='#b,video='#c+1,midi='#d))-&gt;
+source(audio='#b,video='#c+1,midi='#d)
+where 'a is either string or ()-&gt;string</pre>
+<p>
+Display a text (using the SDL library).
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>color</code> (<code>int</code> &ndash; defaults to <code>16777215</code>): Text color (in 0xRRGGBB format).</li>
+<li>
+<code>cycle</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Cycle text.</li>
+<li>
+<code>font</code> (<code>string</code> &ndash; defaults to <code>""</code>): Path to ttf font file.</li>
+<li>
+<code>metadata</code> (<code>string</code> &ndash; defaults to <code>""</code>): Change text on a particular metadata (empty string means disabled).</li>
+<li>
+<code>size</code> (<code>int</code> &ndash; defaults to <code>18</code>): Font size.</li>
+<li>
+<code>speed</code> (<code>int</code> &ndash; defaults to <code>70</code>): Speed in pixels per second (0 means no scrolling).</li>
+<li>
+<code>x</code> (<code>int</code> &ndash; defaults to <code>-1</code>): x offset (negative means from right).</li>
+<li>
+<code>y</code> (<code>int</code> &ndash; defaults to <code>-5</code>): y offset (negative means from bottom).</li>
+<li>
+<code>(unlabeled)</code> (<code>anything that is either string or ()-&gt;string</code>): Text to display.</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)</li>
+</ul>
+<h5><a name="video_add_text_gstreamer">video.add_text.gstreamer</a></h5>
 <pre class="syntax ">(?id:string,?color:int,?cycle:bool,?font:string,
  ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
  source(audio='#b,video='#c+1,midi='#d))-&gt;
@@ -3338,9 +3705,10 @@ Blur opacity of video.
 <code>(unlabeled)</code> (<code>source(audio='#a,video='#b+1,midi='#c)</code>)</li>
 </ul>
 <h5><a name="video_rotate">video.rotate</a></h5>
-<pre class="syntax ">(?id:string,?angle:float,?speed:float,
- source(audio='#a,video='#b+1,midi='#c))-&gt;
-source(audio='#a,video='#b+1,midi='#c)</pre>
+<pre class="syntax ">(?id:string,?angle:'a,?speed:'b,
+ source(audio='#c,video='#d+1,midi='#e))-&gt;
+source(audio='#c,video='#d+1,midi='#e)
+where 'a, 'b is either float or ()-&gt;float</pre>
 <p>
 Rotate video.
 </p>
@@ -3348,16 +3716,15 @@ Rotate video.
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>angle</code> (<code>float</code> &ndash; defaults to <code>0.</code>): Initial angle in radians.</li>
+<code>angle</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>0.</code>): Initial angle in radians.</li>
 <li>
-<code>speed</code> (<code>float</code> &ndash; defaults to <code>3.1416</code>): Rotation speed in radians per sec.</li>
+<code>speed</code> (<code>anything that is either float or ()-&gt;float</code> &ndash; defaults to <code>3.1416</code>): Rotation speed in radians per sec.</li>
 <li>
-<code>(unlabeled)</code> (<code>source(audio='#a,video='#b+1,midi='#c)</code>)</li>
+<code>(unlabeled)</code> (<code>source(audio='#c,video='#d+1,midi='#e)</code>)</li>
 </ul>
 <h5><a name="video_scale">video.scale</a></h5>
-<pre class="syntax ">(?id:string,?coef:float,?coef_x:float,?coef_y:float,
- ?offset_x:int,?offset_y:int,
- source(audio='#a,video='#b+1,midi='#c))-&gt;
+<pre class="syntax ">(?id:string,?scale:float,?x:int,?xscale:float,?y:int,
+ ?yscale:float,source(audio='#a,video='#b+1,midi='#c))-&gt;
 source(audio='#a,video='#b+1,midi='#c)</pre>
 <p>
 Scale and translate video.
@@ -3366,15 +3733,15 @@ Scale and translate video.
 <li>
 <code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
 <li>
-<code>coef</code> (<code>float</code> &ndash; defaults to <code>1.</code>): Scaling coefficient in both directions.</li>
+<code>scale</code> (<code>float</code> &ndash; defaults to <code>1.</code>): Scaling coefficient in both directions.</li>
 <li>
-<code>coef_x</code> (<code>float</code> &ndash; defaults to <code>1.</code>): x scaling</li>
+<code>x</code> (<code>int</code> &ndash; defaults to <code>0</code>): x offset.</li>
 <li>
-<code>coef_y</code> (<code>float</code> &ndash; defaults to <code>1.</code>): y scaling</li>
+<code>xscale</code> (<code>float</code> &ndash; defaults to <code>1.</code>): x scaling.</li>
 <li>
-<code>offset_x</code> (<code>int</code> &ndash; defaults to <code>1</code>): x offset</li>
+<code>y</code> (<code>int</code> &ndash; defaults to <code>0</code>): y offset.</li>
 <li>
-<code>offset_y</code> (<code>int</code> &ndash; defaults to <code>1</code>): y offset</li>
+<code>yscale</code> (<code>float</code> &ndash; defaults to <code>1.</code>): y scaling.</li>
 <li>
 <code>(unlabeled)</code> (<code>source(audio='#a,video='#b+1,midi='#c)</code>)</li>
 </ul>
@@ -3597,7 +3964,7 @@ Generate a random value.
 <h5><a name="add_timeout">add_timeout</a></h5>
 <pre class="syntax ">(?fast:bool,float,(()-&gt;float))-&gt;unit</pre>
 <p>
-Call a function in N seconds. If the result of the function is positive or null, the task will be scheduled after this amount of time (in seconds.)
+Call a function in N seconds. If the result of the function is positive or null, the task will be scheduled again after this amount of time (in seconds).
 </p>
 <ul>
 <li>
@@ -3770,9 +4137,20 @@ Update metata on an icecast mountpoint using the ICY protocol.
 <li>
 <code>encoding</code> (<code>string</code> &ndash; defaults to <code>""</code>): Encoding used to send metadata, default (UTF-8) if empty.</li>
 <li>
-<code>headers</code> (<code>[(string*string)]</code> &ndash; defaults to <code>[("User-Agent","Liquidsoap/1.0.1 (Unix; OCaml 3.12.1)")]</code>): Additional headers.</li>
+<code>headers</code> (<code>[(string*string)]</code> &ndash; defaults to <code>[("User-Agent","Liquidsoap/1.1.1 (Unix; OCaml 3.12.1)")]</code>): Additional headers.</li>
 <li>
 <code>(unlabeled)</code> (<code>[(string*string)]</code>)</li>
+</ul>
+<h5><a name="interactive_bool">interactive.bool</a></h5>
+<pre class="syntax ">(string,bool)-&gt;()-&gt;bool</pre>
+<p>
+Read a boolean from an interactive input.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>bool</code>)</li>
 </ul>
 <h5><a name="interactive_float">interactive.float</a></h5>
 <pre class="syntax ">(string,float)-&gt;()-&gt;float</pre>
@@ -3911,35 +4289,112 @@ Submit songs to librefm using audioscrobbler, respecting the full protocol: Firs
 <h5><a name="osc_bool">osc.bool</a></h5>
 <pre class="syntax ">(string,bool)-&gt;()-&gt;bool</pre>
 <p>
-Read a boolean from an OSC path.
+Read from an OSC path.
 </p>
 <ul>
 <li>
-<code>(unlabeled)</code> (<code>string</code>)</li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
 <li>
-<code>(unlabeled)</code> (<code>bool</code>)</li>
+<code>(unlabeled)</code> (<code>bool</code>): Initial value.</li>
 </ul>
 <h5><a name="osc_float">osc.float</a></h5>
 <pre class="syntax ">(string,float)-&gt;()-&gt;float</pre>
 <p>
-Read a float from an OSC path.
+Read from an OSC path.
 </p>
 <ul>
 <li>
-<code>(unlabeled)</code> (<code>string</code>)</li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
 <li>
-<code>(unlabeled)</code> (<code>float</code>)</li>
+<code>(unlabeled)</code> (<code>float</code>): Initial value.</li>
 </ul>
 <h5><a name="osc_float_pair">osc.float_pair</a></h5>
 <pre class="syntax ">(string,(float*float))-&gt;()-&gt;(float*float)</pre>
 <p>
-Read a float from an OSC path.
+Read from an OSC path.
 </p>
 <ul>
 <li>
-<code>(unlabeled)</code> (<code>string</code>)</li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
 <li>
-<code>(unlabeled)</code> (<code>(float*float)</code>)</li>
+<code>(unlabeled)</code> (<code>(float*float)</code>): Initial value.</li>
+</ul>
+<h5><a name="osc_on_bool">osc.on_bool</a></h5>
+<pre class="syntax ">(string,((bool)-&gt;unit))-&gt;unit</pre>
+<p>
+Register a callback on OSC messages.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>(bool)-&gt;unit</code>): Callback function.</li>
+</ul>
+<h5><a name="osc_on_float">osc.on_float</a></h5>
+<pre class="syntax ">(string,((float)-&gt;unit))-&gt;unit</pre>
+<p>
+Register a callback on OSC messages.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>(float)-&gt;unit</code>): Callback function.</li>
+</ul>
+<h5><a name="osc_on_float_pair">osc.on_float_pair</a></h5>
+<pre class="syntax ">(string,(((float*float))-&gt;unit))-&gt;unit</pre>
+<p>
+Register a callback on OSC messages.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>((float*float))-&gt;unit</code>): Callback function.</li>
+</ul>
+<h5><a name="osc_on_string">osc.on_string</a></h5>
+<pre class="syntax ">(string,((string)-&gt;unit))-&gt;unit</pre>
+<p>
+Register a callback on OSC messages.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>(string)-&gt;unit</code>): Callback function.</li>
+</ul>
+<h5><a name="osc_on_string_pair">osc.on_string_pair</a></h5>
+<pre class="syntax ">(string,(((string*string))-&gt;unit))-&gt;unit</pre>
+<p>
+Register a callback on OSC messages.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>((string*string))-&gt;unit</code>): Callback function.</li>
+</ul>
+<h5><a name="osc_string">osc.string</a></h5>
+<pre class="syntax ">(string,string)-&gt;()-&gt;string</pre>
+<p>
+Read from an OSC path.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): Initial value.</li>
+</ul>
+<h5><a name="osc_string_pair">osc.string_pair</a></h5>
+<pre class="syntax ">(string,(string*string))-&gt;()-&gt;(string*string)</pre>
+<p>
+Read from an OSC path.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): OSC path.</li>
+<li>
+<code>(unlabeled)</code> (<code>(string*string)</code>): Initial value.</li>
 </ul>
 <h5><a name="print">print</a></h5>
 <pre class="syntax ">(?newline:bool,'a)-&gt;unit</pre>
@@ -3952,12 +4407,30 @@ Print on standard output.
 <li>
 <code>(unlabeled)</code> (<code>'a</code>)</li>
 </ul>
+<h5><a name="server_register">server.register</a></h5>
+<pre class="syntax ">(?namespace:string,?description:string,?usage:string,
+ string,((string)-&gt;string))-&gt;unit</pre>
+<p>
+Register a command. You can then execute this function through the server, either telnet or socket.
+</p>
+<ul>
+<li>
+<code>namespace</code> (<code>string</code> &ndash; defaults to <code>""</code>)</li>
+<li>
+<code>description</code> (<code>string</code> &ndash; defaults to <code>"No documentation available."</code>): A description of your command.</li>
+<li>
+<code>usage</code> (<code>string</code> &ndash; defaults to <code>""</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>string</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>(string)-&gt;string</code>)</li>
+</ul>
 <h3><a name="Liquidsoap">Liquidsoap</a></h3>
 <h5><a name="add_decoder">add_decoder</a></h5>
-<pre class="syntax ">(name:string,description:string,test:((string)-&gt;int),
- string)-&gt;unit</pre>
+<pre class="syntax ">(name:string,description:string,?mimes:[string],
+ test:((string)-&gt;int),string)-&gt;unit</pre>
 <p>
-Register an external file decoder. The encoder should output in WAV format to his standard output (stdout) and read data from its standard input (stdin).
+Register an external decoder. The encoder should output in WAV format to his standard output (stdout) and read data from its standard input (stdin).
 </p>
 <ul>
 <li>
@@ -3965,7 +4438,9 @@ Register an external file decoder. The encoder should output in WAV format to hi
 <li>
 <code>description</code> (<code>string</code>): Description of the decoder.</li>
 <li>
-<code>test</code> (<code>(string)-&gt;int</code>): Function used to determine if the file should be decoded by the decoder. Returned values are: 0: no decodable audio, -1: decodable audio but number of audio channels unknown, x: fixed number of decodable audio channels.</li>
+<code>mimes</code> (<code>[string]</code> &ndash; defaults to <code>[]</code>): List of mime types supported by this decoder for decoding streams.</li>
+<li>
+<code>test</code> (<code>(string)-&gt;int</code>): Function used to determine if a file should be decoded by the decoder. Returned values are: 0: no decodable audio, -1: decodable audio but number of audio channels unknown, x: fixed number of decodable audio channels.</li>
 <li>
 <code>(unlabeled)</code> (<code>string</code>): Process to start.</li>
 </ul>
@@ -3992,7 +4467,7 @@ Register an external file decoder. The encoder should output in WAV format to hi
 <li>
 <code>description</code> (<code>string</code>): Description of the decoder.</li>
 <li>
-<code>test</code> (<code>(string)-&gt;int</code>): Function used to determine if the file should be decoded by the decoder. Returned values are: 0: no decodable audio, -1: decodable audio but number of audio channels unknown, x: fixed number of decodable audio channels.</li>
+<code>test</code> (<code>(string)-&gt;int</code>): Function used to determine if a file should be decoded by the decoder. Returned values are: 0: no decodable audio, -1: decodable audio but number of audio channels unknown, x: fixed number of decodable audio channels.</li>
 <li>
 <code>buffer</code> (<code>float</code> &ndash; defaults to <code>5.</code>)</li>
 <li>
@@ -4036,6 +4511,15 @@ Create a new clock and assign it to a list of sources.
 <code>sync</code> (<code>bool</code> &ndash; defaults to <code>true</code>): Do not synchronize the clock on regular wallclock time, but try to run as fast as possible (CPU burning mode).</li>
 <li>
 <code>(unlabeled)</code> (<code>[source('a)]</code>): List of sources to which the new clock will be assigned</li>
+</ul>
+<h5><a name="clock_unify">clock.unify</a></h5>
+<pre class="syntax ">([source('a)])-&gt;unit</pre>
+<p>
+Enforce that a list of sources all belong to the same clock.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>[source('a)]</code>)</li>
 </ul>
 <h5><a name="configure_default_font">configure.default_font</a></h5>
 <pre class="syntax ">string</pre>
@@ -4081,7 +4565,7 @@ Enable replay gain metadata resolver. This resolver will process any file decode
 </p>
 <ul>
 <li>
-<code>extract_replaygain</code> (<code>string</code> &ndash; defaults to <code>"/usr/lib/liquidsoap/1.0.1/extract-replaygain"</code>): The extraction program</li>
+<code>extract_replaygain</code> (<code>string</code> &ndash; defaults to <code>"/usr/lib/liquidsoap/1.1.1/extract-replaygain"</code>): The extraction program</li>
 </ul>
 <h5><a name="file_duration">file.duration</a></h5>
 <pre class="syntax ">(string)-&gt;float</pre>
@@ -4424,13 +4908,24 @@ Skip to the next track.
 <h5><a name="____">_[_]</a></h5>
 <pre class="syntax ">(string,[(string*string)])-&gt;string</pre>
 <p>
-l[k] returns the first v such that (k,v) is in the list l.
+l[k] returns the first v such that (k,v) is in the list l (or “” if no such v exists).
 </p>
 <ul>
 <li>
 <code>(unlabeled)</code> (<code>string</code>)</li>
 <li>
 <code>(unlabeled)</code> (<code>[(string*string)]</code>)</li>
+</ul>
+<h5><a name="list_add">list.add</a></h5>
+<pre class="syntax ">('a,['a])-&gt;['a]</pre>
+<p>
+Add an element at the top of a list.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>'a</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>['a]</code>)</li>
 </ul>
 <h5><a name="list_append">list.append</a></h5>
 <pre class="syntax ">(['a],['a])-&gt;['a]</pre>
@@ -4453,6 +4948,17 @@ Alias for the <code>l[k]</code> notation.
 <code>(unlabeled)</code> (<code>string</code>): Key to look for</li>
 <li>
 <code>(unlabeled)</code> (<code>[(string*string)]</code>): List of pairs (key,value)</li>
+</ul>
+<h5><a name="list_filter">list.filter</a></h5>
+<pre class="syntax ">((('a)-&gt;bool),['a])-&gt;['a]</pre>
+<p>
+Filter a list according to a filtering function.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>('a)-&gt;bool</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>['a]</code>)</li>
 </ul>
 <h5><a name="list_fold">list.fold</a></h5>
 <pre class="syntax ">((('a,'b)-&gt;'a),'a,['b])-&gt;'a</pre>
@@ -4539,6 +5045,15 @@ Get the n-th element of a list (the first element is at position 0).
 <code>(unlabeled)</code> (<code>['a]</code>)</li>
 <li>
 <code>(unlabeled)</code> (<code>int</code>)</li>
+</ul>
+<h5><a name="list_randomize">list.randomize</a></h5>
+<pre class="syntax ">(['a])-&gt;['a]</pre>
+<p>
+Shuffle the content of a list.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>['a]</code>)</li>
 </ul>
 <h5><a name="list_remove">list.remove</a></h5>
 <pre class="syntax ">('a,['a])-&gt;['a]</pre>
@@ -4731,6 +5246,17 @@ Generate a random value.
 <code>min</code> (<code>float</code> &ndash; defaults to <code>-1000000.</code>)</li>
 <li>
 <code>max</code> (<code>float</code> &ndash; defaults to <code>1000000.</code>)</li>
+</ul>
+<h5><a name="random_int">random.int</a></h5>
+<pre class="syntax ">(?min:float,?max:float)-&gt;int</pre>
+<p>
+Generate a random value.
+</p>
+<ul>
+<li>
+<code>min</code> (<code>float</code> &ndash; defaults to <code>-4611686018427387904</code>)</li>
+<li>
+<code>max</code> (<code>float</code> &ndash; defaults to <code>4611686018427387903</code>)</li>
 </ul>
 <h5><a name="__">~-</a></h5>
 <pre class="syntax ">('a)-&gt;'a where 'a is a number type</pre>
@@ -5137,6 +5663,17 @@ Alias of file.mime (because it is available)
 <li>
 <code>(unlabeled)</code> (<code>string</code>)</li>
 </ul>
+<h5><a name="file_watch">file.watch</a></h5>
+<pre class="syntax ">(string,(()-&gt;unit))-&gt;()-&gt;unit</pre>
+<p>
+Call a function when a file is modified. Returns unwatch function.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): File to watch.</li>
+<li>
+<code>(unlabeled)</code> (<code>()-&gt;unit</code>): Handler function.</li>
+</ul>
 <h5><a name="get_mime">get_mime</a></h5>
 <pre class="syntax ">(string)-&gt;string</pre>
 <p>
@@ -5270,24 +5807,6 @@ Reopen standard output on the given file
 <li>
 <code>(unlabeled)</code> (<code>string</code>)</li>
 </ul>
-<h5><a name="server_register">server.register</a></h5>
-<pre class="syntax ">(?namespace:string,?description:string,?usage:string,
- string,((string)-&gt;string))-&gt;unit</pre>
-<p>
-Register a command. You can then execute this function through the server, either telnet or socket.
-</p>
-<ul>
-<li>
-<code>namespace</code> (<code>string</code> &ndash; defaults to <code>""</code>)</li>
-<li>
-<code>description</code> (<code>string</code> &ndash; defaults to <code>"No documentation available."</code>): A description of your command.</li>
-<li>
-<code>usage</code> (<code>string</code> &ndash; defaults to <code>""</code>)</li>
-<li>
-<code>(unlabeled)</code> (<code>string</code>)</li>
-<li>
-<code>(unlabeled)</code> (<code>(string)-&gt;string</code>)</li>
-</ul>
 <h5><a name="setenv">setenv</a></h5>
 <pre class="syntax ">(string,string)-&gt;unit</pre>
 <p>
@@ -5304,6 +5823,17 @@ Set the value associated to a variable in the process environment.
 <p>
 Shutdown the application.
 </p>
+<h5><a name="source_on_shutdown">source.on_shutdown</a></h5>
+<pre class="syntax ">(source('a),(()-&gt;unit))-&gt;unit</pre>
+<p>
+Register a function to be called when source shuts down.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>source('a)</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>()-&gt;unit</code>)</li>
+</ul>
 <h5><a name="system">system</a></h5>
 <pre class="syntax ">(string)-&gt;unit</pre>
 <p>
@@ -5322,9 +5852,74 @@ Return true if process exited with 0 code. Command should return quickly.
 <li>
 <code>(unlabeled)</code> (<code>string</code>): Command to test</li>
 </ul>
+<h3><a name="Uncategorized">Uncategorized</a></h3>
+<h5><a name="gstreamer_encode_jpeg_avi">gstreamer.encode_jpeg_avi</a></h5>
+<pre class="syntax ">('a,source(audio='#b,video='#c+1,midi='#d))-&gt;
+active_source(audio='#b,video='#c+1,midi='#d)</pre>
+<p>
+No documentation available.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>'a</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)</li>
+</ul>
+<h5><a name="gstreamer_encode_mp3">gstreamer.encode_mp3</a></h5>
+<pre class="syntax ">('a,source(audio='#b+1,video='#c,midi='#d))-&gt;
+active_source(audio='#b+1,video='#c,midi='#d)</pre>
+<p>
+No documentation available.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>'a</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b+1,video='#c,midi='#d)</code>)</li>
+</ul>
+<h5><a name="gstreamer_encode_x264_avi">gstreamer.encode_x264_avi</a></h5>
+<pre class="syntax ">('a,source(audio='#b,video='#c+1,midi='#d))-&gt;
+active_source(audio='#b,video='#c+1,midi='#d)</pre>
+<p>
+No documentation available.
+</p>
+<ul>
+<li>
+<code>(unlabeled)</code> (<code>'a</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)</li>
+</ul>
+<h5><a name="gstreamer_rtp_mpeg4">gstreamer.rtp.mpeg4</a></h5>
+<pre class="syntax ">(?host:string,?port:int,
+ source(audio='#a,video='#b+1,midi='#c))-&gt;
+active_source(audio='#a,video='#b+1,midi='#c)</pre>
+<p>
+Broadcast a video in RTP. In order to play it, save the following in xxx.sdp and use vlc xxx.sdp: v=0 m=video 5000 RTP/AVP 96 c=IN IP4 127.0.0.1 a=rtpmap:96 MP4V-ES/90000
+</p>
+<ul>
+<li>
+<code>host</code> (<code>string</code> &ndash; defaults to <code>"127.0.0.1"</code>)</li>
+<li>
+<code>port</code> (<code>int</code> &ndash; defaults to <code>5000</code>)</li>
+<li>
+<code>(unlabeled)</code> (<code>source(audio='#a,video='#b+1,midi='#c)</code>)</li>
+</ul>
+<h5><a name="playlist_merge">playlist.merge</a></h5>
+<pre class="syntax ">(?id:string,?random:bool,string)-&gt;source('a)</pre>
+<p>
+Play the whole playlist as one track.
+</p>
+<ul>
+<li>
+<code>id</code> (<code>string</code> &ndash; defaults to <code>""</code>): Force the value of the source ID.</li>
+<li>
+<code>random</code> (<code>bool</code> &ndash; defaults to <code>false</code>): Randomize playlist content</li>
+<li>
+<code>(unlabeled)</code> (<code>string</code>): Playlist URI.</li>
+</ul>
   </div></div>
   <div>
-    <div id="footer"> 2003-2011 Savonet team</div>
+    <div id="footer"> 2003-2013 Savonet team</div>
   </div>
   </div>
 </body></html>

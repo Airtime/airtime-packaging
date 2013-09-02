@@ -25,7 +25,7 @@
      <li id="menu-doc-snippets">
        <a href="scripts/index.html">snippets</a></li>
      <li id="menu-developers">
-       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+       <a href="https://github.com/savonet/liquidsoap/issues">developers</a></li>
    </ul>
   </div>
   </div>
@@ -320,10 +320,10 @@ add_skip_command(s)
 <img class="grab" src="./images/grab.png" alt="Grab the code!">
 </a>
 </div></p>
-<h4>Dump a stream in segemented files</h4>
+<h4>Dump a stream into segmented files</h4>
 <p>
 It is sometimes useful (or even legally necessary) to keep a backup of an audio
-stream. Storing all the stream in one file can be very impractical. In order, to
+stream. Storing all the stream in one file can be very impractical. In order to
 save a file per hour in wav format, the following script can be used:
 </p>
 <pre class="syntax liq"># A source to dump
@@ -344,7 +344,7 @@ output.file(
 </a>
 </div></p>
 <p>
-In order to use it, you must install first the <code>qwavheaderdump</code> program which
+To be able to use it, you must install first the <code>qwavheaderdump</code> program which
 can be found in the <a href="http://packages.ubuntu.com/quelcom" target="_blank">quelcom package</a> in
 Ubuntu, which is necessary in order to fix the headers of the generated wav
 files once the data has been dumped.
@@ -411,9 +411,14 @@ server.register(namespace="dump",
 </div></p>
 <h4>Lastfm input</h4>
 <p>
-You can listen to <a href="http://www.last.fm/" target="_blank">lastfm</a> radios using <a href="index.html">Liquidsoap</a>. The corresponding operator is <code>input.lastfm</code> and is used that way:
+You can listen to <a href="http://www.last.fm/" target="_blank">lastfm</a> radios using 
+<a href="index.html">Liquidsoap</a>. The corresponding operator is 
+<code>input.lastfm</code> and is used in the following way:
 </p>
-<pre class="syntax liq">lastfm_stream = input.lastfm("lastfm://artist/Wackies")
+<pre class="syntax liq">lastfm_stream =
+  # Replace login info with yours!
+  input.lastfm(user="toots5446",password="hackme",
+               "lastfm://artist/Wackies")
 </pre>
 <div align="right">
 <a href="scripts/lastfm.liq">
@@ -435,7 +440,7 @@ Lastfm's URIs start with <code>lastfm:</code>:
 You can find more of them on the website, <a href="http://www.last.fm/" target="_blank">last.fm</a>.
 </p>
 <p>
-Another operator allows to generate <code>lastfm:</code> URIs, <code>lastfm.uri</code>. Its parameters are:
+The <code>lastfm.uri</code> operator can be used to generate lastfm <code>URIs</code>. Its parameters are:
 </p>
 <ul>
 <li>
@@ -634,7 +639,7 @@ If you experience problems it might be a good idea to double the value of the fr
 </p>
   </div></div>
   <div>
-    <div id="footer"> 2003-2011 Savonet team</div>
+    <div id="footer"> 2003-2013 Savonet team</div>
   </div>
   </div>
 </body></html>

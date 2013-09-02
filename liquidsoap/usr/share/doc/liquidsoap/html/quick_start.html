@@ -25,7 +25,7 @@
      <li id="menu-doc-snippets">
        <a href="scripts/index.html">snippets</a></li>
      <li id="menu-developers">
-       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+       <a href="https://github.com/savonet/liquidsoap/issues">developers</a></li>
    </ul>
   </div>
   </div>
@@ -44,20 +44,20 @@ the stream generator (Liquidsoap, <a href="http://www.icecast.org/ices.php" targ
 <li>
 the streaming media server (<a href="http://www.icecast.org" target="_blank">Icecast</a>, <a href="http://www.shoutcast.com" target="_blank">Shoutcast</a>, ...) which relays several streams from their sources to their listeners;</li>
 <li>
-the media player (xmms, Winamp, ...) which gets the audio stream from the streaming media server and plays it to the listener's speakers.</li>
+the media player (iTunes, Winamp, ...) which gets the audio stream from the streaming media server and plays it to the listener's speakers.</li>
 </ul>
 <img alt="Internet radio toolchain" src="./images/schema-webradio-inkscape.png" /><p>
 The stream is always passed from the stream generator to the server, whether or not there are listeners. It is then sent by the server to every listener. The more listeners you have, the more bandwidth you need.
 </p>
 <p>
-If you use Icecast, you can broadcast more than one audio feed using the same server. Each audio feed or stream is identified by its “mount point” on the server. If you connect to the <code>foo.ogg</code> mount point, the URL of your stream will be <a href="http://localhost:8000/foo.ogg" target="_blank">http://localhost:8000/foo.ogg</a> &ndash; assuming that your Icecast is on localhost on port 8000. If you need further information on this you might want to read Icecast's <a href="http://www.icecast.org" target="_blank">documentation</a>. A proper setup of a streaming server is required for running savonet.
+If you use Icecast, you can broadcast more than one audio feed using the same server. Each audio feed or stream is identified by its “mount point” on the server. If you connect to the <code>foo.ogg</code> mount point, the URL of your stream will be <a href="http://localhost:8000/foo.ogg" target="_blank">http://localhost:8000/foo.ogg</a> &ndash; assuming that your Icecast is on localhost on port 8000. If you need further information on this you might want to read Icecast's <a href="http://www.icecast.org" target="_blank">documentation</a>. A proper setup of a streaming server is required for running Liquidsoap.
 </p>
 <p>
 Now, let's create an audio stream.
 </p>
 <h4>Starting to use Liquidsoap</h4>
 <p>
-In this tutorial we assume that you have a fully installedLiquidsoap. In particular the library <code>utils.liq</code> should have been installed, otherwise Liquidsoap won't know the operators which have been defined there. If you installed into the default <code>/usr/local</code> you will find it inside <code>/usr/local/lib/liquidsoap/</code>.
+In this tutorial we assume that you have a fully installed Liquidsoap. In particular the library <code>pervasives.liq</code> and its accompanying scripts should have been installed, otherwise Liquidsoap won't know the operators which have been defined there. If you installed into the default <code>/usr/local</code> you will find it inside <code>/usr/local/lib/liquidsoap/&lt;version&gt;</code>.
 </p>
 <h5>Sources</h5>
 <p>
@@ -70,33 +70,26 @@ In a Liquidsoap script, you build source objects. Liquidsoap provides many funct
 <p>
 A couple of things can go wrong in your streaming system.
 In Liquidsoap,
-we say that a source is <em>infallible</em> if it will be always available.
+we say that a source is <em>infallible</em> if it is always available.
 Otherwise, it is <em>fallible</em>, something can go wrong.
 By default, an output requires that its input source is infallible,
 otherwise it complains that “That source is fallible!”
 </p>
 <p>
-For example, a normal <code>playlist</code> will be fallible.
+For example, a normal &lt;code&gt;playlist&lt;/code&gt;is fallible.
 Firstly, because it could contain only invalid files, or at least spend too
 much time on invalid files for preparing a valid one on time.
 Moreover, a playlist could contain remote files, which may not
 be accessible quickly at all times.
-A queue of user requests is an other example of fallible source.
-</p>
-<p>
-If <code>file.ogg</code> is a valid local file,
-then <code>single("file.ogg")</code> will be an infallible source.
-You can also build infallible playlists by using the
-<code>playlist.safe</code> operator, which checks all files at startup,
-and won't accept remote files &ndash; but don't use it with too large playlists.
+A queue of user requests is an other example of fallible source. 
+Also, if <code>file.ogg</code> is a valid local file,
+then <code>single("file.ogg")</code> is an infallible source.
 </p>
 <p>
 When an output complains about its source, you have to turn it into
 an infallible one. Depending on the situation, many solutions are available.
 The function <code>mksafe</code> takes a source and returns an infallible
 source, streaming silence when the input stream becomes unavailable.
-The default speaker output <code>out</code> actually uses <code>mksafe</code>
-in its definition.
 In a radio-like stream, silence is not the prefered solution, and you
 will probably prefer to <code>fallback</code> on an infallible
 “security” source:
@@ -137,7 +130,8 @@ Depending on your configuration, the output <code>out</code> will use AO, Alsa o
 </p>
 <h5>Streaming out to a server</h5>
 <p>
-Liquidsoap is capable of playing audio on your speakers, but it can also send audio to a streaming server such as Icecast or Shoutcast. You can choose between two widespread audio codecs: MP3 and Ogg Vorbis. One instance of liquidsoap can stream one audio feed in many formats (and even many audio feeds in many formats!).
+Liquidsoap is capable of playing audio on your speakers, but it can also send audio to a streaming server such as Icecast or Shoutcast.
+One instance of liquidsoap can stream one audio feed in many formats (and even many audio feeds in many formats!).
 </p>
 <p>
 You may already have an Icecast server. Otherwise you can install and configure your own Icecast server. The configuration typically consists in setting the admin and source passwords, in <code>/etc/icecast2/icecast.xml</code>. These passwords should really be changed if your server is visible from the hostile internet, unless you want people to kick your source as admins, or add their own source and steal your bandwidth.
@@ -157,7 +151,7 @@ We are now going to send an audio stream, encoded as Ogg Vorbis, to an Icecast s
 </a>
 </div></p>
 <p>
-The main difference with the previous is that we used <code>output.icecast.vorbis</code> instead of <code>out</code>. The second difference is the use of the <code>mksafe</code> which turns your fallible playlist source into an infallible source.
+The main difference with the previous is that we used <code>output.icecast</code> instead of <code>out</code>. The second difference is the use of the <code>mksafe</code> which turns your fallible playlist source into an infallible source.
 </p>
 <p>
 Streaming to Shoutcast is quite similar, using the <code>output.shoutcast</code> function:
@@ -252,7 +246,7 @@ Usually, the path of the liquidsoap executable is <code>/usr/bin/liquidsoap</cod
 </p>
 <h4>A simple radio</h4>
 <p>
-We will start with a basic radio station, that plays songs randomly chosen from a playlist, adds a few jingles (more or less one every four songs), and output an Ogg Vorbis stream to an Icecast server.
+In this section, we build a basic radio station that plays songs randomly chosen from a playlist, adds a few jingles (more or less one every four songs), and output an Ogg Vorbis stream to an Icecast server.
 </p>
 <p>
 Before reading the code of the corresponding liquidsoap script, it might be useful to visualize the streaming process with the following tree-like diagram. The idea is that the audio streams flows through this diagram, following the arrows. In this case the nodes (<code>fallback</code> and <code>random</code>) select one of the incoming streams and relay it. The final node <code>output.icecast</code> is an output: it actively pulls the data out of the graph and sends it to the world.
@@ -302,7 +296,7 @@ it is also useful to read a bit about the notions of
 </p>
   </div></div>
   <div>
-    <div id="footer"> 2003-2011 Savonet team</div>
+    <div id="footer"> 2003-2013 Savonet team</div>
   </div>
   </div>
 </body></html>

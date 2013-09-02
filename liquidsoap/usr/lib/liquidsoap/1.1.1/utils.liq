@@ -1,4 +1,3 @@
-
 # Turn a source into an infaillible source.
 # by adding blank when the source is not available.
 # @param s the source to turn infaillible
@@ -77,25 +76,25 @@ end
 # @category Interaction
 # @param s The source to attach the command to.
 def add_skip_command(s) =
- # A command to skip
- def skip(_) =
-   source.skip(s)
-   "Done!"
- end
- # Register the command:
- server.register(namespace="#{source.id(s)}",
-                 usage="skip",
-                 description="Skip the current song.",
-                 "skip",skip)
+  # A command to skip
+  def skip(_) =
+    source.skip(s)
+    "Done!"
+  end
+  # Register the command:
+  server.register(namespace="#{source.id(s)}",
+                  usage="skip",
+                  description="Skip the current song.",
+                  "skip",skip)
 end
 
-# Removes all metadata coming from a source
+# Removes all metadata coming from a source.
 # @category Source / Track Processing
 def drop_metadata(s)
   map_metadata(fun(_)->[],update=false,strip=true,insert_missing=false,s)
 end
 
-# Merge all tracks from a source, provided that it does not fail
+# Merge all tracks from a source.
 # @category Source / Track Processing
 def merge_tracks(s)
   sequence(merge=true,[s])
@@ -265,7 +264,7 @@ end
 # into ("foo",[("arg","bar"),("arg2","bar2")]).
 # @category String
 # @param uri Url to split
-def url.split(uri) = 
+def url.split(uri) =
   ret = string.extract(pattern="([^\?]*)\?(.*)",uri)
   args = ret["2"]
   if args != "" then
@@ -287,13 +286,13 @@ end
 # the following format: insert key1="val1",key2="val2",...
 # @category Source / Track Processing
 # @param ~id Force the value of the source ID.
-def server.insert_metadata(~id="",s) = 
+def server.insert_metadata(~id="",s) =
   x = insert_metadata(id=id,s)
   insert = fst(x)
   s = snd(x)
-  def insert(s) = 
+  def insert(s) =
     l = string.split(separator='([^=]+\s*=\s*"(\\"|[^"])*")\s*,\s*',s)
-    def f(l,x) = 
+    def f(l,x) =
       sub = fun (s) -> string.replace(pattern='\\"',fun (_) -> '"',s)
       if x != "" then
         ret = string.extract(pattern='([^=]+)\s*=\s*"((?:\\"|[^"])*)"',x)
@@ -367,7 +366,7 @@ end
 # Alias of file.mime (because it is available)
 # @category System
 def file.mime_default(file)
- file.mime(file)
+  file.mime(file)
 end
 %endif
 
@@ -388,7 +387,7 @@ def get_mime(file) =
   # First try mime method
   ret = file.mime_default(file)
   if ret != "" then
-    ret 
+    ret
   else
     # Now try file method
     file_method(file)
@@ -540,8 +539,8 @@ def playlist.reloadable(~id="",~random=false,~on_done={()},uri)
   # Get its id.
   id = source.id(source)
   # The load function
-  def load_playlist () = 
-    files = 
+  def load_playlist () =
+    files =
       if test_process("test -d #{quote(!playlist_uri)}") then
         log(label=id,"playlist is a directory.")
         get_process_lines("find #{quote(!playlist_uri)} -type f | sort")
@@ -594,12 +593,32 @@ end
 # Custom playlist source written using the script language.
 # Will read directory or playlist, play all files and stop
 # @category Source / Input
-# @param ~id Force the value of the source ID. 
+# @param ~id Force the value of the source ID.
 # @param ~random Randomize playlist content
 # @param ~on_done Function to execute when the playlist is finished
+# @param ~reload_mode If set to "watch", will be reloaded when the playlist is changed
 # @param uri Playlist URI
-def playlist.once(~id="",~random=false,~on_done={()},uri)
-  snd(playlist.reloadable(id=id,random=random,on_done=on_done,uri))
+def playlist.once(~id="",~random=false,~on_done={()},~reload_mode="",uri)
+  rs = playlist.reloadable(id=id,random=random,on_done=on_done,uri)
+  reload = fst(rs)
+  s = snd(rs)
+  if reload_mode == "watch" then
+    unwatch = file.watch(uri,fun () -> reload())
+    source.on_shutdown(s,unwatch)
+  end
+  s
+end
+
+# Play the whole playlist as one track.
+# @param ~id Force the value of the source ID.
+# @param ~random Randomize playlist content
+# @param uri Playlist URI.
+def playlist.merge(~id="",~random=false,uri) =
+  pl = playlist.reloadable(id=id,random=random,uri)
+  reload = fst(pl)
+  s = snd(pl)
+  s = merge_tracks(s)
+  on_end(delay=0.,fun(_,_)->reload(),s)
 end
 
 # Mixes two streams, with faded transitions between the state when only the
@@ -726,4 +745,15 @@ def log_clocks(~delay=0.,~interval=1.,logfile)
   else
     add_timeout(delay,{add_timeout(interval,report) (-1.)})
   end
+end
+
+# Skip track when detecting a blank.
+# @category Source / Track Processing
+# @param ~id Force the value of the source ID.
+# @param ~threshold Power in decibels under which the stream is considered silent.
+# @param ~max_blank Maximum silence length allowed, in seconds.
+# @param ~min_noise Minimum duration of noise required to end silence, in seconds.
+# @param ~track_sensitive Reset blank counter at each track.
+def skip_blank(~id="",~threshold=-40.,~max_blank=20.,~min_noise=0.,~track_sensitive=true,s)
+  on_blank({source.skip(s)},threshold=threshold,max_blank=max_blank,min_noise=min_noise,track_sensitive=track_sensitive,s)
 end

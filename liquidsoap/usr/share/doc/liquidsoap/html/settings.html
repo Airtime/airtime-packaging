@@ -25,7 +25,7 @@
      <li id="menu-doc-snippets">
        <a href="scripts/index.html">snippets</a></li>
      <li id="menu-developers">
-       <a href="http://dev.sourcefabric.org/browse/LS">developers</a></li>
+       <a href="https://github.com/savonet/liquidsoap/issues">developers</a></li>
    </ul>
   </div>
   </div>
@@ -66,9 +66,9 @@ Set to 0 to disable this setting and use ALSA's default.
 <h6>Libsamplerate conversion settings</h6>
 <h7>Resampling quality</h7>
 <p>
-Default: <code>"zero_order"</code>
+Default: <code>"fast"</code>
 </p>
-<pre class="syntax ">set("audio.converter.samplerate.libsamplerate.quality","zero_order")
+<pre class="syntax ">set("audio.converter.samplerate.libsamplerate.quality","fast")
 </pre>
 <p>
 Resampling quality, one of: “best”, “medium”, “fast”, “zero_order”, “linear”. Refer to ocaml-samplerate for details.
@@ -113,9 +113,9 @@ track.
 </p>
 <h4>Decoders and order used to decode files.</h4>
 <p>
-Default: <code>["META","WAV","MIDI","FLAC","SDL/IMAGE","MAD","AAC","MP4","OGG","CAMLIMAGES"]</code>
+Default: <code>["META","WAV","MIDI","IMAGE","MAD","FLAC","AAC","MP4","GSTREAMER","OGG"]</code>
 </p>
-<pre class="syntax ">set("decoder.file_decoders",["META","WAV","MIDI","FLAC","SDL/IMAGE","MAD","AAC","MP4","OGG","CAMLIMAGES"])
+<pre class="syntax ">set("decoder.file_decoders",["META","WAV","MIDI","IMAGE","MAD","FLAC","AAC","MP4","GSTREAMER","OGG"])
 </pre>
 <h4>File extensions used for guessing audio formats</h4>
 <h5>File extensions used for guessing AAC format</h5>
@@ -129,6 +129,12 @@ Default: <code>["aac"]</code>
 Default: <code>["flac"]</code>
 </p>
 <pre class="syntax ">set("decoder.file_extensions.flac",["flac"])
+</pre>
+<h5>File extensions used for guessing format handled by GStreamer</h5>
+<p>
+Default: <code>["wmv","avi","mp4","3gp","webm","mkv"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.gstreamer",["wmv","avi","mp4","3gp","webm","mkv"])
 </pre>
 <h5>File extensions used for guessing mpeg audio format</h5>
 <p>
@@ -150,9 +156,9 @@ Default: <code>["m4a","m4b","m4p","m4v","m4r","3gp","mp4"]</code>
 </pre>
 <h5>File extensions used for guessing OGG format</h5>
 <p>
-Default: <code>["ogv","oga","ogx","ogg"]</code>
+Default: <code>["ogv","oga","ogx","ogg","opus"]</code>
 </p>
-<pre class="syntax ">set("decoder.file_extensions.ogg",["ogv","oga","ogx","ogg"])
+<pre class="syntax ">set("decoder.file_extensions.ogg",["ogv","oga","ogx","ogg","opus"])
 </pre>
 <h5>File extensions used for decoding metadata using TAGLIB</h5>
 <p>
@@ -165,6 +171,12 @@ Default: <code>["mp3"]</code>
 Default: <code>["wav"]</code>
 </p>
 <pre class="syntax ">set("decoder.file_extensions.wav",["wav"])
+</pre>
+<h4>Decoders and order used to decode image files.</h4>
+<p>
+Default: <code>["PPM","SDL/IMAGE","CAMLIMAGES"]</code>
+</p>
+<pre class="syntax ">set("decoder.image_file_decoders",["PPM","SDL/IMAGE","CAMLIMAGES"])
 </pre>
 <h4>Mime-types used for guessing audio formats</h4>
 <h5>Mime-types used for guessing AAC format</h5>
@@ -184,6 +196,12 @@ Default: <code>["audio/basic"]</code>
 Default: <code>["audio/x-flac"]</code>
 </p>
 <pre class="syntax ">set("decoder.mime_types.flac",["audio/x-flac"])
+</pre>
+<h5>Mime-types used for guessing format handled by GStreamer</h5>
+<p>
+Default: <code>["video/x-ms-asf","video/x-msvideo","video/mp4","video/3gpp","video/webm","video/x-matroska","video/mp2t","video/MP2T"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.gstreamer",["video/x-ms-asf","video/x-msvideo","video/mp4","video/3gpp","video/webm","video/x-matroska","video/mp2t","video/MP2T"])
 </pre>
 <h5>Mime-types used for guessing mpeg audio format</h5>
 <p>
@@ -223,9 +241,9 @@ Default: <code>["audio/vnd.wave","audio/wav","audio/wave","audio/x-wav"]</code>
 </pre>
 <h4>Decoders and order used to decode streams.</h4>
 <p>
-Default: <code>["WAV","PCM/BASIC","FLAC","MAD","AAC","OGG"]</code>
+Default: <code>["WAV","PCM/BASIC","MAD","FLAC","AAC","GSTREAMER","OGG"]</code>
 </p>
-<pre class="syntax ">set("decoder.stream_decoders",["WAV","PCM/BASIC","FLAC","MAD","AAC","OGG"])
+<pre class="syntax ">set("decoder.stream_decoders",["WAV","PCM/BASIC","MAD","FLAC","AAC","GSTREAMER","OGG"])
 </pre>
 <h4>Taglib settings</h4>
 <h5>By default, taglib will only attempt reading metadata from files that it detects as valid. This may fail, for example if the reported mime type isn't “audio/mpeg”. If you set this configuration key to true, then all files successfully recognized by liquidsoap will be considered as MPEG by taglib. In this case, taglib configuration keys for file extensions and mime types (“decoder.file_extensions.taglib” and “decoder.mime_types.taglib”) are not used, and file detection is only done based on the corresponding settings from the MAD MPEG decoder.</h5>
@@ -303,6 +321,25 @@ Default: <code>25</code>
 Default: <code>320</code>
 </p>
 <pre class="syntax ">set("frame.video.width",320)
+</pre>
+<h3>Media decoding/endcoding through gstreamer.</h3>
+<h4>Add borders in order to keep video aspect ratio.</h4>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("gstreamer.add_borders",true)
+</pre>
+<h4>Debug level (bewteen 0 and 5).</h4>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("gstreamer.debug_level",0)
+</pre>
+<h4>Maximal number of buffers.</h4>
+<p>
+Default: <code>10</code>
+</p>
+<pre class="syntax ">set("gstreamer.max_buffers",10)
 </pre>
 <h3>Harbor settings (Icecast/shoutcast stream receiver).</h3>
 <h4>IP address on which the harbor should listen.</h4>
@@ -533,7 +570,7 @@ Default: <code>["video/x-ms-asf","audio/x-ms-asx","text/xml","application/xml","
 <pre class="syntax ">set("playlists.mime_types.xml",["video/x-ms-asf","audio/x-ms-asx","text/xml","application/xml","application/smil","application/smil+xml","application/xspf+xml","application/rss+xml"])
 </pre>
 <h3>requests configuration</h3>
-<h4>Time after which a destroyed request cannot be accessed anymore.</h4>
+<h4>Time (in seconds) after which a destroyed request cannot be accessed anymore.</h4>
 <p>
 Default: <code>600.</code>
 </p>
@@ -541,9 +578,15 @@ Default: <code>600.</code>
 </pre>
 <h4>Decoders and order used to decode files' metadata.</h4>
 <p>
-Default: <code>["FLAC","MP4","OGG","TAGLIB"]</code>
+Default: <code>["TAGLIB","FLAC","MP4","GSTREAMER","OGG"]</code>
 </p>
-<pre class="syntax ">set("request.metadata_decoders",["FLAC","MP4","OGG","TAGLIB"])
+<pre class="syntax ">set("request.metadata_decoders",["TAGLIB","FLAC","MP4","GSTREAMER","OGG"])
+</pre>
+<h5>Compute duration in the “duration” metadata, if the metadata is not already present. This can take a long time and the use of this option is not recommended: the proper way is to have a script precompute the “duration” metadata.</h5>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("request.metadata_decoders.duration",false)
 </pre>
 <h5>Allow metadata resolvers to override metadata already set through annotate: or playlist resolution for instance.</h5>
 <p>
@@ -563,6 +606,13 @@ If the latency gets higher than this value, the outputs will be reset,
 instead of trying to catch it up second by second.
 The reset is typically only useful to reconnect icecast mounts.
 </p>
+<h3>Parameters for the say protocol.</h3>
+<h4>Program for syntesizing voices (takes as argument the text, the file to synthesize to, and optionnaly the voice to use).</h4>
+<p>
+Default: <code>"/usr/lib/liquidsoap/1.1.1/liquidtts"</code>
+</p>
+<pre class="syntax ">set("say.program","/usr/lib/liquidsoap/1.1.1/liquidtts")
+</pre>
 <h3>Internal scheduler</h3>
 <h4>Fast queues</h4>
 <p>
@@ -597,14 +647,14 @@ Default: <code>false</code>
 </pre>
 <h4>Non-blocking queues</h4>
 <p>
-Default: <code>1</code>
+Default: <code>2</code>
 </p>
-<pre class="syntax ">set("scheduler.non_blocking_queues",1)
+<pre class="syntax ">set("scheduler.non_blocking_queues",2)
 </pre>
 <p>
 Number of queues dedicated to internal non-blocking tasks.
 These are only started if such tasks are needed.
-There should be at least one. Having more is probably useless.
+There should be at least one.
 </p>
 <h3>Server configuration</h3>
 <h4>Support for communication via a UNIX domain socket interface</h4>
@@ -733,7 +783,7 @@ Default: <code>true</code>
 </pre>
   </div></div>
   <div>
-    <div id="footer"> 2003-2011 Savonet team</div>
+    <div id="footer"> 2003-2013 Savonet team</div>
   </div>
   </div>
 </body></html>

@@ -1,5 +1,5 @@
 etc/logrotate.d/liquidsoap
 etc/liquidsoap/radio.liq.example
-usr/lib/liquidsoap/1.1.1/*
+usr/local/lib/liquidsoap/scm/*
 usr/share/doc-base/liquidsoap
 usr/share/man/man1/liquidsoap.1.gz

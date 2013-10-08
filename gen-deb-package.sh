@@ -1,16 +1,17 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-VERSION=2.4.1
-SFOCUSTOM="ga"
-DLURL=https://github.com/sourcefabric/Airtime/archive/airtime-${VERSION}-${SFOCUSTOM}.tar.gz
+GITTAG=2.5.x
+VERSION=2.5.0
+SFOCUSTOM="beta1"
+DLURL=https://github.com/sourcefabric/Airtime/archive/airtime-${GITTAG}-${SFOCUSTOM}.tar.gz
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian
 
-if [ ! -f ${MIRRORPATH}/Airtime-airtime-${VERSION}-${SFOCUSTOM}.tar.gz ]; then
+if [ ! -f ${MIRRORPATH}/airtime-${GITTAG}-${SFOCUSTOM}.tar.gz ]; then
 	curl -L \
-		-o ${MIRRORPATH}/Airtime-airtime-${VERSION}-${SFOCUSTOM}.tar.gz \
+		-o ${MIRRORPATH}/airtime-${GITTAG}-${SFOCUSTOM}.tar.gz \
 		${DLURL}
 fi
 
@@ -23,13 +24,13 @@ mkdir -p ${BUILDDEST}
 cd ${BUILDDEST} || exit
 echo "unzipping.."
 
-tar xzf ${MIRRORPATH}/Airtime-airtime-${VERSION}-${SFOCUSTOM}.tar.gz || exit
+tar xzf ${MIRRORPATH}/airtime-${GITTAG}-${SFOCUSTOM}.tar.gz || exit
 cp -a $DEBDIR debian || exit
 
-mv -vi Airtime-airtime-${VERSION}* airtime
+mv -vi airtime-${GITTAG}* airtime
 pwd
 
-# FIXES for 2.4.1 #############
+# FIXES for 2.5.0-beta1 #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -51,14 +52,26 @@ rm -r airtime/install_full/
 rm airtime/gen-snapshot.sh
 rm -r airtime/debian/
 
-#Strip development files
-rm -r airtime/dev_tools
-rm airtime/.gitignore
-rm airtime/.zfproject.xml
-
 #Fix executable bit
 chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColReorder.js
 chmod -x airtime/airtime_mvc/public/js/datatables/plugin/dataTables.ColVis.js
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/psd/file_types.psd
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/js/ZeroClipboard.js
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/psd/copy\ document.psd
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/csv_hover.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/copy.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/as3/ZeroClipboard.as
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/js/TableTools.js
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/copy_hover.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/xls.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/print_hover.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/csv.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/print.png
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/as3/ZeroClipboardPdf.as
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/css/TableTools.css
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/css/TableTools_JUI.css
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/psd/printer.psd
+chmod -x airtime/airtime_mvc/public/js/datatables/plugin/TableTools-2.1.5/images/xls_hover.png
 
 #############################
 

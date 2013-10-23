@@ -1,8 +1,8 @@
 airtime (2.5.0-1) unstable; urgency=low
 
-  * Upstream 2.5.0-rc1 release
+  * Upstream 2.5.0-ga release
 
- -- Daniel James <daniel@64studio.com>  Tue, 22 Oct 2013 14:33:21 +0100
+ -- Daniel James <daniel@64studio.com>  Wed, 23 Oct 2013 14:56:21 +0100
 
 airtime (2.4.1-1) unstable; urgency=low
 

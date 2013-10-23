@@ -3,7 +3,7 @@
 
 GITTAG=airtime-2.5.0
 VERSION=2.5.0
-SFOCUSTOM="rc1"
+SFOCUSTOM="ga"
 DLURL=https://github.com/sourcefabric/Airtime/archive/${GITTAG}-${SFOCUSTOM}.tar.gz
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
@@ -30,7 +30,7 @@ cp -a $DEBDIR debian || exit
 mv -vi Airtime-${GITTAG}* airtime
 pwd
 
-# FIXES for 2.5.0-rc1 #############
+# FIXES for 2.5.0-ga #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE

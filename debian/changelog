@@ -1,3 +1,9 @@
+airtime (2.5.0-2) unstable; urgency=low
+
+  * Fixed error in upgrade handling
+
+ -- Daniel James <daniel@64studio.com>  Thu, 24 Oct 2013 11:17:42 +0100
+
 airtime (2.5.0-1) unstable; urgency=low
 
   * Upstream 2.5.0-ga release

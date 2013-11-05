@@ -1,3 +1,9 @@
+airtime (2.5.0-3) unstable; urgency=low
+
+  * Added dependency on php5-json for newer distros
+
+ -- Daniel James <daniel@64studio.com>  Tue, 05 Nov 2013 13:33:10 +0000
+
 airtime (2.5.0-2) unstable; urgency=low
 
   * Fixed error in upgrade handling

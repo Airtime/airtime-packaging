@@ -244,6 +244,11 @@ case "$1" in
         if [ "${OLDVERSION:0:5}" == "${NEWVERSION}" ] ; then
           echo "Reinstallation detected..."
           echo | ./airtime-install --disable-deb-check -rp 2> /var/log/airtime/reinstallation-errors.log
+
+           if [ -f /etc/init.d/icecast2 ] ; then
+           invoke-rc.d icecast2 restart || true
+           fi
+
         else
 
           ./airtime-install --disable-deb-check 2> /var/log/airtime/installation-errors.log

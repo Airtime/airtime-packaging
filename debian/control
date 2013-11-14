@@ -43,9 +43,8 @@ Depends: apache2,
  vorbis-tools,
  zendframework | libzend-framework-php,
  ${misc:Depends}
-Recommends: icecast2, php-apc
-Suggests: airtime-audio-samples,
- alsa-utils
+Recommends: icecast2
+Suggests: airtime-audio-samples, alsa-utils
 Description: open broadcast software for scheduling and station management.
  Airtime is an open source application that provides remote automation 
  of a broadcast station.

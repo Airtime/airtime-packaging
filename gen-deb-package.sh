@@ -34,7 +34,9 @@ pwd
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
+rm airtime/airtime_mvc/library/php-amqplib/CREDITS
 rm airtime/airtime_mvc/library/php-amqplib/LICENSE
+rm airtime/airtime_mvc/library/php-amqplib/README.md
 rm airtime/airtime_mvc/library/phing/LICENSE
 rm airtime/airtime_mvc/library/propel/LICENSE
 rm airtime/airtime_mvc/library/soundcloud-api/README.md
@@ -57,6 +59,13 @@ rm -r airtime/dev_tools/
 rm -r airtime/docs/
 rm airtime/.gitignore
 rm airtime/.zfproject.xml
+
+#Remove Propel docs and tests
+rm -r airtime/airtime_mvc/library/propel/contrib
+rm -r airtime/airtime_mvc/library/propel/docs
+rm -r airtime/airtime_mvc/library/propel/test
+rm airtime/airtime_mvc/library/propel/INSTALL
+rm airtime/airtime_mvc/library/propel/WHATS_NEW
 
 #############################
 

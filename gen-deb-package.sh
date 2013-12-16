@@ -34,7 +34,7 @@ cp -a $DEBDIR debian || exit
 mv -vi Airtime-${GITTAG}* airtime
 pwd
 
-# FIXES for 2.5.0-ga #############
+# FIXES for 2.5.1-ga #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -70,6 +70,9 @@ rm -r airtime/airtime_mvc/library/propel/docs
 rm -r airtime/airtime_mvc/library/propel/test
 rm airtime/airtime_mvc/library/propel/INSTALL
 rm airtime/airtime_mvc/library/propel/WHATS_NEW
+
+#Remove Mutagen patches
+rm -r airtime/python_apps/python-virtualenv/patches/mutagen
 
 #############################
 

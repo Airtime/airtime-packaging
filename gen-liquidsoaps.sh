@@ -4,7 +4,7 @@
 # Please download the tarball of Liquidsoap binaries to $MIRRORPATH before running this script
 
 LIQUIDSOAP_VERSION=1.1.1
-LIQUIDSOAP_CUSTOM="sfo-1"
+LIQUIDSOAP_CUSTOM="sfo-2"
 MIRRORPATH=/tmp
 
 # Copy the packaging files into the temporary build directory

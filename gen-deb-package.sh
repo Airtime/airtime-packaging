@@ -1,8 +1,8 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-GITTAG=airtime-2.5.0
-VERSION=2.5.0
+GITTAG=airtime-2.5.1
+VERSION=2.5.1
 SFOCUSTOM="ga"
 DLURL=https://github.com/sourcefabric/Airtime/archive/${GITTAG}-${SFOCUSTOM}.tar.gz
 MIRRORPATH=/tmp
@@ -25,6 +25,10 @@ cd ${BUILDDEST} || exit
 echo "unzipping.."
 
 tar xzf ${MIRRORPATH}/${GITTAG}-${SFOCUSTOM}.tar.gz || exit
+
+echo "setting the version..."
+sed -i "s:NEWVERSION=.*:NEWVERSION="$VERSION":g" $DEBDIR/postinst
+
 cp -a $DEBDIR debian || exit
 
 mv -vi Airtime-${GITTAG}* airtime

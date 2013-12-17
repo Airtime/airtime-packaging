@@ -25,14 +25,16 @@ if test ! \( -d liquidsoap/bin \
 	-a -f liquidsoap/bin/liquidsoap_lucid_i386 \
 	-a -f liquidsoap/bin/liquidsoap_precise_amd64 \
 	-a -f liquidsoap/bin/liquidsoap_precise_i386 \
-        -a -f liquidsoap/bin/liquidsoap_quantal_amd64 \
-        -a -f liquidsoap/bin/liquidsoap_quantal_i386 \
-        -a -f liquidsoap/bin/liquidsoap_raring_amd64 \
-        -a -f liquidsoap/bin/liquidsoap_raring_i386 \
-        -a -f liquidsoap/bin/liquidsoap_squeeze_amd64 \
-        -a -f liquidsoap/bin/liquidsoap_squeeze_i386 \
-        -a -f liquidsoap/bin/liquidsoap_wheezy_amd64 \
-        -a -f liquidsoap/bin/liquidsoap_wheezy_i386 \) \
+	-a -f liquidsoap/bin/liquidsoap_quantal_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_quantal_i386 \
+	-a -f liquidsoap/bin/liquidsoap_raring_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_raring_i386 \
+	-a -f liquidsoap/bin/liquidsoap_saucy_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_saucy_i386 \
+	-a -f liquidsoap/bin/liquidsoap_squeeze_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_squeeze_i386 \
+	-a -f liquidsoap/bin/liquidsoap_wheezy_amd64 \
+	-a -f liquidsoap/bin/liquidsoap_wheezy_i386 \) \
 	; then
 echo "ERROR: liquidsoap binaries not present in ${MIRRORPATH}/liquidsoap/bin/"
 exit 1
@@ -58,17 +60,17 @@ head -n1 liquidsoap/debian/changelog
 
 # Use these lines to build for other distros
 
-#for dist in lucid precise quantal raring wheezy; do
+#for dist in lucid precise quantal raring saucy wheezy; do
 #	set_dist $dist
 #	dpkg-source -b liquidsoap
 #	pbuilder-dist $dist build --binary-arch liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 #	pbuilder-dist $dist i386 build --binary-arch liquidsoap_${LIQUIDSOAP_VERSION}~${dist}~${LIQUIDSOAP_CUSTOM}.dsc
 #done
 
-CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 12`
+CHANGES=`ls -t ~/pbuilder/*_result/liquidsoap_*.changes | head -n 14`
 
 ls -l $CHANGES
 
-# Prompt user to sign the 12 newest packages with the Sourcefabric key
+# Prompt user to sign the 14 newest packages with the Sourcefabric key
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/liquidsoap_*changes | head -n 12`'
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/liquidsoap_*changes | head -n 14`'

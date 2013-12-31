@@ -4,6 +4,7 @@
       SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
       SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
       SSLCACertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+      Header always set Strict-Transport-Security "max-age=31536000"
 
       ServerName __SERVER_NAME__
       #ServerAlias www.example.com

@@ -82,11 +82,11 @@ case "$1" in
         fi
       fi
 
-      # enable the rewrite and ssl modules
+      # enable the rewrite, ssl and headers modules
       command -v a2enmod > /dev/null
       RETVAL=$?
       if [ $RETVAL -eq 0 ]; then
-        a2enmod rewrite ssl
+        a2enmod rewrite ssl headers
       fi
 
       # remove the default site, if requested to

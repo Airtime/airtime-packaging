@@ -12,7 +12,6 @@ fi
 wwwdir="/usr/share/airtime"
 tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
-includefile="${configdir}/apache.conf"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
@@ -58,7 +57,7 @@ case "$1" in
       if [ ! -d /etc/$webserver/sites-available/ ]; then
         install -d -m755 /etc/$webserver/sites-available/
       fi
-      sed -e "s/__SERVER_ADMIN__/${SA}/;s/__SERVER_NAME__/${SN}/" \
+      sed -e "s/__SERVER_ADMIN__/${SA}/g;s/__SERVER_NAME__/${SN}/g" \
         ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost.conf
 
       command -v a2ensite > /dev/null
@@ -83,11 +82,11 @@ case "$1" in
         fi
       fi
 
-      # enable the rewrite module
+      # enable the rewrite and ssl modules
       command -v a2enmod > /dev/null
       RETVAL=$?
       if [ $RETVAL -eq 0 ]; then
-        a2enmod rewrite
+        a2enmod rewrite ssl
       fi
 
       # remove the default site, if requested to

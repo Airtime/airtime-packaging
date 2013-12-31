@@ -230,8 +230,8 @@ case "$1" in
       echo "Reconfiguration complete."
     else
 
-      if [ -n "$OLDVERSION" ] && [[ "${OLDVERSION:0:3}" < "2.1" ]]; then
-        echo "Upgrades from Airtime versions before 2.1.0 are not supported. Please back up your files and perform a clean install."
+      if [ -n "$OLDVERSION" ] && [[ "${OLDVERSION:0:3}" < "2.3" ]]; then
+        echo "Upgrades from Airtime versions before 2.3.0 are not supported. Please back up your files and perform a clean install."
 
       elif [ "${APACHESETUP}" == "no thanks" ]; then
         echo "Please run the ${tmpdir}/install_minimal/airtime-install script with the -d option after you have set up the web server."

@@ -227,13 +227,19 @@ case "$1" in
     # don't run airtime-install if the user is doing a dpkg-reconfigure
     if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then
       echo "Reconfiguration complete."
-    else
-
-      if [ -n "$OLDVERSION" ] && [[ "${OLDVERSION:0:3}" < "2.3" ]]; then
+    
+    # exit here if the current install is too old to be upgraded
+    elif [ -n "$OLDVERSION" ] && [[ "${OLDVERSION:0:3}" < "2.3" ]]; then
         echo "Upgrades from Airtime versions before 2.3.0 are not supported. Please back up your files and perform a clean install."
 
-      elif [ "${APACHESETUP}" == "no thanks" ]; then
+    # has the user chosen not to configure the web server? If so, don't run airtime-install
+    elif [ "${APACHESETUP}" == "no thanks" ]; then
         echo "Please run the ${tmpdir}/install_minimal/airtime-install script with the -d option after you have set up the web server."
+
+    # if postgres is not running yet, don't run airtime-install
+        POSTGRESRUNNING=$(invoke-rc.d postgresql status | grep main || true)
+    elif [ -z "${POSTGRESRUNNING}" ]; then
+        echo "Please run the ${tmpdir}/install_minimal/airtime-install script with the -d option after you have started the database server."
 
       else
 

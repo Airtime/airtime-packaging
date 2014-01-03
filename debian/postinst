@@ -241,7 +241,7 @@ case "$1" in
     elif [ -z "${POSTGRESRUNNING}" ]; then
         echo "Please run the ${tmpdir}/install_minimal/airtime-install script with the -d option after you have started the database server."
 
-      else
+    else
 
         mkdir -p /var/log/airtime
         cd $tmpdir/install_minimal/
@@ -264,7 +264,6 @@ case "$1" in
           if test -x /usr/bin/update-menus; then
             update-menus;
           fi
-      fi
     fi
   ;;
 

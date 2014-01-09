@@ -2,7 +2,7 @@ Source: airtime
 Section: web
 Priority: optional
 Maintainer: Daniel James <daniel@64studio.com>
-Build-Depends: debhelper (>= 7.0.50~), po-debconf
+Build-Depends: debhelper (>= 9.20120909), po-debconf
 Standards-Version: 3.9.3
 Homepage: http://www.sourcefabric.org/en/airtime/
 
@@ -55,7 +55,8 @@ Depends: apache2,
  vorbisgain,
  vorbis-tools,
  zendframework | libzend-framework-php,
- ${misc:Depends}
+ ${misc:Depends},
+ ${perl:Depends}
 Recommends: icecast2
 Suggests: airtime-audio-samples, alsa-utils
 Description: open broadcast software for scheduling and station management.

@@ -15,7 +15,7 @@ configdir="/etc/airtime"
 a2tplfile="${configdir}/apache.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
-NEWVERSION=2.5.1
+NEWVERSION="2.5.2"
 POSTGRESRUNNING=$(invoke-rc.d postgresql status | grep main || true)
 
 case "$1" in

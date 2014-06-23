@@ -13,6 +13,7 @@ wwwdir="/usr/share/airtime"
 tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
 a2tplfile="${configdir}/apache.vhost.tpl"
+a24tplfile="${configdir}/apache24.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
 NEWVERSION="2.5.2"
@@ -55,11 +56,23 @@ case "$1" in
       db_get airtime/apache-serveradmin
       SA=$RET
 
+      # create the config directory if it doesn't exist
       if [ ! -d /etc/$webserver/sites-available/ ]; then
         install -d -m755 /etc/$webserver/sites-available/
       fi
-      sed -e "s/__SERVER_ADMIN__/${SA}/g;s/__SERVER_NAME__/${SN}/g" \
+
+      # check for apache version 2.4, virtualhost syntax is different
+      APACHEVERSION=$(dpkg-query -f '${Version}' -W 'apache2' | cut -c 1-3)
+
+      if [ "$APACHEVERSION" = "2.4" ] ; then
+       echo "Apache 2.4 detected, using newer access configuration..."
+       sed -e "s/__SERVER_ADMIN__/${SA}/g;s/__SERVER_NAME__/${SN}/g" \
+        ${a24tplfile} > /etc/$webserver/sites-available/airtime-vhost.conf
+
+      else
+       sed -e "s/__SERVER_ADMIN__/${SA}/g;s/__SERVER_NAME__/${SN}/g" \
         ${a2tplfile} > /etc/$webserver/sites-available/airtime-vhost.conf
+      fi
 
       command -v a2ensite > /dev/null
       RETVAL=$?

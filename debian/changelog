@@ -1,3 +1,9 @@
+airtime (2.5.1-2) unstable; urgency=low
+
+  * Upstream 2.5.1a security release
+
+ -- Daniel James <daniel@64studio.com>  Tue, 15 Jul 2014 11:14:01 +0100
+
 airtime (2.5.1-1) unstable; urgency=low
 
   * Upstream 2.5.1-ga release

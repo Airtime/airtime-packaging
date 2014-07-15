@@ -1,17 +1,17 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-GITTAG=airtime-2.5.1
+GITTAG=airtime-2.5.1a
 VERSION=2.5.1
-SFOCUSTOM="ga"
-DLURL=https://github.com/sourcefabric/Airtime/archive/${GITTAG}-${SFOCUSTOM}.tar.gz
+SFOCUSTOM=""
+DLURL=https://github.com/sourcefabric/Airtime/archive/${GITTAG}${SFOCUSTOM}.tar.gz
 MIRRORPATH=/tmp
 BUILDDEST=/tmp/airtime-${VERSION}/
 DEBDIR=`pwd`/debian
 
-if [ ! -f ${MIRRORPATH}/${GITTAG}-${SFOCUSTOM}.tar.gz ]; then
+if [ ! -f ${MIRRORPATH}/${GITTAG}${SFOCUSTOM}.tar.gz ]; then
 	curl -L \
-		-o ${MIRRORPATH}/${GITTAG}-${SFOCUSTOM}.tar.gz \
+		-o ${MIRRORPATH}/${GITTAG}${SFOCUSTOM}.tar.gz \
 		${DLURL}
 fi
 
@@ -24,17 +24,17 @@ mkdir -p ${BUILDDEST}
 cd ${BUILDDEST} || exit
 echo "unzipping.."
 
-tar xzf ${MIRRORPATH}/${GITTAG}-${SFOCUSTOM}.tar.gz || exit
+tar xzf ${MIRRORPATH}/${GITTAG}${SFOCUSTOM}.tar.gz || exit
 
 echo "setting the version..."
-sed -i "s:NEWVERSION=.*:NEWVERSION="$VERSION":g" $DEBDIR/postinst
+sed -i "s:NEWVERSION=.*:NEWVERSION=\"$VERSION\":" $DEBDIR/postinst
 
 cp -a $DEBDIR debian || exit
 
 mv -vi Airtime-${GITTAG}* airtime
 pwd
 
-# FIXES for 2.5.1-ga #############
+# FIXES for 2.5.1a #############
 
 # these are all moved to debian/copyright
 rm airtime/python_apps/pypo/LICENSE
@@ -76,9 +76,10 @@ rm -r airtime/python_apps/python-virtualenv/patches/mutagen
 
 #############################
 
-cd ../
-tar czf airtime_${VERSION}.orig.tar.gz  airtime-${VERSION}/airtime/
-cd ${BUILDDEST} || exit
+#Uncomment to build an orig tarball for a new upstream release
+#cd ../
+#tar czf airtime_${VERSION}.orig.tar.gz  airtime-${VERSION}/airtime/
+#cd ${BUILDDEST} || exit
 
 debuild -k174C1854 $@ || exit
 

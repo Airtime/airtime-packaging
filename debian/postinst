@@ -16,7 +16,7 @@ a2tplfile="${configdir}/apache.vhost.tpl"
 a24tplfile="${configdir}/apache24.vhost.tpl"
 phpinifile="${configdir}/airtime.ini"
 OLDVERSION="$2"
-NEWVERSION="2.5.2"
+NEWVERSION="2.5.1"
 POSTGRESRUNNING=$(invoke-rc.d postgresql status | grep main || true)
 
 case "$1" in

@@ -34,8 +34,7 @@
       <Directory /usr/share/airtime/public>
               Options -Indexes FollowSymLinks MultiViews
               AllowOverride All
-              Order deny,allow
-              Deny from all
-              Allow from localhost
+              Order allow,deny
+              Allow from all
       </Directory>
 </VirtualHost> 

@@ -32,6 +32,6 @@
 
       <Directory /usr/share/airtime/public>
               AllowOverride All
-              Require host localhost
+              Require all granted
       </Directory>
 </VirtualHost> 

@@ -1,3 +1,9 @@
+airtime (2.5.1-3) unstable; urgency=low
+
+  * Don't force https access in case of SSL issues
+
+ -- Daniel James <daniel@64studio.com>  Fri, 18 Jul 2014 10:04:30 +0100
+
 airtime (2.5.1-2) unstable; urgency=low
 
   * Upstream 2.5.1a security release

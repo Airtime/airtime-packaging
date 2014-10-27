@@ -1,6 +1,7 @@
 <VirtualHost *:443>
       SSLEngine on
-      SSLProtocol all -SSLv2
+      SSLProtocol All -SSLv2 -SSLv3
+      SSLCompression off
       SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
       SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
       Header always set Strict-Transport-Security "max-age=31536000"

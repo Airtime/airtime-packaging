@@ -1,3 +1,10 @@
+airtime (2.5.1-5) unstable; urgency=low
+
+  * Don't set SSL compression to off, it is now the default, for backwards
+    compatibility with versions of Apache before 2.2.24 or 2.4.3
+
+ -- Daniel James <daniel@64studio.com>  Tue, 16 Dec 2014 16:42:26 +0000
+
 airtime (2.5.1-4) unstable; urgency=low
 
   * Fix installation of Apache 2.4 file

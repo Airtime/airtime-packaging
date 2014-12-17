@@ -1,3 +1,10 @@
+airtime (2.5.1-6) unstable; urgency=low
+
+  * Newer Ubuntu distros use a real directory instead of a symlink for
+    /etc/php5/apache2/conf.d/ - thanks Mathieu
+
+ -- Daniel James <daniel@64studio.com>  Wed, 17 Dec 2014 12:06:32 +0000
+
 airtime (2.5.1-5) unstable; urgency=low
 
   * Don't set SSL compression to off, it is now the default, for backwards

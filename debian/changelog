@@ -1,3 +1,9 @@
+airtime (2.5.2-1) unstable; urgency=low
+
+  * Upstream 2.5.2-rc1 release candidate
+
+ -- Daniel James <daniel@64studio.com>  Thu, 22 Jan 2015 12:20:55 +0000
+
 airtime (2.5.1-6) unstable; urgency=low
 
   * Newer Ubuntu distros use a real directory instead of a symlink for

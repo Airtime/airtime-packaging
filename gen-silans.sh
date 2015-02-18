@@ -41,7 +41,7 @@ fi
 
 # Use these lines to build for various distros
 
-for dist in lucid precise quantal raring saucy squeeze wheezy; do
+for dist in lucid precise trusty squeeze wheezy; do
         rm -rf silan-${SILAN_VERSION}
 	unzip ../v${SILAN_VERSION}.zip
         cp -r debian silan-${SILAN_VERSION}
@@ -51,10 +51,10 @@ for dist in lucid precise quantal raring saucy squeeze wheezy; do
 	pbuilder-dist ${dist} amd64 build --binary-arch silan_${SILAN_VERSION}~${dist}~sfo${SILAN_CUSTOM}.dsc
 done
 
-CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 14`
+CHANGES=`ls -t ~/pbuilder/*_result/silan_*.changes | head -n 10`
 
 ls -l $CHANGES
 
-# Prompt user to sign the 14 newest packages with the Sourcefabric key
+# Prompt user to sign the 10 newest packages with the Sourcefabric key
 
-echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/silan_*changes | head -n 14`'
+echo 'debsign -k174C1854 `ls -t ~/pbuilder/*_result/silan_*changes | head -n 10`'

@@ -240,7 +240,7 @@ msgstr "Adjon meg egy biztonságos admin jelszót az Airtime számára. Elérhet
 #. Description
 #: ../templates:11001
 msgid "Airtime Storage Directory:"
-msgstr "Az Airtime Tárhelyének Elérésének Útvonala:"
+msgstr "Az Airtime Tárhelyének Elérési Útvonala:"
 
 #. Type: string
 #. Description

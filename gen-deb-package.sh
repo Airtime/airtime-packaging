@@ -67,6 +67,7 @@ rm airtime/airtime_mvc/library/propel/WHATS_NEW
 #Fix permissions
 chmod -x airtime/installer/lib/requirements-ubuntu-trusty.apt
 chmod -x airtime/installer/lib/requirements-ubuntu-precise.apt
+chmod +x airtime/python_apps/pypo/bin/pyponotify
 
 #Remove Mutagen patches
 #rm -r airtime/python_apps/python-virtualenv/patches/mutagen

@@ -29,8 +29,8 @@ case "$1" in
 			rm -rf /var/lib/airtime/ || true
 		fi
 
-                if [ -f /var/lib/airtime/.htaccess ]; then
-                        rm -f /var/lib/airtime/.htaccess || true
+                if [ -d /var/lib/airtime/ ]; then
+                        rm -rf /var/lib/airtime/ || true
                 fi
 
 		if [ -f ${tmpdir}/install_minimal/distribute-0.6.10.tar.gz ]; then

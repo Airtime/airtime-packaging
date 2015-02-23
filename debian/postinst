@@ -10,7 +10,6 @@ if [ "$DPKG_DEBUG" = "developer" ]; then
 fi
 
 wwwdir="/usr/share/airtime"
-tmpdir="/var/lib/airtime/tmp"
 configdir="/etc/airtime"
 a2tplfile="${configdir}/apache.vhost.tpl"
 a24tplfile="${configdir}/apache24.vhost.tpl"
@@ -151,16 +150,16 @@ case "$1" in
           # save icecast hostname and source-password in airtime
           db_get airtime/icecast-hostname
           ICEHOST=$RET
-          sed -i "s:'s1_host', '127.0.0.1', 'string':'s1_host', '$ICEHOST', 'string':g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
+          sed -i "s:'s1_host', '127.0.0.1', 'string':'s1_host', '$ICEHOST', 'string':g" ${wwwdir}/airtime_mvc/build/sql/defaultdata.sql
 
           db_get airtime/icecast-sourcepw
           ICESOURCE=$RET
-          sed -i "s:'s1_pass', 'hackme', 'string':'s1_pass', '$ICESOURCE', 'string':g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
+          sed -i "s:'s1_pass', 'hackme', 'string':'s1_pass', '$ICESOURCE', 'string':g" ${wwwdir}/airtime_mvc/build/sql/defaultdata.sql
 
           db_get airtime/icecast-adminpw
           ICEADMIN=$RET
-          sed -i "s:'s1_admin_user', '', 'string':'s1_admin_user', 'admin', 'string':g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
-          sed -i "s:'s1_admin_pass', '', 'string':'s1_admin_pass', '$ICEADMIN', 'string':g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
+          sed -i "s:'s1_admin_user', '', 'string':'s1_admin_user', 'admin', 'string':g" ${wwwdir}/airtime_mvc/build/sql/defaultdata.sql
+          sed -i "s:'s1_admin_pass', '', 'string':'s1_admin_pass', '$ICEADMIN', 'string':g" ${wwwdir}/airtime_mvc/build/sql/defaultdata.sql
 
       else
         echo "The icecast2 package does not appear to be installed on this server."
@@ -183,18 +182,18 @@ case "$1" in
         echo "The monit package does not appear to be installed on this server."
       fi
 
-     # get airtime admin password on new installs
+     # set airtime admin password on new installs
 	if [ ! -e /var/log/airtime/pypo/pypo.log ]; then
      		db_get airtime/admin-password
      		AIRTIMEADMIN=$RET
-     		sed -i "1s:md5('admin'):md5('$AIRTIMEADMIN'):g" ${tmpdir}/airtime_mvc/build/sql/defaultdata.sql
+     		sed -i "1s:md5('admin'):md5('$AIRTIMEADMIN'):g" ${wwwdir}/airtime_mvc/build/sql/defaultdata.sql
 	fi
 
     # get the main storage directory specified by the user
     #db_get airtime/storage-directory
      #AIRTIMESTORAGE=$RET
       #if [ "$AIRTIMESTORAGE" != "/srv/airtime/stor/" ]; then
-      # sed -i "1s:/srv/airtime/stor/:$AIRTIMESTORAGE:g" ${tmpdir}/install_minimal/include/airtime-install.ini
+      # sed -i "1s:/srv/airtime/stor/:$AIRTIMESTORAGE:g" ${wwwdir}/install_minimal/include/airtime-install.ini
       #fi
 
     # stop debconf so daemons started by the install script cannot hold open the pipe
@@ -248,20 +247,20 @@ case "$1" in
 
     # has the user chosen not to configure the web server? If so, don't run airtime-install
     elif [ "${APACHESETUP}" == "no thanks" ]; then
-        echo "Please run the ${tmpdir}/install script after you have set up the web server."
+        echo "Please run the ${wwwdir}/install script after you have set up the web server."
 
     # should postgres not be running yet, don't run airtime-install
     elif [ -z "${POSTGRESRUNNING}" ]; then
-        echo "Please run the ${tmpdir}/install script after you have started the database server."
+        echo "Please run the ${wwwdir}/install script after you have started the database server."
 
     else
 
         mkdir -p /var/log/airtime
-        cd $tmpdir/
+        cd $wwwdir/
 
         if [ "${OLDVERSION:0:5}" == "${NEWVERSION}" ] ; then
           echo "Reinstallation detected..."
-          echo | ./install -fdp 2> /var/log/airtime/reinstallation-errors.log
+          echo | ./install -fdp --no-init-script 2> /var/log/airtime/reinstallation-errors.log
 
            if [ -f /etc/init.d/icecast2 ] ; then
            invoke-rc.d icecast2 restart || true
@@ -269,10 +268,10 @@ case "$1" in
 
         else
           echo "Installing Airtime..."
-          ./install -fdp 2> /var/log/airtime/installation-errors.log
+          ./install -fdp --no-init-script 2> /var/log/airtime/installation-errors.log
 
         fi
-
+ 
           # Update the desktop menu to show Airtime
           if test -x /usr/bin/update-menus; then
             update-menus;

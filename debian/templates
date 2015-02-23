@@ -99,11 +99,11 @@ _Description: Airtime Admin Password:
  at http://localhost/ to set up other user accounts,
  upload media, create playlists and schedule shows.
 
-Template: airtime/storage-directory
-Type: string
-Default: /srv/airtime/stor/
-_Description: Airtime Storage Directory:
- Specify the main storage path which Airtime will use,
- ending with a slash.
- You can also specify watched folders in the Airtime
- administration interface.
+#Template: airtime/storage-directory
+#Type: string
+#Default: /srv/airtime/stor/
+#_Description: Airtime Storage Directory:
+# Specify the main storage path which Airtime will use,
+# ending with a slash.
+# You can also specify watched folders in the Airtime
+# administration interface.

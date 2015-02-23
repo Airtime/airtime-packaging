@@ -7,6 +7,7 @@ airtime/utils var/lib/airtime/tmp/
 
 airtime/widgets usr/share/doc/airtime/examples/
 
+debian/etc/airtime.conf /etc/airtime/
 debian/etc/airtime.ini /etc/airtime/
 debian/etc/apache.vhost.tpl /etc/airtime/
 debian/etc/apache24.vhost.tpl /etc/airtime/

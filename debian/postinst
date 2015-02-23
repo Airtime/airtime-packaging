@@ -80,20 +80,9 @@ case "$1" in
         a2ensite airtime-vhost.conf
       fi
 
-      # insert a specific hostname, if provided, into API configuration
-      if [ "${SN}" != "localhost" ]; then
-
-        # new installs
-        if [ -f /var/lib/airtime/tmp/airtime_mvc/build/airtime.conf -a -f /var/lib/airtime/tmp/python_apps/api_clients/api_client.cfg ]; then
-        sed -i "s/base_url = localhost/base_url = ${SN}/" /var/lib/airtime/tmp/airtime_mvc/build/airtime.conf
-        sed -i "s/host = 'localhost'/host = '${SN}'/" /var/lib/airtime/tmp/python_apps/api_clients/api_client.cfg
-        fi
-
-        # upgrades
-        if [ -f /etc/airtime/airtime.conf -a -f /etc/airtime/api_client.cfg ]; then
+      # insert a specific hostname, if provided, into Airtime configuration
+      if [ "${SN}" != "localhost" -a -f /etc/airtime/airtime.conf ]; then
         sed -i "s/base_url = localhost/base_url = ${SN}/" /etc/airtime/airtime.conf
-        sed -i "s/host = 'localhost'/host = '${SN}'/" /etc/airtime/api_client.cfg
-        fi
       fi
 
       # enable the alias, headers, rewrite and ssl modules
@@ -202,8 +191,8 @@ case "$1" in
 	fi
 
     # get the main storage directory specified by the user
-    db_get airtime/storage-directory
-     AIRTIMESTORAGE=$RET
+    #db_get airtime/storage-directory
+     #AIRTIMESTORAGE=$RET
       #if [ "$AIRTIMESTORAGE" != "/srv/airtime/stor/" ]; then
       # sed -i "1s:/srv/airtime/stor/:$AIRTIMESTORAGE:g" ${tmpdir}/install_minimal/include/airtime-install.ini
       #fi

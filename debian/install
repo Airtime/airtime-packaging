@@ -5,15 +5,19 @@ airtime/python_apps usr/share/airtime/
 airtime/uninstall usr/share/airtime/
 airtime/utils usr/share/airtime/
 
+airtime/python_apps/media-monitor/install/sysvinit/airtime-media-monitor etc/init.d/
+airtime/python_apps/pypo/install/sysvinit/airtime-playout etc/init.d/
+airtime/python_apps/pypo/install/sysvinit/airtime-liquidsoap etc/init.d/
+
 airtime/widgets usr/share/doc/airtime/examples/
 
-debian/etc/airtime.conf /etc/airtime/
-debian/etc/airtime.ini /etc/airtime/
-debian/etc/apache.vhost.tpl /etc/airtime/
-debian/etc/apache24.vhost.tpl /etc/airtime/
+debian/etc/airtime.conf etc/airtime/
+debian/etc/airtime.ini etc/airtime/
+debian/etc/apache.vhost.tpl etc/airtime/
+debian/etc/apache24.vhost.tpl etc/airtime/
 
-debian/usr/bin/airtime-launch-browser /usr/bin/
-debian/usr/share/applications/airtime.desktop /usr/share/applications/
-debian/usr/share/man/man1 /usr/share/man/
-debian/usr/share/menu/airtime /usr/share/menu
-debian/usr/share/pixmaps/airtime.xpm /usr/share/pixmaps/
+debian/usr/bin/airtime-launch-browser usr/bin/
+debian/usr/share/applications/airtime.desktop usr/share/applications/
+debian/usr/share/man/man1 usr/share/man/
+debian/usr/share/menu/airtime usr/share/menu
+debian/usr/share/pixmaps/airtime.xpm usr/share/pixmaps/

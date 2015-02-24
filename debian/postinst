@@ -232,10 +232,10 @@ case "$1" in
     fi
 
     # symlink the Liquidsoap path to standard location, if symlink doesn't exist
-    if [ ! -h /usr/bin/airtime-liquidsoap ]; then
-     echo "Creating symlink for Liquidsoap..."
-      ln -s /usr/bin/liquidsoap /usr/bin/airtime-liquidsoap
-    fi
+    #if [ ! -h /usr/bin/airtime-liquidsoap ]; then
+    # echo "Creating symlink for Liquidsoap..."
+    #  ln -s /usr/bin/liquidsoap /usr/bin/airtime-liquidsoap
+    #fi
 
     # don't run airtime-install if the user is doing a dpkg-reconfigure
     if [ "$1" = "reconfigure" ] || [ -n "$DEBCONF_RECONFIGURE" ] ; then
@@ -269,7 +269,12 @@ case "$1" in
         else
           echo "Installing Airtime..."
           ./install -fdp 2> /var/log/airtime/installation-errors.log
-
+          update-rc.d airtime-media-monitor defaults
+           service airtime-media-monitor start
+          update-rc.d airtime-playout defaults
+           service airtime-playout start
+          update-rc.d airtime-liquidsoap defaults
+           service airtime-liquidsoap start
         fi
  
           # Update the desktop menu to show Airtime

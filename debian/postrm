@@ -108,9 +108,15 @@ case "$1" in
     # Only remove settings if purge is called as an argument
     if [ "$1" = "purge" ]; then
                         echo "Removing configuration files from /etc/airtime/" >&2
-			rm -rf /etc/airtime || true
+			 rm -rf /etc/airtime || true
+
+                        echo "Removing Airtime startup scripts from /etc/rc*.d/" >&2
+                         update-rc.d airtime-media-monitor remove
+                         update-rc.d airtime-liquidsoap remove
+                         update-rc.d airtime-playout remove
+
                         echo "Purging Airtime settings from debconf database" >&2
-                        db_purge || true
+                         db_purge || true
     fi
 
   ;;

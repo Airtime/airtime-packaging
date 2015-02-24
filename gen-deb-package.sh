@@ -64,13 +64,32 @@ rm -r airtime/airtime_mvc/library/propel/test
 rm airtime/airtime_mvc/library/propel/INSTALL
 rm airtime/airtime_mvc/library/propel/WHATS_NEW
 
-#Fix permissions
-chmod -x airtime/installer/lib/requirements-ubuntu-trusty.apt
-chmod -x airtime/installer/lib/requirements-ubuntu-precise.apt
-chmod +x airtime/python_apps/pypo/bin/pyponotify
+#Remove Python bytecode etc.
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/anyjson/tests/test_implementations.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/argparse/argparse.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/configobj/._configobj.py
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/configobj/._setup.py
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/configobj/._validate.py
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/configobj/configobj.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/mutagen/mutagen/__init__.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/mutagen/mutagen/_util.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/poster/poster/__init__.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/poster/poster/encode.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/poster/poster/streaminghttp.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/pytz/pytz/__init__.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/pytz/pytz/exceptions.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/pytz/pytz/tzfile.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/pytz/pytz/tzinfo.pyc
+rm airtime/python_apps/python-virtualenv/airtime_virtual_env.pybundle_FILES/build/wsgiref/ez_setup/__init__.pyc
 
-#Remove Mutagen patches
-#rm -r airtime/python_apps/python-virtualenv/patches/mutagen
+#Remove Python 2.6 egg
+rm airtime/python_apps/python-virtualenv/3rd_party/setuptools-0.6c11-py2.6.egg
+
+#Fix executable bits
+chmod +x airtime/python_apps/media-monitor/bin/airtime-media-monitor
+chmod +x airtime/python_apps/media-monitor/install/sysvinit/airtime-media-monitor
+chmod +x airtime/python_apps/pypo/install/sysvinit/airtime-liquidsoap
+chmod +x airtime/python_apps/pypo/install/sysvinit/airtime-playout
 
 #############################
 

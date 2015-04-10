@@ -1,7 +1,7 @@
 #/bin/sh
 # Script for generating official Airtime packages
 
-GITTAG=airtime-2.5.2-rc1
+GITTAG=airtime-2.5.2.1
 VERSION=2.5.2
 SFOCUSTOM=""
 DLURL=https://github.com/sourcefabric/Airtime/archive/${GITTAG}${SFOCUSTOM}.tar.gz
@@ -31,7 +31,7 @@ sed -i "s:NEWVERSION=.*:NEWVERSION=\"$VERSION\":" $DEBDIR/postinst
 
 cp -a $DEBDIR debian || exit
 
-mv -vi Airtime-${GITTAG}* airtime
+mv -vi airtime-${GITTAG}* airtime
 pwd
 
 # FIXES for 2.5.2 #############
@@ -65,8 +65,8 @@ rm -r airtime/airtime_mvc/library/propel/test
 rm airtime/airtime_mvc/library/propel/INSTALL
 rm airtime/airtime_mvc/library/propel/WHATS_NEW
 
-#Remove Python virtualenv, bytecode etc.
-rm -r airtime/python_apps/python-virtualenv
+#Change python path to be more explicit
+sed -i '1s:/usr/bin/python2:/usr/bin/python2.7:' airtime/utils/airtime-import/airtime-import
 
 #############################
 
